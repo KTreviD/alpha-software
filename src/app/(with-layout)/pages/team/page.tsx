@@ -438,6 +438,8 @@ const Team = () => {
                                     <Image
                                       src={item.userImage}
                                       alt=""
+                                      width={40}
+                                      height={40}
                                       className="img-fluid d-block rounded-circle"
                                     />
                                   ) : (

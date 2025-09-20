@@ -44,6 +44,7 @@ import FileManagerReducer from "./fileManager/reducer";
 import TodosReducer from "./todos/reducer";
 import JobReducer from "./jobs/reducer";
 import APIKeyReducer from "./apiKey/reducer";
+import { apiSlice } from "./api/apiSlice";
 
 // Root reducer type
 export interface RootState {
@@ -111,6 +112,7 @@ const rootReducer = combineReducers({
   Todos: TodosReducer,
   Jobs: JobReducer,
   APIKey: APIKeyReducer,
+  [apiSlice.reducerPath]: apiSlice.reducer,
 });
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);
@@ -123,7 +125,7 @@ export const store = configureStore({
       serializableCheck: {
         ignoredActions: ["persist/PERSIST", "persist/REHYDRATE"],
       },
-    }),
+    }).concat(apiSlice.middleware),
 });
 
 export const persistor = persistStore(store);

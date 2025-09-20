@@ -142,7 +142,7 @@ const Sidebar = ({ layoutType }: any) => {
             </a>
             <a className="dropdown-item" href="/auth-lockscreen-basic">
               <i className="mdi mdi-lock text-muted fs-16 align-middle me-1"></i>{" "}
-              <span className="align-middle">Lock screen</span>
+              <span className="align-middle">Lock screen293</span>
             </a>
             <a className="dropdown-item" href="/auth-logout-basic">
               <i className="mdi mdi-logout text-muted fs-16 align-middle me-1"></i>{" "}

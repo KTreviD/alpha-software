@@ -31,7 +31,7 @@
 //   return NextResponse.next();
 // }
 
-// Only match protected routes (as seen in the browser URL)
+// // Only match protected routes (as seen in the browser URL)
 // export const config = {
 //   matcher: [
 //     "/dashboard/:path*",
@@ -59,19 +59,29 @@
 // import { NextResponse, type NextRequest } from "next/server";
 // import { auth0 } from "src/lib/auth0";
 
-// export async function middleware(request: NextRequest) {
-//   const { pathname } = request.nextUrl;
+// // export async function middleware(request: NextRequest) {
+// //   const { pathname } = request.nextUrl;
 
-//   if (
-//     pathname.startsWith("/_next/") ||
-//     pathname.startsWith("/favicon.ico") ||
-//     pathname.startsWith("/sitemap.xml") ||
-//     pathname.startsWith("/robots.txt") ||
-//     pathname.startsWith("/auth/")
-//   ) {
-//     return NextResponse.next();
-//   }
+// //   if (
+// //     pathname.startsWith("/_next/") ||
+// //     pathname.startsWith("/favicon.ico") ||
+// //     pathname.startsWith("/sitemap.xml") ||
+// //     pathname.startsWith("/robots.txt") ||
+// //     pathname.startsWith("/auth/")
+// //   ) {
+// //     return NextResponse.next();
+// //   }
+// //   console.log({ pathname });
+// //   return await auth0.middleware(request);
+// // }
+
+// export async function middleware(request: NextRequest) {
+//   console.log("Middleware running for: ", request.nextUrl.pathname);
 //   console.log({ request });
+//   if (request.nextUrl.pathname.startsWith("/auth")) {
+//     console.log("Middleware auth route: ", request.nextUrl.pathname);
+//   }
+
 //   return await auth0.middleware(request);
 // }
 
@@ -86,3 +96,12 @@
 //     "/((?!_next/static|_next/image|favicon.ico|sitemap.xml|robots.txt).*)",
 //   ],
 // };
+
+import { createOryMiddleware } from "@ory/nextjs/middleware";
+import oryConfig from "./ory.config";
+
+// This function can be marked `async` if using `await` inside
+export const middleware = createOryMiddleware(oryConfig);
+
+// See "Matching Paths" below to learn more
+export const config = {};
