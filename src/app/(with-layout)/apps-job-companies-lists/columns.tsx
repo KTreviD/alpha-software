@@ -10,6 +10,12 @@ export const columns: GridColDef[] = [
     valueGetter: (_value, row) => row?.Industry?.name || "",
   },
   {
+    field: "jobs_available",
+    headerName: "Jobs available",
+    width: 120,
+    valueGetter: (_value, row) => Math.floor(Math.random() * 40) + 1,
+  },
+  {
     field: "company_size",
     headerName: "Company Size",
     width: 150,

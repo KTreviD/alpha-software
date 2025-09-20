@@ -29,7 +29,7 @@ import { OptionLabelT, buildDynamicLabel } from "./multipleFilter";
 import DynamicDeviceFields from "./dynamicDeviceFields";
 import DatePickerWrapper from "../react-datepicker";
 
-interface ModalPropsI {
+export interface ModalPropsI {
   title: string;
   isOpen: boolean;
   isEditing: boolean;
