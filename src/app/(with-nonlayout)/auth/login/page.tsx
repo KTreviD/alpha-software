@@ -256,7 +256,7 @@ import config from "@/ory.config";
 
 export default async function LoginPage(props: OryPageParams) {
   const flow = await getLoginFlow(config, props.searchParams);
-
+  console.log({ flow });
   if (!flow) {
     return null;
   }

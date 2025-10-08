@@ -307,58 +307,25 @@
 // };
 
 // export default Register;
-"use client";
-import { useEffect, useState } from "react";
 import { Registration } from "@ory/elements-react/theme";
 import { getRegistrationFlow, OryPageParams } from "@ory/nextjs/app";
+
 import config from "@/ory.config";
 
-export default function RegistrationPage(props: OryPageParams) {
-  const [flow, setFlow] = useState<any>(null);
-
-  useEffect(() => {
-    async function initFlow() {
-      const f = await getRegistrationFlow(config, props.searchParams);
-      console.log("------------------");
-      console.log({ f });
-      console.log("------------------");
-      setFlow(f);
-    }
-    initFlow();
-  }, [props.searchParams]);
+export default async function RegistrationPage(props: OryPageParams) {
+  const flow = await getRegistrationFlow(config, props.searchParams);
   console.log({ flow });
-  // Después del registro: obtener sesión y crear usuario en tu backend
-  useEffect(() => {
-    async function sendSessionToBackend() {
-      if (!flow) return;
+  if (!flow) {
+    return null;
+  }
 
-      try {
-        const sessionRes = await fetch(`${process.env.BACKEND_URL}/api/me`, {
-          credentials: "include", // importante para cookies de Ory
-        });
-        if (!sessionRes.ok) return;
-
-        const sessionData = await sessionRes.json();
-
-        // Crear usuario en tu DB
-        await fetch(`${process.env.BACKEND_URL}/api/users`, {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({
-            oryId: sessionData.oryId,
-            email: sessionData.traits.email,
-            name: sessionData.traits.name,
-          }),
-        });
-      } catch (err) {
-        console.error(err);
-      }
-    }
-
-    sendSessionToBackend();
-  }, [flow]);
-
-  if (!flow) return <p>Cargando...</p>;
-
-  return <Registration flow={flow} config={config} components={{ Card: {} }} />;
+  return (
+    <Registration
+      flow={flow}
+      config={config}
+      components={{
+        Card: {},
+      }}
+    />
+  );
 }

@@ -3,29 +3,29 @@ import { Grid, Box } from "@mui/material";
 import { DataGrid } from "@mui/x-data-grid";
 import { columns } from "./columns";
 import {
-  usePostCompanyMutation,
-  useDeleteCompanyMutation,
-  useGetCompaniesAdminPageQuery,
-  usePutCompanyMutation,
+  useGetCompanySizesAdminPageQuery,
+  usePostCompanySizeMutation,
+  usePutCompanySizeMutation,
+  useDeleteCompanySizeMutation,
 } from "src/slices/api/apiSlice";
 import { ModalPropsI } from "src/components/modal";
 import { Card, CardBody, CardHeader } from "reactstrap";
 
-type CompaniesTableInput = {
+type CompanySizesTableInput = {
   handleCloseModal: () => void;
   setModalState: React.Dispatch<React.SetStateAction<ModalPropsI>>;
 };
 
-const CompaniesTable = ({
+const CompanySizesTable = ({
   handleCloseModal,
   setModalState,
-}: CompaniesTableInput) => {
-  const { data, isLoading, isFetching } = useGetCompaniesAdminPageQuery();
-  const { companies = [], industries = [], companySizes = [] } = data || {};
+}: CompanySizesTableInput) => {
+  const { data, isLoading, isFetching } = useGetCompanySizesAdminPageQuery();
+  const { companySizes = [] } = data || {};
 
-  const [addCompany] = usePostCompanyMutation();
-  const [updateCompany] = usePutCompanyMutation();
-  const [deleteCompany] = useDeleteCompanyMutation();
+  const [addCompany] = usePostCompanySizeMutation();
+  const [updateCompany] = usePutCompanySizeMutation();
+  const [deleteCompany] = useDeleteCompanySizeMutation();
 
   const saveChanges = async (
     data: object,
@@ -42,37 +42,23 @@ const CompaniesTable = ({
     handleCloseModal();
   };
 
-  const companyKeys = ({ industries, companySizes }: any) => {
+  const companySizeKeys = () => {
     return {
       name: {
         label: "Name",
         type: "text",
       },
-      description: {
-        label: "Description",
+      label: {
+        label: "Label",
         type: "text",
       },
-      industry_id: {
-        label: "Industry type",
-        type: "select",
-        array: industries,
-        dynamicOptionLabel: {
-          propsToGet: [["name"], ["description"]],
-          propsJoiner: ": ",
-        },
+      min_employees: {
+        label: "Min Employees",
+        type: "number",
       },
-      company_size_id: {
-        label: "Company size",
-        type: "select",
-        array: companySizes,
-        dynamicOptionLabel: {
-          propsToGet: [["name"], ["label"]],
-          propsJoiner: ": ",
-        },
-      },
-      website_url: {
-        label: "Website url",
-        type: "text",
+      max_employees: {
+        label: "Max Employees",
+        type: "number",
       },
     };
   };
@@ -80,17 +66,16 @@ const CompaniesTable = ({
   const handleAddRow = () => {
     const item = {
       name: "",
-      description: "",
-      industry_id: null,
-      company_size_id: null,
-      website_url: "",
+      label: "",
+      min_employees: 0,
+      max_employees: 0,
     };
 
     setModalState({
       isOpen: true,
       item,
-      keys: companyKeys({ industries, companySizes }),
-      title: "Create company",
+      keys: companySizeKeys(),
+      title: "Create company size",
       isEditing: false,
       saveChanges,
     });
@@ -100,8 +85,8 @@ const CompaniesTable = ({
     setModalState({
       isOpen: true,
       item: row,
-      keys: companyKeys({ industries, companySizes }),
-      title: `Edit ${row.name}`,
+      keys: companySizeKeys(),
+      title: `Edit company size ${row.name}: ${row.label}`,
       isEditing: true,
       saveChanges,
     });
@@ -113,7 +98,7 @@ const CompaniesTable = ({
           <Card>
             <CardHeader>
               <div className="d-flex align-items-center">
-                <h5 className="card-title mb-0 flex-grow-1">Companies</h5>
+                <h5 className="card-title mb-0 flex-grow-1">Company Sizes</h5>
                 <div className="flex-shrink-0">
                   <div className="d-flex flex-wrap gap-2">
                     <button
@@ -123,7 +108,7 @@ const CompaniesTable = ({
                       onClick={handleAddRow}
                     >
                       <i className="ri-add-line align-bottom me-1"></i>Create
-                      Company
+                      Company Size
                     </button>
                   </div>
                 </div>
@@ -136,7 +121,7 @@ const CompaniesTable = ({
                     <DataGrid
                       onRowDoubleClick={params => handleEditRow(params.row)}
                       columns={columns}
-                      rows={companies || []}
+                      rows={companySizes || []}
                       loading={isLoading || isFetching}
                       pagination
                       pageSizeOptions={[10, 25, 50]}
@@ -157,4 +142,4 @@ const CompaniesTable = ({
   );
 };
 
-export default CompaniesTable;
+export default CompanySizesTable;

@@ -28,6 +28,7 @@ import isEqual from "lodash/isEqual";
 import { OptionLabelT, buildDynamicLabel } from "./multipleFilter";
 import DynamicDeviceFields from "./dynamicDeviceFields";
 import DatePickerWrapper from "../react-datepicker";
+import { Input, ModalHeader } from "reactstrap";
 
 export interface ModalPropsI {
   title: string;
@@ -207,14 +208,15 @@ export const Modal = ({
 
     return formValidated;
   };
+
   return (
     <>
       <Dialog open={isOpen} PaperProps={{ style: { width: "100%" } }}>
         {isLoading && <LinearProgress color="primary" />}
-        <DialogTitle
-          sx={{ borderBottom: "1px solid #0003" }}
-        >{`${title}`}</DialogTitle>
 
+        <ModalHeader toggle={closeModal} className="p-3 bg-primary-subtle">
+          {`${title}`}
+        </ModalHeader>
         <DialogContent sx={{ marginBottom: theme.spacing(5) }}>
           <FormControl fullWidth>
             {Object?.keys(propsItem)?.map(property => {
@@ -343,13 +345,36 @@ export const Modal = ({
                 const value = updatedItem[property];
 
                 jsx = (
-                  <TextField
-                    fullWidth
-                    label={item.label}
-                    value={value}
-                    onChange={e => handleSimpleChange(e.target.value, property)}
-                    autoFocus
-                  />
+                  <>
+                    <TextField
+                      fullWidth
+                      label={item.label}
+                      value={value}
+                      onChange={e =>
+                        handleSimpleChange(e.target.value, property)
+                      }
+                      autoFocus
+                    />
+                    {/* <div className="mb-4">
+                      <label htmlFor="position-input" className="form-label">
+                        {item.label}
+                      </label>
+                      <Input
+                        type="text"
+                        className="form-control"
+                        id="icon-input"
+                        placeholder={`Enter ${item.label}`}
+                        name="iconName"
+                        validate={{
+                          required: { value: true },
+                        }}
+                        onChange={e =>
+                          handleSimpleChange(e.target.value, property)
+                        }
+                        value={value}
+                      />
+                    </div> */}
+                  </>
                 );
               } else if (item.type === DICTIONARY_KEY_TYPES.NUMBER) {
                 jsx = (
@@ -470,16 +495,18 @@ export const Modal = ({
                 }
 
                 jsx = (
-                  <Autocomplete
-                    sx={{ width: "100%" }}
-                    options={filteredArray}
-                    getOptionLabel={(option: any) => optionRendered(option)}
-                    value={value || null}
-                    renderInput={params => (
-                      <TextField {...params} label={item.label} />
-                    )}
-                    onChange={(e, onChangeValue) => onChange(onChangeValue)}
-                  />
+                  <>
+                    <Autocomplete
+                      sx={{ width: "100%" }}
+                      options={filteredArray}
+                      getOptionLabel={(option: any) => optionRendered(option)}
+                      value={value || null}
+                      renderInput={params => (
+                        <TextField {...params} label={item.label} />
+                      )}
+                      onChange={(e, onChangeValue) => onChange(onChangeValue)}
+                    />
+                  </>
                 );
               } else if (
                 item.type === DICTIONARY_KEY_TYPES.SELECT_CONVERT_MULTISELECT
@@ -634,14 +661,13 @@ export const Modal = ({
             })}
           </FormControl>
         </DialogContent>
-
         <DialogActions>
           {isEditing && !disableDelete && (
             <Button onClick={openConfirmDeleteDialog}>Eliminar</Button>
           )}
-          <Button onClick={closeModal ? closeModal : undefined}>
+          {/* <Button onClick={closeModal ? closeModal : undefined}>
             Cancelar
-          </Button>
+          </Button> */}
           <Button
             disabled={validateForm(propsItem, updatedItem)}
             variant={isEqual(propsItem, updatedItem) ? "outlined" : "contained"}

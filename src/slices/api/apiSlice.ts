@@ -68,7 +68,7 @@ const baseQueryWithReAuth = async (
 export const apiSlice = createApi({
   reducerPath: "api",
   baseQuery: baseQueryWithReAuth,
-  tagTypes: ["Companies"],
+  tagTypes: ["Companies", "CompanySizes", "Industries"],
   endpoints: builder => ({
     /////////////////////////////////////////------------------ GET ------------------/////////////////////////////////////////
 
@@ -86,7 +86,15 @@ export const apiSlice = createApi({
     // }),
     getCompaniesAdminPage: builder.query<any, void>({
       query: params => "/companies/adminPage",
-      providesTags: ["Companies"],
+      providesTags: ["Companies", "CompanySizes", "Industries"],
+    }),
+    getCompanySizesAdminPage: builder.query<any, void>({
+      query: params => "/company-sizes/adminPage",
+      providesTags: ["CompanySizes"],
+    }),
+    getIndustriesAdminPage: builder.query<any, void>({
+      query: params => "/industries/adminPage",
+      providesTags: ["Industries"],
     }),
     /////////////////////////////////////////----------------- POST -----------------/////////////////////////////////////////
 
@@ -103,6 +111,24 @@ export const apiSlice = createApi({
       invalidatesTags: ["Companies"],
       //   transformResponse: (response: ResChartsData) => response
     }),
+    postCompanySize: builder.mutation({
+      query: body => ({
+        url: "/company-sizes/",
+        method: "POST",
+        body,
+      }),
+      invalidatesTags: ["CompanySizes"],
+      //   transformResponse: (response: ResChartsData) => response
+    }),
+    postIndustry: builder.mutation({
+      query: body => ({
+        url: "/industries/",
+        method: "POST",
+        body,
+      }),
+      invalidatesTags: ["Industries"],
+      //   transformResponse: (response: ResChartsData) => response
+    }),
 
     /////////////////////////////////////////------------------ PUT ------------------/////////////////////////////////////////
 
@@ -114,6 +140,22 @@ export const apiSlice = createApi({
       }),
       invalidatesTags: ["Companies"],
     }),
+    putCompanySize: builder.mutation({
+      query: body => ({
+        url: `/company-sizes/${body.id}`,
+        method: "PUT",
+        body,
+      }),
+      invalidatesTags: ["CompanySizes"],
+    }),
+    putIndustry: builder.mutation({
+      query: body => ({
+        url: `/industries/${body.id}`,
+        method: "PUT",
+        body,
+      }),
+      invalidatesTags: ["Industries"],
+    }),
 
     /////////////////////////////////////////------------------ DELETE ------------------/////////////////////////////////////////
 
@@ -124,22 +166,44 @@ export const apiSlice = createApi({
       }),
       invalidatesTags: ["Companies"],
     }),
+    deleteCompanySize: builder.mutation({
+      query: body => ({
+        url: `/company-sizes/${body.id}`,
+        method: "DELETE",
+      }),
+      invalidatesTags: ["CompanySizes"],
+    }),
+    deleteIndustry: builder.mutation({
+      query: body => ({
+        url: `/industries/${body.id}`,
+        method: "DELETE",
+      }),
+      invalidatesTags: ["Industries"],
+    }),
   }),
 });
 
 export const {
   /////////////////////////////////////////------------------ GET ------------------/////////////////////////////////////////
   useGetCompaniesAdminPageQuery,
+  useGetCompanySizesAdminPageQuery,
+  useGetIndustriesAdminPageQuery,
 
   /////////////////////////////////////////------------------ POST ------------------/////////////////////////////////////////
 
   usePostCompanyMutation,
+  usePostCompanySizeMutation,
+  usePostIndustryMutation,
 
   /////////////////////////////////////////------------------ PUT ------------------/////////////////////////////////////////
 
   usePutCompanyMutation,
+  usePutCompanySizeMutation,
+  usePutIndustryMutation,
 
   /////////////////////////////////////////------------------ DELETE ------------------/////////////////////////////////////////
 
   useDeleteCompanyMutation,
+  useDeleteCompanySizeMutation,
+  useDeleteIndustryMutation,
 } = apiSlice;
