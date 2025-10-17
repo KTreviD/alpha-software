@@ -10,18 +10,41 @@ import {
 } from "src/slices/api/apiSlice";
 import { ModalPropsI } from "src/components/modal";
 import { Card, CardBody, CardHeader } from "reactstrap";
+import { ToastContainer, toast } from "react-toastify";
 
 type CompaniesTableInput = {
   handleCloseModal: () => void;
   setModalState: React.Dispatch<React.SetStateAction<ModalPropsI>>;
 };
 
+export enum CompanySize {
+  VERY_SMALL = "1 – 10",
+  SMALL = "11 - 50",
+  MEDIUM = "51 - 200",
+  LARGE_MEDIUM = "201 - 500",
+  LARGE = "501 - 1000",
+  VERY_LARGE = "1001 - 5000",
+  ENTERPRISE = "5001 - 10000",
+  GLOBAL = "10000+",
+}
+
+export const companySizes = [
+  { id: CompanySize.VERY_SMALL, name: CompanySize.VERY_SMALL },
+  { id: CompanySize.SMALL, name: CompanySize.SMALL },
+  { id: CompanySize.MEDIUM, name: CompanySize.MEDIUM },
+  { id: CompanySize.LARGE_MEDIUM, name: CompanySize.LARGE_MEDIUM },
+  { id: CompanySize.LARGE, name: CompanySize.LARGE },
+  { id: CompanySize.VERY_LARGE, name: CompanySize.VERY_LARGE },
+  { id: CompanySize.ENTERPRISE, name: CompanySize.ENTERPRISE },
+  { id: CompanySize.GLOBAL, name: CompanySize.GLOBAL },
+];
+
 const CompaniesTable = ({
   handleCloseModal,
   setModalState,
 }: CompaniesTableInput) => {
   const { data, isLoading, isFetching } = useGetCompaniesAdminPageQuery();
-  const { companies = [], industries = [], companySizes = [] } = data || {};
+  const { companies = [], industries = [] } = data || {};
 
   const [addCompany] = usePostCompanyMutation();
   const [updateCompany] = usePutCompanyMutation();
@@ -61,7 +84,7 @@ const CompaniesTable = ({
           propsJoiner: ": ",
         },
       },
-      company_size_id: {
+      company_size: {
         label: "Company size",
         type: "select",
         array: companySizes,
@@ -82,7 +105,7 @@ const CompaniesTable = ({
       name: "",
       description: "",
       industry_id: null,
-      company_size_id: null,
+      company_size: "",
       website_url: "",
     };
 

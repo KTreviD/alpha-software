@@ -1,7 +1,13 @@
 import React from "react";
 import withRouter from "@common/WithRouter";
 
-const ParticlesAuth = ({ children }: any) => {
+const ParticlesAuth = ({
+  children,
+  fixHeight,
+}: {
+  children: any;
+  fixHeight: boolean;
+}) => {
   return (
     <React.Fragment>
       <div className="auth-page-wrapper pt-5">
@@ -23,7 +29,10 @@ const ParticlesAuth = ({ children }: any) => {
           {children}
         </div>
 
-        <footer className="footer">
+        <footer
+          className="footer"
+          style={fixHeight ? { transform: "translateY(-100px)" } : {}}
+        >
           <div className="container">
             <div className="row">
               <div className="col-lg-12">

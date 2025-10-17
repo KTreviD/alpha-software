@@ -26,7 +26,6 @@ import { DatePicker } from "@mui/x-date-pickers/DatePicker";
 import dayjs from "dayjs";
 import isEqual from "lodash/isEqual";
 import { OptionLabelT, buildDynamicLabel } from "./multipleFilter";
-import DynamicDeviceFields from "./dynamicDeviceFields";
 import DatePickerWrapper from "../react-datepicker";
 import { Input, ModalHeader } from "reactstrap";
 
@@ -594,61 +593,6 @@ export const Modal = ({
                       handleSelectMultiSelectNoIdChange(values, property)
                     }
                     disableClearable
-                  />
-                );
-              } else if (item.type === DICTIONARY_KEY_TYPES.ARRAY_FIELDS) {
-                const handleChange = (
-                  newValue: any,
-                  field: any,
-                  index: number
-                ) => {
-                  if (updatedItem[property].length > 0) {
-                    const newValues = updatedItem[property].map(
-                      (item: any, key: number) => {
-                        if (index == key) {
-                          if (item[field] === newValue) {
-                            return item;
-                          } else {
-                            return {
-                              ...item,
-                              [field]: newValue,
-                            };
-                          }
-                        } else {
-                          return item;
-                        }
-                      }
-                    );
-                    handleSimpleChange(newValues, property);
-                  } else {
-                    handleSimpleChange([{ [field]: newValue }], property);
-                  }
-                };
-
-                const handleDeleteInput = (index: number) => {
-                  const newArray = [...updatedItem[property]];
-                  newArray.splice(index, 1);
-                  handleSimpleChange(newArray, property);
-                };
-
-                const handleAddInput = () => {
-                  const onChangeValue = [...updatedItem[property]];
-                  onChangeValue.push({
-                    brand: null,
-                    device_type: null,
-                    device_api_id: "",
-                  });
-                  handleSimpleChange(onChangeValue, property);
-                };
-                jsx = (
-                  <DynamicDeviceFields
-                    optionRendered={optionRendered}
-                    brands={item.brands}
-                    device_types={item.device_types}
-                    data={updatedItem[property]}
-                    handleChange={handleChange}
-                    handleDeleteInput={handleDeleteInput}
-                    handleAddInput={handleAddInput}
                   />
                 );
               }

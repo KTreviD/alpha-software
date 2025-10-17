@@ -8,7 +8,7 @@ const baseQuery = fetchBaseQuery({
   baseUrl: process.env.NEXT_PUBLIC_API_URL,
   //baseUrl: 'https://amaterasu-production.up.railway.app/',
 
-  //   credentials: "include",
+  credentials: "include",
   //   prepareHeaders: (headers, { getState }) => {
   //     const state = getState() as RootState;
   //     const token = state.user.token;
@@ -68,7 +68,7 @@ const baseQueryWithReAuth = async (
 export const apiSlice = createApi({
   reducerPath: "api",
   baseQuery: baseQueryWithReAuth,
-  tagTypes: ["Companies", "CompanySizes", "Industries"],
+  tagTypes: ["Companies", "Industries", "Auth"],
   endpoints: builder => ({
     /////////////////////////////////////////------------------ GET ------------------/////////////////////////////////////////
 
@@ -84,13 +84,15 @@ export const apiSlice = createApi({
     //   },
     //   providesTags: ["Candidates"],
     // }),
+    getIsVerificationCodeValid: builder.query<any, { code: string }>({
+      query: params => {
+        const { code } = params;
+        return `/auth/verify/isVerifyCodeValid?code=${code}`;
+      },
+    }),
     getCompaniesAdminPage: builder.query<any, void>({
       query: params => "/companies/adminPage",
-      providesTags: ["Companies", "CompanySizes", "Industries"],
-    }),
-    getCompanySizesAdminPage: builder.query<any, void>({
-      query: params => "/company-sizes/adminPage",
-      providesTags: ["CompanySizes"],
+      providesTags: ["Companies", "Industries"],
     }),
     getIndustriesAdminPage: builder.query<any, void>({
       query: params => "/industries/adminPage",
@@ -102,6 +104,39 @@ export const apiSlice = createApi({
     //   ResChartsData,
     //   PostDashboardAMChartsPropsT
     // >({
+    postRegister: builder.mutation({
+      query: body => ({
+        url: "/auth/register",
+        method: "POST",
+        body,
+      }),
+      invalidatesTags: ["Auth"],
+      //   transformResponse: (response: ResChartsData) => response
+    }),
+    postVerifyEmail: builder.mutation({
+      query: body => ({
+        url: "/auth/verify/email",
+        method: "POST",
+        body,
+      }),
+      //   transformResponse: (response: ResChartsData) => response
+    }),
+    postResendVerificationEmail: builder.mutation({
+      query: body => ({
+        url: "/auth/verify/resendVerificationEmail",
+        method: "POST",
+        body,
+      }),
+      //   transformResponse: (response: ResChartsData) => response
+    }),
+    postLogout: builder.mutation<void, void>({
+      query: body => ({
+        url: "/auth/logout",
+        method: "POST",
+        body,
+      }),
+      //   transformResponse: (response: ResChartsData) => response
+    }),
     postCompany: builder.mutation({
       query: body => ({
         url: "/companies/",
@@ -109,15 +144,6 @@ export const apiSlice = createApi({
         body,
       }),
       invalidatesTags: ["Companies"],
-      //   transformResponse: (response: ResChartsData) => response
-    }),
-    postCompanySize: builder.mutation({
-      query: body => ({
-        url: "/company-sizes/",
-        method: "POST",
-        body,
-      }),
-      invalidatesTags: ["CompanySizes"],
       //   transformResponse: (response: ResChartsData) => response
     }),
     postIndustry: builder.mutation({
@@ -140,14 +166,6 @@ export const apiSlice = createApi({
       }),
       invalidatesTags: ["Companies"],
     }),
-    putCompanySize: builder.mutation({
-      query: body => ({
-        url: `/company-sizes/${body.id}`,
-        method: "PUT",
-        body,
-      }),
-      invalidatesTags: ["CompanySizes"],
-    }),
     putIndustry: builder.mutation({
       query: body => ({
         url: `/industries/${body.id}`,
@@ -166,13 +184,6 @@ export const apiSlice = createApi({
       }),
       invalidatesTags: ["Companies"],
     }),
-    deleteCompanySize: builder.mutation({
-      query: body => ({
-        url: `/company-sizes/${body.id}`,
-        method: "DELETE",
-      }),
-      invalidatesTags: ["CompanySizes"],
-    }),
     deleteIndustry: builder.mutation({
       query: body => ({
         url: `/industries/${body.id}`,
@@ -185,25 +196,26 @@ export const apiSlice = createApi({
 
 export const {
   /////////////////////////////////////////------------------ GET ------------------/////////////////////////////////////////
+  useGetIsVerificationCodeValidQuery,
   useGetCompaniesAdminPageQuery,
-  useGetCompanySizesAdminPageQuery,
   useGetIndustriesAdminPageQuery,
 
   /////////////////////////////////////////------------------ POST ------------------/////////////////////////////////////////
 
+  usePostRegisterMutation,
+  usePostVerifyEmailMutation,
+  usePostResendVerificationEmailMutation,
+  usePostLogoutMutation,
   usePostCompanyMutation,
-  usePostCompanySizeMutation,
   usePostIndustryMutation,
 
   /////////////////////////////////////////------------------ PUT ------------------/////////////////////////////////////////
 
   usePutCompanyMutation,
-  usePutCompanySizeMutation,
   usePutIndustryMutation,
 
   /////////////////////////////////////////------------------ DELETE ------------------/////////////////////////////////////////
 
   useDeleteCompanyMutation,
-  useDeleteCompanySizeMutation,
   useDeleteIndustryMutation,
 } = apiSlice;

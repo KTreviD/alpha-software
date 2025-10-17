@@ -418,12 +418,6 @@ const Navdata = () => {
               link: "/industries",
               parentId: "apps",
             },
-            {
-              id: 9,
-              label: "Company Sizes",
-              link: "/company-sizes",
-              parentId: "apps",
-            },
           ],
         },
         {

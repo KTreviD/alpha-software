@@ -512,7 +512,6 @@ export const DICTIONARY_KEY_TYPES = {
    */
   MULTISELECT: "multiSelect",
   MULTISELECTNOID: "multiSelectNoId",
-  ARRAY_FIELDS: "arrayFields",
 } as const;
 
 export const twoDigitMonths = (month: number) =>

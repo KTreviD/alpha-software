@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import Link from "next/link";
 import { useDispatch } from "react-redux";
 import { useRouter } from "next/navigation";
-import { logoutUser } from "@slices/auth/login/thunk";
+import { clearUser } from "src/slices/user";
 import type { AppDispatch } from "@slices/store";
 import {
   UncontrolledDropdown,
@@ -13,6 +13,7 @@ import {
 import { createSelector } from "reselect";
 import { useSelector } from "react-redux";
 import Image from "next/image";
+import { usePostLogoutMutation } from "src/slices/api/apiSlice";
 
 //import images
 const avatar1 = "/images/users/avatar-1.jpg";
@@ -26,6 +27,7 @@ const ProfileDropdown = () => {
   const user = useSelector(profiledropdownData);
 
   const [userName, setUserName] = useState("Admin");
+  const [logoutUser] = usePostLogoutMutation();
 
   useEffect(() => {
     const authUSer: any = sessionStorage.getItem("authUser");
@@ -45,9 +47,15 @@ const ProfileDropdown = () => {
 
   const dispatch = useDispatch<AppDispatch>();
   const router = useRouter();
-  const handleLogout = () => {
-    dispatch(logoutUser());
-    router.push("/auth/login");
+  const handleLogout = async () => {
+    try {
+      await logoutUser();
+      dispatch(clearUser());
+      sessionStorage.removeItem("authUser");
+      router.push("/auth/login");
+    } catch (err) {
+      console.error("Logout failed", err);
+    }
   };
   return (
     <React.Fragment>

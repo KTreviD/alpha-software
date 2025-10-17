@@ -19,7 +19,7 @@ export const columns: GridColDef[] = [
     field: "company_size",
     headerName: "Company Size",
     width: 150,
-    valueGetter: (_value, row) => row?.CompanySize?.label || "",
+    valueGetter: (_value, row) => row?.company_size || "",
   },
   {
     field: "website_url",

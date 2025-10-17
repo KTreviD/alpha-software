@@ -44,6 +44,8 @@ import FileManagerReducer from "./fileManager/reducer";
 import TodosReducer from "./todos/reducer";
 import JobReducer from "./jobs/reducer";
 import APIKeyReducer from "./apiKey/reducer";
+import AuthUserReducer from "./user";
+
 import { apiSlice } from "./api/apiSlice";
 
 // Root reducer type
@@ -75,6 +77,7 @@ export interface RootState {
   Todos: ReturnType<typeof TodosReducer>;
   Jobs: ReturnType<typeof JobReducer>;
   APIKey: ReturnType<typeof APIKeyReducer>;
+  AuthUser: ReturnType<typeof AuthUserReducer>;
 }
 
 // Persist configuration
@@ -112,6 +115,7 @@ const rootReducer = combineReducers({
   Todos: TodosReducer,
   Jobs: JobReducer,
   APIKey: APIKeyReducer,
+  AuthUser: AuthUserReducer,
   [apiSlice.reducerPath]: apiSlice.reducer,
 });
 

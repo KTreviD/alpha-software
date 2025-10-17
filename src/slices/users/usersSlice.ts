@@ -75,33 +75,6 @@ export const createUser = createAsyncThunk(
   }
 );
 
-export const updateUser = createAsyncThunk(
-  "users/updateUser",
-  async (
-    { id, userData }: { id: string; userData: Partial<User> },
-    { rejectWithValue }
-  ) => {
-    try {
-      const response = await fetch(`/api/users/${id}`, {
-        method: "PUT",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(userData),
-      });
-
-      if (!response.ok) {
-        throw new Error("Failed to update user");
-      }
-
-      const data = await response.json();
-      return data;
-    } catch (error) {
-      return rejectWithValue(error.message);
-    }
-  }
-);
-
 export const deleteUser = createAsyncThunk(
   "users/deleteUser",
   async (id: string, { rejectWithValue }) => {
@@ -152,15 +125,6 @@ const usersSlice = createSlice({
       .addCase(createUser.fulfilled, (state, action) => {
         state.users.push(action.payload);
         state.totalCount += 1;
-      })
-      // Update User
-      .addCase(updateUser.fulfilled, (state, action) => {
-        const index = state.users.findIndex(
-          user => user.id === action.payload.id
-        );
-        if (index !== -1) {
-          state.users[index] = action.payload;
-        }
       })
       // Delete User
       .addCase(deleteUser.fulfilled, (state, action) => {

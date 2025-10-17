@@ -1,88 +1,34 @@
-// // middleware.ts
-// import { NextRequest, NextResponse } from "next/server";
-// import { parse } from "cookie";
+// middleware.ts
+import { NextRequest, NextResponse } from "next/server";
+import { parse } from "cookie";
 
-// // List all public (non-protected) paths here
-// const publicPaths = ["/auth", "/auth/login", "/auth/register"];
+const publicPaths = ["/auth/login", "/auth/register", "/auth/confirm-account"];
 
-// export function middleware(req: NextRequest) {
-//   const { pathname } = req.nextUrl;
+export function middleware(req: NextRequest) {
+  const { pathname } = req.nextUrl;
+  console.log("1:", { pathname });
+  const cookies = parse(req.headers.get("cookie") || "");
+  const accessToken = cookies["accessToken"];
+  console.log({ accessToken });
+  // Ruta pública
+  if (publicPaths.some(path => pathname.startsWith(path))) {
+    if (accessToken) {
+      // Ya autenticado, redirigir a la página principal de la app
+      return NextResponse.redirect(
+        new URL("/apps-job-companies-lists", req.url)
+      );
+    }
+    return NextResponse.next(); // permitir si no hay token
+  }
 
-//   // Check for auth cookie
-//   const cookies = parse(req.headers.get("cookie") || "");
-//   const authUser = cookies["authUser"];
+  // Ruta privada
+  if (!accessToken) {
+    return NextResponse.redirect(new URL("/auth/login", req.url));
+  }
 
-//   // If the path is public
-//   if (publicPaths.some(path => pathname.startsWith(path))) {
-//     // If already authorized, redirect to dashboard
-//     if (authUser) {
-//       return NextResponse.redirect(new URL("/dashboard", req.url));
-//     }
-//     // Otherwise, allow
-//     return NextResponse.next();
-//   }
+  return NextResponse.next(); // permitir si hay token
+}
 
-//   // If the path is protected and not authorized, redirect to login
-//   if (!authUser) {
-//     return NextResponse.redirect(new URL("/auth/login", req.url));
-//   }
-
-//   // Otherwise, allow
-//   return NextResponse.next();
-// }
-
-// Only match protected routes (as seen in the browser URL)
-// export const config = {
-//   matcher: [
-//     "/dashboard/:path*",
-//     "/dashboard-analytics/:path*",
-//     "/dashboard-blog/:path*",
-//     "/dashboard-crm/:path*",
-//     "/dashboard-job/:path*",
-//     "/dashboard-nft/:path*",
-//     "/dashboard-projects/:path*",
-//     "/profile/:path*",
-//     "/profile-settings/:path*",
-//     "/starter/:path*",
-//     "/terms-condition/:path*",
-//     "/privacy-policy/:path*",
-//     "/search-results/:path*",
-//     "/gallery/:path*",
-//     "/pricing/:path*",
-//     "/faqs/:path*",
-//     "/timeline/:path*",
-//     "/team/:path*",
-//     // Add more as needed
-//   ],
-// };
-
-// import { NextResponse, type NextRequest } from "next/server";
-// import { auth0 } from "src/lib/auth0";
-
-// export async function middleware(request: NextRequest) {
-//   const { pathname } = request.nextUrl;
-
-//   if (
-//     pathname.startsWith("/_next/") ||
-//     pathname.startsWith("/favicon.ico") ||
-//     pathname.startsWith("/sitemap.xml") ||
-//     pathname.startsWith("/robots.txt") ||
-//     pathname.startsWith("/auth/")
-//   ) {
-//     return NextResponse.next();
-//   }
-//   console.log({ request });
-//   return await auth0.middleware(request);
-// }
-
-// export const config = {
-//   matcher: [
-//     /*
-//      * Match all request paths except for the ones starting with:
-//      * - _next/static (static files)
-//      * - _next/image (image optimization files)
-//      * - favicon.ico, sitemap.xml, robots.txt (metadata files)
-//      */
-//     "/((?!_next/static|_next/image|favicon.ico|sitemap.xml|robots.txt).*)",
-//   ],
-// };
+export const config = {
+  matcher: ["/((?!auth).*)"], // todas las rutas que no empiecen con /auth
+};
