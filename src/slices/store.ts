@@ -20,7 +20,6 @@ const storage =
 import LayoutReducer from "./layouts/reducer";
 import LoginReducer from "./auth/login/reducer";
 import AccountReducer from "./auth/register/reducer";
-import ForgetPasswordReducer from "./auth/forgetpwd/reducer";
 import ProfileReducer from "./auth/profile/reducer";
 import CalendarReducer from "./calendar/reducer";
 import chatReducer from "./chat/reducer";
@@ -53,7 +52,6 @@ export interface RootState {
   Layout: ReturnType<typeof LayoutReducer>;
   Login: ReturnType<typeof LoginReducer>;
   Account: ReturnType<typeof AccountReducer>;
-  ForgetPassword: ReturnType<typeof ForgetPasswordReducer>;
   Profile: ReturnType<typeof ProfileReducer>;
   Calendar: ReturnType<typeof CalendarReducer>;
   Chat: ReturnType<typeof chatReducer>;
@@ -84,14 +82,13 @@ export interface RootState {
 const persistConfig = {
   key: "root",
   storage,
-  whitelist: ["Login", "Profile", "Layout"], // Only persist essential data
+  whitelist: ["Login", "Profile", "Layout", "AuthUser"], // Only persist essential data
 };
 
 const rootReducer = combineReducers({
   Layout: LayoutReducer,
   Login: LoginReducer,
   Account: AccountReducer,
-  ForgetPassword: ForgetPasswordReducer,
   Profile: ProfileReducer,
   Calendar: CalendarReducer,
   Chat: chatReducer,

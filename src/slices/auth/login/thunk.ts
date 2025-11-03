@@ -58,27 +58,6 @@ export const logoutUser = () => async (dispatch: any) => {
   }
 };
 
-export const socialLogin =
-  (type: any, history: any) => async (dispatch: any) => {
-    try {
-      let response;
-
-      if (process.env.NEXT_PUBLIC_DEFAULTAUTH === "firebase") {
-        const fireBaseBackend: any = getFirebaseBackend();
-        response = fireBaseBackend.socialLoginUser(type);
-      }
-
-      const socialData = await response;
-      if (socialData) {
-        Cookies.set("authUser", JSON.stringify(socialData), { expires: 1 });
-        dispatch(loginSuccess(socialData));
-        history("/dashboard");
-      }
-    } catch (error) {
-      dispatch(apiError(error));
-    }
-  };
-
 export const resetLoginFlag = () => async (dispatch: any) => {
   try {
     const response = dispatch(reset_login_flag());

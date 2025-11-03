@@ -55,8 +55,14 @@ const smallImage9 = "/images/small/img-9.jpg";
 
 import { projects, documents } from "@common/data";
 import Image from "next/image";
+import { createSelector } from "reselect";
+import { RootState } from "src/slices";
+import { useSelector } from "react-redux";
+import { useAppSelector } from "src/hooks/useRedux";
 
 const SimplePage = () => {
+  const user = useAppSelector(state => state.AuthUser.user);
+  console.log({ user });
   document.title =
     "Profile | Velzon - Next.js TypeScript Admin & Dashboard Template";
 
@@ -261,7 +267,7 @@ const SimplePage = () => {
                                       E-mail :
                                     </th>
                                     <td className="text-muted">
-                                      daveadame@velzon.com
+                                      {user?.email}
                                     </td>
                                   </tr>
                                   <tr>

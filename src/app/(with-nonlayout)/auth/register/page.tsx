@@ -20,9 +20,6 @@ import { usePostRegisterMutation } from "src/slices/api/apiSlice";
 import * as Yup from "yup";
 import { useFormik } from "formik";
 
-//redux
-import { useSelector, useDispatch } from "react-redux";
-
 import Link from "next/link";
 
 //import images
@@ -49,9 +46,9 @@ const Register = () => {
     enableReinitialize: true,
 
     initialValues: {
-      email: "",
-      password: "",
-      confirm_password: "",
+      email: "carloscharlie4td@hotmail.com",
+      password: "1234567",
+      confirm_password: "1234567",
     },
     validationSchema: Yup.object({
       email: Yup.string().required("Please Enter Your Email"),
@@ -65,7 +62,7 @@ const Register = () => {
         email: values.email,
         password: values.password,
         confirmPassword: values.confirm_password,
-      }).unwrap();
+      });
     },
   });
 

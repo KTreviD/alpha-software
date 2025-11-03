@@ -68,7 +68,7 @@ const baseQueryWithReAuth = async (
 export const apiSlice = createApi({
   reducerPath: "api",
   baseQuery: baseQueryWithReAuth,
-  tagTypes: ["Companies", "Industries", "Auth"],
+  tagTypes: ["Companies", "Industries", "Auth", "Session"],
   endpoints: builder => ({
     /////////////////////////////////////////------------------ GET ------------------/////////////////////////////////////////
 
@@ -90,6 +90,10 @@ export const apiSlice = createApi({
         return `/auth/verify/isVerifyCodeValid?code=${code}`;
       },
     }),
+    getAllSessions: builder.query<any, void>({
+      query: params => "/session/all",
+      providesTags: ["Session"],
+    }),
     getCompaniesAdminPage: builder.query<any, void>({
       query: params => "/companies/adminPage",
       providesTags: ["Companies", "Industries"],
@@ -110,7 +114,14 @@ export const apiSlice = createApi({
         method: "POST",
         body,
       }),
-      invalidatesTags: ["Auth"],
+      //   transformResponse: (response: ResChartsData) => response
+    }),
+    postLogin: builder.mutation({
+      query: body => ({
+        url: "/auth/login",
+        method: "POST",
+        body,
+      }),
       //   transformResponse: (response: ResChartsData) => response
     }),
     postVerifyEmail: builder.mutation({
@@ -124,6 +135,22 @@ export const apiSlice = createApi({
     postResendVerificationEmail: builder.mutation({
       query: body => ({
         url: "/auth/verify/resendVerificationEmail",
+        method: "POST",
+        body,
+      }),
+      //   transformResponse: (response: ResChartsData) => response
+    }),
+    postForgotPassword: builder.mutation({
+      query: body => ({
+        url: "/auth/password/forgot",
+        method: "POST",
+        body,
+      }),
+      //   transformResponse: (response: ResChartsData) => response
+    }),
+    postResetPassword: builder.mutation({
+      query: body => ({
+        url: "/auth/password/reset",
         method: "POST",
         body,
       }),
@@ -197,14 +224,18 @@ export const apiSlice = createApi({
 export const {
   /////////////////////////////////////////------------------ GET ------------------/////////////////////////////////////////
   useGetIsVerificationCodeValidQuery,
+  useGetAllSessionsQuery,
   useGetCompaniesAdminPageQuery,
   useGetIndustriesAdminPageQuery,
 
   /////////////////////////////////////////------------------ POST ------------------/////////////////////////////////////////
 
+  usePostLoginMutation,
   usePostRegisterMutation,
   usePostVerifyEmailMutation,
   usePostResendVerificationEmailMutation,
+  usePostForgotPasswordMutation,
+  usePostResetPasswordMutation,
   usePostLogoutMutation,
   usePostCompanyMutation,
   usePostIndustryMutation,

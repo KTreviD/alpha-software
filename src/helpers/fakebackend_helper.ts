@@ -71,10 +71,6 @@ export const postJwtLogin = (data: any) =>
 export const postJwtForgetPwd = (data: any) =>
   api.create(url.POST_FAKE_JWT_PASSWORD_FORGET, data);
 
-// postSocialLogin
-export const postSocialLogin = (data: any) =>
-  api.create(url.SOCIAL_LOGIN, data);
-
 // Calendar
 // get Events
 export const getEvents = () => api.get(url.GET_EVENTS);

@@ -23,70 +23,44 @@ import Link from "next/link";
 import * as Yup from "yup";
 import { useFormik } from "formik";
 
-import { loginUser, socialLogin, resetLoginFlag } from "@slices/thunks";
 const logoAlpha = "/images/logo-alpha.png";
 import { createSelector } from "reselect";
 import Image from "next/image";
+import { useAppDispatch, useAppSelector } from "src/hooks/useRedux";
+import { setUser } from "src/slices/user";
+import { usePostLoginMutation } from "src/slices/api/apiSlice";
 
 const Login = () => {
   const dispatch: any = useDispatch();
   const router = useRouter();
 
-  const selectLayoutState = (state: any) => state;
-  const loginpageData = createSelector(selectLayoutState, state => ({
-    user: state.Account.user,
-    error: state.Login.error,
-    errorMsg: state.Login.errorMsg,
-  }));
-
-  const { user, error, errorMsg } = useSelector(loginpageData);
+  const [loginUser, { isLoading, error, data }] = usePostLoginMutation();
 
   const [userLogin, setUserLogin] = useState<any>([]);
   const [passwordShow, setPasswordShow] = useState<boolean>(false);
-  const [loader, setLoader] = useState<boolean>(false);
 
-  useEffect(() => {
-    if (user && user) {
-      const updatedUserData =
-        process.env.NEXT_PUBLIC_DEFAULTAUTH === "firebase"
-          ? user.multiFactor.user.email
-          : user.email;
-
-      const updatedUserPassword =
-        process.env.NEXT_PUBLIC_DEFAULTAUTH === "firebase"
-          ? ""
-          : user.confirm_password;
-      setUserLogin({
-        email: updatedUserData,
-        password: updatedUserPassword,
-      });
-    }
-  }, [user]);
-
-  const validation: any = useFormik({
+  const validation = useFormik({
     enableReinitialize: true,
     initialValues: {
       email: userLogin.email || "carloscharlie4td@hotmail.com",
-      password: userLogin.password || "Arantza123!",
+      password: userLogin.password || "123456",
     },
     validationSchema: Yup.object({
       email: Yup.string().required("Please Enter Your Email Address"),
       password: Yup.string().required("Please Enter Your Password"),
     }),
-    onSubmit: values => {
-      dispatch(loginUser(values, router));
-      setLoader(true);
+    onSubmit: async values => {
+      const { user } = await loginUser({
+        email: values.email,
+        password: values.password,
+      }).unwrap(); // Envías el código como payload
+      console.log({ user });
+      if (user) {
+        dispatch(setUser(user)); // Guardas el usuario en Redux
+      }
+      router.push(`/apps-job-companies-lists`);
     },
   });
-
-  useEffect(() => {
-    if (errorMsg) {
-      setTimeout(() => {
-        dispatch(resetLoginFlag());
-        setLoader(false);
-      }, 3000);
-    }
-  }, [dispatch, errorMsg]);
 
   return (
     <React.Fragment>
@@ -116,7 +90,7 @@ const Login = () => {
                         Log in to Alpha Software to continue.
                       </p>
                     </div>
-                    {error && <Alert color="danger">{error}</Alert>}
+                    {/* {error && <Alert color="danger">{error}</Alert>} */}
                     <div className="p-2 mt-4">
                       <Form
                         onSubmit={e => {
@@ -213,16 +187,15 @@ const Login = () => {
                         <div className="mt-4">
                           <Button
                             color="danger"
-                            disabled={loader}
+                            disabled={isLoading}
                             className="btn btn-danger w-100"
                             type="submit"
                           >
-                            {loader && (
-                              <Spinner size="sm" className="me-2">
-                                Loading...
-                              </Spinner>
+                            {isLoading ? (
+                              <Spinner size="sm" className="me-2" />
+                            ) : (
+                              "Sign In"
                             )}
-                            Sign In
                           </Button>
                         </div>
                       </Form>

@@ -106,25 +106,6 @@ class FirebaseAuthBackend {
     });
   };
 
-  socialLoginUser = async (type: any) => {
-    let provider: firebase.auth.AuthProvider | null = null;
-    if (type === "google") {
-      provider = new firebase.auth.GoogleAuthProvider();
-    } else if (type === "facebook") {
-      provider = new firebase.auth.FacebookAuthProvider();
-    }
-    if (provider) {
-      try {
-        const result = await firebase.auth().signInWithPopup(provider);
-        const user = result.user;
-        return user;
-      } catch (error: any) {
-        throw this._handleError(error);
-      }
-    }
-    throw new Error(`Invalid social login type: ${type}`);
-  };
-
   addNewUserToFirestore = (user: any) => {
     const collection = firebase.firestore().collection("users");
     const { profile } = user.additionalUserInfo!;

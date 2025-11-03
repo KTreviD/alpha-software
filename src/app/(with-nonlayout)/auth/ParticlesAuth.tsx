@@ -6,7 +6,7 @@ const ParticlesAuth = ({
   fixHeight,
 }: {
   children: any;
-  fixHeight: boolean;
+  fixHeight?: boolean;
 }) => {
   return (
     <React.Fragment>
@@ -31,7 +31,7 @@ const ParticlesAuth = ({
 
         <footer
           className="footer"
-          style={fixHeight ? { transform: "translateY(-100px)" } : {}}
+          style={fixHeight ? { transform: "translateY(-140px)" } : {}}
         >
           <div className="container">
             <div className="row">
