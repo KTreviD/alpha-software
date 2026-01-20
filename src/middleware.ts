@@ -6,6 +6,7 @@ const publicRoutes = ["/auth/login", "/auth/register", "/auth/confirm-account"];
 
 export default function middleware(req: NextRequest) {
   const path = req.nextUrl.pathname;
+  console.log("UESHOWWWWWWWWWW");
 
   // Ignorar assets y _next
   if (
