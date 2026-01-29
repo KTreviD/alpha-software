@@ -2232,20 +2232,6 @@ const fakeBackend = () => {
       });
     });
   });
-
-  //API Key
-  mock.onGet(url.GET_API_KEY).reply(() => {
-    return new Promise((resolve, reject) => {
-      setTimeout(() => {
-        if (apiKey) {
-          // Passing fake JSON data as response
-          resolve([200, apiKey]);
-        } else {
-          reject([400, "Cannot get API Key Data"]);
-        }
-      });
-    });
-  });
 };
 
 export default fakeBackend;

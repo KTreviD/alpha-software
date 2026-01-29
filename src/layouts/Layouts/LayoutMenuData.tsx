@@ -420,14 +420,6 @@ const Navdata = () => {
             },
           ],
         },
-        {
-          id: "apikey",
-          label: "API Key",
-          link: "/apps-api-key",
-          parentId: "apps",
-          // badgeName: "New",
-          // badgeColor: "success"
-        },
       ],
     },
     {

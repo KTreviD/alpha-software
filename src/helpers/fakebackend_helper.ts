@@ -447,9 +447,6 @@ export const getProjects = () => api.get(url.GET_PROJECTS);
 export const addNewProject = (project: any) =>
   api.create(url.ADD_NEW_TODO_PROJECT, project);
 
-//API Key
-export const getAPIKey = () => api.get(url.GET_API_KEY);
-
 //Job Application
 export const getJobApplicationList = () => api.get(url.GET_APPLICATION_LIST);
 export const addNewJobApplicationList = (job: any) =>

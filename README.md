@@ -402,16 +402,15 @@ src/
 
 ### Business Tools (`/apps-*`)
 
-| Route            | Path                     | Description         | Features                      |
-| ---------------- | ------------------------ | ------------------- | ----------------------------- |
-| File Manager     | `/apps-file-manager`     | File management     | Upload, Organize, Share       |
-| Invoices List    | `/apps-invoices-list`    | Invoice management  | Status, Payment, History      |
-| Invoices Details | `/apps-invoices-details` | Invoice information | Items, Payment, PDF           |
-| Invoices Create  | `/apps-invoices-create`  | Invoice creation    | Form, Items, Tax              |
-| Tickets List     | `/apps-tickets-list`     | Support tickets     | Status, Priority, Assignee    |
-| Tickets Details  | `/apps-tickets-details`  | Ticket information  | Thread, Attachments, Status   |
-| Todo             | `/apps-todo`             | Todo application    | Tasks, Categories, Reminders  |
-| API Keys         | `/apps-api-key`          | API key management  | Generate, Revoke, Permissions |
+| Route            | Path                     | Description         | Features                     |
+| ---------------- | ------------------------ | ------------------- | ---------------------------- |
+| File Manager     | `/apps-file-manager`     | File management     | Upload, Organize, Share      |
+| Invoices List    | `/apps-invoices-list`    | Invoice management  | Status, Payment, History     |
+| Invoices Details | `/apps-invoices-details` | Invoice information | Items, Payment, PDF          |
+| Invoices Create  | `/apps-invoices-create`  | Invoice creation    | Form, Items, Tax             |
+| Tickets List     | `/apps-tickets-list`     | Support tickets     | Status, Priority, Assignee   |
+| Tickets Details  | `/apps-tickets-details`  | Ticket information  | Thread, Attachments, Status  |
+| Todo             | `/apps-todo`             | Todo application    | Tasks, Categories, Reminders |
 
 ### UI Components (`/ui-*`)
 
