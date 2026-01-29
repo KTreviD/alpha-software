@@ -440,38 +440,6 @@ const Navdata = () => {
       stateVariables: isAuth,
       subItems: [
         {
-          id: "signIn",
-          label: "Sign In",
-          link: "/#",
-          isChildItem: true,
-          click: function (e: any) {
-            e.preventDefault();
-            setIsSignIn(!isSignIn);
-          },
-          parentId: "authentication",
-          stateVariables: isSignIn,
-          childItems: [
-            { id: 1, label: "Basic", link: "/authinner/signin/basic" },
-            { id: 2, label: "Cover", link: "/authinner/signin/cover" },
-          ],
-        },
-        {
-          id: "signUp",
-          label: "Sign Up",
-          link: "/#",
-          isChildItem: true,
-          click: function (e: any) {
-            e.preventDefault();
-            setIsSignUp(!isSignUp);
-          },
-          parentId: "authentication",
-          stateVariables: isSignUp,
-          childItems: [
-            { id: 1, label: "Basic", link: "/authinner/signup/basic" },
-            { id: 2, label: "Cover", link: "/authinner/signup/cover" },
-          ],
-        },
-        {
           id: "passwordReset",
           label: "Password Reset",
           link: "/#",
