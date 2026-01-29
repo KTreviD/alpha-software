@@ -42,7 +42,6 @@ import TeamDataReducer from "./team/reducer";
 import FileManagerReducer from "./fileManager/reducer";
 import TodosReducer from "./todos/reducer";
 import JobReducer from "./jobs/reducer";
-import APIKeyReducer from "./apiKey/reducer";
 import AuthUserReducer from "./user";
 
 import { apiSlice } from "./api/apiSlice";
@@ -74,7 +73,6 @@ export interface RootState {
   FileManager: ReturnType<typeof FileManagerReducer>;
   Todos: ReturnType<typeof TodosReducer>;
   Jobs: ReturnType<typeof JobReducer>;
-  APIKey: ReturnType<typeof APIKeyReducer>;
   AuthUser: ReturnType<typeof AuthUserReducer>;
 }
 
@@ -111,7 +109,6 @@ const rootReducer = combineReducers({
   FileManager: FileManagerReducer,
   Todos: TodosReducer,
   Jobs: JobReducer,
-  APIKey: APIKeyReducer,
   AuthUser: AuthUserReducer,
   [apiSlice.reducerPath]: apiSlice.reducer,
 });

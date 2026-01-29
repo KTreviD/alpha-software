@@ -9,7 +9,6 @@ import LayoutReducer from "./layouts/reducer";
 // Authentication
 import LoginReducer from "./auth/login/reducer";
 import AccountReducer from "./auth/register/reducer";
-import ForgetPasswordReducer from "./auth/forgetpwd/reducer";
 import ProfileReducer from "./auth/profile/reducer";
 
 //Calendar
@@ -72,14 +71,10 @@ import TodosReducer from "./todos/reducer";
 // Job
 import JobReducer from "./jobs/reducer";
 
-// API Key
-import APIKeyReducer from "./apiKey/reducer";
-
 const rootReducer = combineReducers({
   Layout: LayoutReducer,
   Login: LoginReducer,
   Account: AccountReducer,
-  ForgetPassword: ForgetPasswordReducer,
   Profile: ProfileReducer,
   Calendar: CalendarReducer,
   Chat: chatReducer,
@@ -102,7 +97,6 @@ const rootReducer = combineReducers({
   FileManager: FileManagerReducer,
   Todos: TodosReducer,
   Jobs: JobReducer,
-  APIKey: APIKeyReducer,
   auth: authReducer,
   users: usersReducer,
   settings: settingsReducer,
