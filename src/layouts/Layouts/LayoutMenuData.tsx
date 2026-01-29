@@ -615,32 +615,6 @@ const Navdata = () => {
           link: "/pages/starter",
           parentId: "pages",
         },
-        {
-          id: "profile",
-          label: "Profile",
-          link: "/#",
-          isChildItem: true,
-          click: function (e: any) {
-            e.preventDefault();
-            setIsProfile(!isProfile);
-          },
-          parentId: "pages",
-          stateVariables: isProfile,
-          childItems: [
-            {
-              id: 1,
-              label: "Simple Page",
-              link: "/pages/profile",
-              parentId: "pages",
-            },
-            {
-              id: 2,
-              label: "Settings",
-              link: "/pages/profile-settings",
-              parentId: "pages",
-            },
-          ],
-        },
         { id: "team", label: "Team", link: "/pages/team", parentId: "pages" },
         {
           id: "timeline",
@@ -656,12 +630,6 @@ const Navdata = () => {
           parentId: "pages",
         },
         {
-          id: "gallery",
-          label: "Gallery",
-          link: "/pages/gallery",
-          parentId: "pages",
-        },
-        {
           id: "maintenance",
           label: "Maintenance",
           link: "/pages/maintenance",
@@ -671,12 +639,6 @@ const Navdata = () => {
           id: "comingSoon",
           label: "Coming Soon",
           link: "/pages/coming-soon",
-          parentId: "pages",
-        },
-        {
-          id: "sitemap",
-          label: "Sitemap",
-          link: "/pages/sitemap",
           parentId: "pages",
         },
         {

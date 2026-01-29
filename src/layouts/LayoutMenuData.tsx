@@ -844,12 +844,6 @@ const Navdata = () => {
     //       parentId: "pages",
     //     },
     //     {
-    //       id: "sitemap",
-    //       label: "Sitemap",
-    //       link: "/pages/sitemap",
-    //       parentId: "pages",
-    //     },
-    //     {
     //       id: "searchResults",
     //       label: "Search Results",
     //       link: "/pages/search-results",
