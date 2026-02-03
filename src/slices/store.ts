@@ -18,8 +18,6 @@ const storage =
 
 // Import all reducers from the slices
 import LayoutReducer from "./layouts/reducer";
-import LoginReducer from "./auth/login/reducer";
-import AccountReducer from "./auth/register/reducer";
 import ProfileReducer from "./auth/profile/reducer";
 import CalendarReducer from "./calendar/reducer";
 import chatReducer from "./chat/reducer";
@@ -49,8 +47,6 @@ import { apiSlice } from "./api/apiSlice";
 // Root reducer type
 export interface RootState {
   Layout: ReturnType<typeof LayoutReducer>;
-  Login: ReturnType<typeof LoginReducer>;
-  Account: ReturnType<typeof AccountReducer>;
   Profile: ReturnType<typeof ProfileReducer>;
   Calendar: ReturnType<typeof CalendarReducer>;
   Chat: ReturnType<typeof chatReducer>;
@@ -80,13 +76,11 @@ export interface RootState {
 const persistConfig = {
   key: "root",
   storage,
-  whitelist: ["Login", "Profile", "Layout", "AuthUser"], // Only persist essential data
+  whitelist: ["Profile", "Layout", "AuthUser"], // Only persist essential data
 };
 
 const rootReducer = combineReducers({
   Layout: LayoutReducer,
-  Login: LoginReducer,
-  Account: AccountReducer,
   Profile: ProfileReducer,
   Calendar: CalendarReducer,
   Chat: chatReducer,
