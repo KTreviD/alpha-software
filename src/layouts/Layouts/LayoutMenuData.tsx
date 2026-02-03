@@ -657,40 +657,6 @@ const Navdata = () => {
         },
       ],
     },
-    {
-      id: "landing",
-      label: "Landing",
-      icon: "ri-rocket-line",
-      link: "/#",
-      stateVariables: isLanding,
-      click: function (e: any) {
-        e.preventDefault();
-        setIsLanding(!isLanding);
-        setIscurrentState("Landing");
-        updateIconSidebar(e);
-      },
-      subItems: [
-        {
-          id: "onePage",
-          label: "One Page",
-          link: "/landing",
-          parentId: "landing",
-        },
-        {
-          id: "nftLanding",
-          label: "NFT Landing",
-          link: "/nft-landing",
-          parentId: "landing",
-        },
-        {
-          id: "jobLanding",
-          label: "Job",
-          link: "/job-landing",
-          parentId: "landing",
-          // badgeColor: "success", badgeName: "New"
-        },
-      ],
-    },
   ];
   return <React.Fragment>{menuItems}</React.Fragment>;
 };
