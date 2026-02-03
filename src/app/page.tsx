@@ -1,5 +1,6 @@
 import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
+import LandingPage from "@components/landing/LandingPage";
 
 export default async function Home() {
   const cookieStore = await cookies();
@@ -11,5 +12,5 @@ export default async function Home() {
   }
 
   // If user is not authenticated, redirect to login
-  redirect("/");
+  return <LandingPage />;
 }
