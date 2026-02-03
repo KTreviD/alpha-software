@@ -4,7 +4,7 @@ import LandingPage from "@components/landing/LandingPage";
 
 export default async function Home() {
   const cookieStore = await cookies();
-  const authUser = cookieStore.get("authUser");
+  const authUser = cookieStore.get("accessToken");
 
   // If user is authenticated, redirect to dashboard
   if (authUser) {
