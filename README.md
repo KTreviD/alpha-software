@@ -485,7 +485,6 @@ src/
 | Starter     | `/pages-starter`     | Starter page template | Basic layout           |
 | Profile     | `/pages-profile`     | User profile page     | Information, Settings  |
 | Maintenance | `/pages-maintenance` | Maintenance page      | Status, Updates        |
-| Coming Soon | `/pages-coming-soon` | Coming soon page      | Countdown, Newsletter  |
 | 404 Error   | `/pages-404`         | 404 error page        | Navigation, Search     |
 | 500 Error   | `/pages-500`         | 500 error page        | Error details, Support |
 

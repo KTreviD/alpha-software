@@ -830,12 +830,6 @@ const Navdata = () => {
     //       parentId: "pages",
     //     },
     //     {
-    //       id: "comingSoon",
-    //       label: "Coming Soon",
-    //       link: "/pages/coming-soon",
-    //       parentId: "pages",
-    //     },
-    //     {
     //       id: "searchResults",
     //       label: "Search Results",
     //       link: "/pages/search-results",
