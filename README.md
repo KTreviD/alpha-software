@@ -491,13 +491,11 @@ src/
 
 ### Landing Pages (`/(with-nonlayout)/*`)
 
-| Route       | Path           | Description             | Features                    |
-| ----------- | -------------- | ----------------------- | --------------------------- |
-| Landing     | `/landing`     | Main landing page       | Hero, Features, Pricing     |
-| NFT Landing | `/nft-landing` | NFT marketplace landing | Collections, Artists        |
-| Job Landing | `/job-landing` | Job portal landing      | Jobs, Companies             |
-| Pricing     | `/pricing`     | Pricing page            | Plans, Features, Comparison |
-| Auth Inner  | `/authinner`   | Inner authentication    | Login, Register forms       |
+| Route      | Path         | Description          | Features                    |
+| ---------- | ------------ | -------------------- | --------------------------- |
+| Landing    | `/landing`   | Main landing page    | Hero, Features, Pricing     |
+| Pricing    | `/pricing`   | Pricing page         | Plans, Features, Comparison |
+| Auth Inner | `/authinner` | Inner authentication | Login, Register forms       |
 
 ### Advanced UI (`/advance-ui-*`)
 
