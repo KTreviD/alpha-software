@@ -36,7 +36,7 @@ export default function middleware(req: NextRequest) {
 
   if (isPublicRoute && accessToken) {
     return NextResponse.redirect(
-      new URL("/apps-job-companies-lists2", req.nextUrl)
+      new URL("/apps-job-companies-lists", req.nextUrl)
     );
   }
 
