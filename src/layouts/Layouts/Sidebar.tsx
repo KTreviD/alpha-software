@@ -6,8 +6,8 @@ import Image from "next/image";
 
 //import logo
 const logoSm = "/images/logo-sm.png";
-const logoDark = "/images/logo-dark.png";
-const logoLight = "/images/logo-light.png";
+const logoDark = "/images/logo-sm.png";
+const logoLight = "/images/logo-sm.png";
 
 const avatar1 = "/images/users/avatar-1.jpg";
 
