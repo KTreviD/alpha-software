@@ -12,8 +12,8 @@ const publicRoutes = [
 export default function middleware(req: NextRequest) {
   const path = req.nextUrl.pathname;
   console.log("UESHOWWWWWWWWWW");
-  console.log("MIDDLEWARE PATH:", req.nextUrl.pathname);
-  console.log("COOKIE accessToken:", req.cookies.get("accessToken"));
+  console.log("MIDDLEWARE PATH1:", req.nextUrl.pathname);
+  console.log("COOKIE accessToken1:", req.cookies.get("accessToken"));
   // Ignorar assets y _next
   if (
     path.startsWith("/_next") ||
@@ -37,8 +37,8 @@ export default function middleware(req: NextRequest) {
 
   if (isPublicRoute && accessToken) {
     console.log("UIHHHHHHHHH AQUI ANDO");
-    console.log("MIDDLEWARE PATH:", req.nextUrl.pathname);
-    console.log("COOKIE accessToken:", req.cookies.get("accessToken"));
+    console.log("MIDDLEWARE PATH2:", req.nextUrl.pathname);
+    console.log("COOKIE accessToken2:", req.cookies.get("accessToken"));
     return NextResponse.redirect(
       new URL("/apps-job-companies-lists", req.nextUrl)
     );
