@@ -188,14 +188,6 @@ import {
   marketPlacewidget,
 } from "./NFTMarketplace";
 
-import {
-  connectData,
-  discoverItemsData,
-  featuresData,
-  productData,
-  topCreatorData,
-} from "./LandingNFT";
-
 import { recentFile, folderList } from "./fileManager";
 
 import { todoTaskList, todoCollapse } from "./todoData";
@@ -295,11 +287,6 @@ export {
   nftArtworkData,
   popularCreatorsNFT,
   marketPlacewidget,
-  connectData,
-  discoverItemsData,
-  featuresData,
-  productData,
-  topCreatorData,
   allData,
   monthData,
   halfyearData,

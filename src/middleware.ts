@@ -2,7 +2,12 @@
 import { NextRequest, NextResponse } from "next/server";
 
 const protectedRoutes = ["/apps-job-companies-lists"];
-const publicRoutes = ["/auth/login", "/auth/register", "/auth/confirm-account"];
+const publicRoutes = [
+  "/",
+  "/auth/login",
+  "/auth/register",
+  "/auth/confirm-account",
+];
 
 export default function middleware(req: NextRequest) {
   const path = req.nextUrl.pathname;
@@ -31,7 +36,7 @@ export default function middleware(req: NextRequest) {
 
   if (isPublicRoute && accessToken) {
     return NextResponse.redirect(
-      new URL("/apps-job-companies-lists", req.nextUrl)
+      new URL("/apps-job-companies-lists2", req.nextUrl)
     );
   }
 
