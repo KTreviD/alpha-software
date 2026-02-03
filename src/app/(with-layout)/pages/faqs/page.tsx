@@ -121,7 +121,7 @@ const Faqs = () => {
                   <Row>
                     <Col xxl={5} className="align-self-center">
                       <div className="py-4">
-                        <h4 className="display-6 coming-soon-text">
+                        <h4 className="display-6 bignice-text">
                           Frequently asked questions
                         </h4>
                         <p className="text-success fs-15 mt-3">

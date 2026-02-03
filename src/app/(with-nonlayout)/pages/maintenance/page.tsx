@@ -32,7 +32,7 @@ const Maintenance = () => {
               <div className="col-lg-12">
                 <div className="text-center mt-sm-5 pt-4">
                   <div className="mb-5 text-white-50">
-                    <h1 className="display-5 coming-soon-text">
+                    <h1 className="display-5 bignice-text">
                       Site is Under Maintenance
                     </h1>
                     <p className="fs-14">Please check back in sometime</p>
