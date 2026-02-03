@@ -21,7 +21,7 @@ import * as Yup from "yup";
 import ParticlesAuth from "../ParticlesAuth";
 import { usePostResetPasswordMutation } from "src/slices/api/apiSlice";
 
-const logoLight = "/images/logo-alpha.png";
+const logoLight = "/images/icon-alpha-software.png";
 
 export default function ResetPassword() {
   const [resetPassword, { isLoading, error, data }] =

@@ -23,7 +23,7 @@ import { useFormik } from "formik";
 import Link from "next/link";
 
 //import images
-const logoLight = "/images/logo-alpha.png";
+const logoLight = "/images/icon-alpha-software.png";
 import ParticlesAuth from "../ParticlesAuth";
 
 import Image from "next/image";

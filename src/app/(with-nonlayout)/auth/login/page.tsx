@@ -23,7 +23,7 @@ import Link from "next/link";
 import * as Yup from "yup";
 import { useFormik } from "formik";
 
-const logoAlpha = "/images/logo-alpha.png";
+const logoAlpha = "/images/icon-alpha-software.png";
 import { createSelector } from "reselect";
 import Image from "next/image";
 import { useAppDispatch, useAppSelector } from "src/hooks/useRedux";

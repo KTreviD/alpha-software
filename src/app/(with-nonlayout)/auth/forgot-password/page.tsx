@@ -23,7 +23,7 @@ import * as Yup from "yup";
 import { useFormik } from "formik";
 
 // import images
-const logoLight = "/images/logo-alpha.png";
+const logoLight = "/images/icon-alpha-software.png";
 import ParticlesAuth from "../ParticlesAuth";
 import Image from "next/image";
 import { usePostForgotPasswordMutation } from "src/slices/api/apiSlice";
