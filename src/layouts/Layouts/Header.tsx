@@ -11,7 +11,6 @@ const logoLight = "/images/logo-sm.png";
 //import Components
 import SearchOption from "@common/SearchOption";
 import LanguageDropdown from "@common/LanguageDropdown";
-import MyCartDropdown from "@common/MyCartDropdown";
 import FullScreenDropdown from "@common/FullScreenDropdown";
 import NotificationDropdown from "@common/NotificationDropdown";
 import ProfileDropdown from "@common/ProfileDropdown";
@@ -163,9 +162,6 @@ const Header = ({ onChangeLayoutMode, layoutModeType, headerClass }: any) => {
 
               {/* LanguageDropdown */}
               <LanguageDropdown />
-
-              {/* MyCartDropdwon */}
-              <MyCartDropdown />
 
               {/* FullScreenDropdown */}
               <FullScreenDropdown />
