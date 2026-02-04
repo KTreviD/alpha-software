@@ -753,7 +753,6 @@ const Navdata = () => {
     //         { id: 2, label: "404 Cover", link: "/authinner/404/cover" },
     //         { id: 3, label: "404 Alt", link: "/authinner/404/alt" },
     //         { id: 4, label: "500", link: "/authinner/500" },
-    //         { id: 5, label: "Offline Page", link: "/authinner/offline" },
     //       ],
     //     },
     //   ],
