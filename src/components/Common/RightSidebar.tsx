@@ -15,7 +15,6 @@ import {
   changeSidebarTheme,
   changeLayoutMode,
   changeLayoutPosition,
-  changeTopbarTheme,
   changeLeftsidebarSizeType,
   changeLeftsidebarViewType,
   changePreLoader,
@@ -742,94 +741,6 @@ const RightSidebar = (props: any) => {
                     </div>
                   </React.Fragment>
                 )}
-                <h6 className="mt-4 mb-0 fw-semibold text-uppercase">
-                  Topbar Color
-                </h6>
-                <p className="text-muted">Choose Light or Dark Topbar Color.</p>
-                <div className="row">
-                  <div className="col-4">
-                    <div className="form-check card-radio">
-                      <input
-                        className="form-check-input"
-                        type="radio"
-                        name="data-topbar"
-                        id="topbar-color-light"
-                        value={LAYOUT_TOPBAR_THEME_TYPES.LIGHT}
-                        checked={
-                          topbarThemeType === LAYOUT_TOPBAR_THEME_TYPES.LIGHT
-                        }
-                        onChange={e => {
-                          if (e.target.checked) {
-                            dispatch(changeTopbarTheme(e.target.value));
-                          }
-                        }}
-                      />
-                      <label
-                        className="form-check-label p-0 avatar-md w-100"
-                        htmlFor="topbar-color-light"
-                      >
-                        <span className="d-flex gap-1 h-100">
-                          <span className="flex-shrink-0">
-                            <span className="bg-light d-flex h-100 flex-column gap-1 p-1">
-                              <span className="d-block p-1 px-2 bg-primary-subtle rounded mb-2"></span>
-                              <span className="d-block p-1 px-2 pb-0 bg-primary-subtle"></span>
-                              <span className="d-block p-1 px-2 pb-0 bg-primary-subtle"></span>
-                              <span className="d-block p-1 px-2 pb-0 bg-primary-subtle"></span>
-                            </span>
-                          </span>
-                          <span className="flex-grow-1">
-                            <span className="d-flex h-100 flex-column">
-                              <span className="bg-light d-block p-1"></span>
-                              <span className="bg-light d-block p-1 mt-auto"></span>
-                            </span>
-                          </span>
-                        </span>
-                      </label>
-                    </div>
-                    <h5 className="fs-13 text-center mt-2">Light</h5>
-                  </div>
-                  <div className="col-4">
-                    <div className="form-check card-radio">
-                      <input
-                        className="form-check-input"
-                        type="radio"
-                        name="data-topbar"
-                        id="topbar-color-dark"
-                        value={LAYOUT_TOPBAR_THEME_TYPES.DARK}
-                        checked={
-                          topbarThemeType === LAYOUT_TOPBAR_THEME_TYPES.DARK
-                        }
-                        onChange={e => {
-                          if (e.target.checked) {
-                            dispatch(changeTopbarTheme(e.target.value));
-                          }
-                        }}
-                      />
-                      <label
-                        className="form-check-label p-0 avatar-md w-100"
-                        htmlFor="topbar-color-dark"
-                      >
-                        <span className="d-flex gap-1 h-100">
-                          <span className="flex-shrink-0">
-                            <span className="bg-light d-flex h-100 flex-column gap-1 p-1">
-                              <span className="d-block p-1 px-2 bg-primary-subtle rounded mb-2"></span>
-                              <span className="d-block p-1 px-2 pb-0 bg-primary-subtle"></span>
-                              <span className="d-block p-1 px-2 pb-0 bg-primary-subtle"></span>
-                              <span className="d-block p-1 px-2 pb-0 bg-primary-subtle"></span>
-                            </span>
-                          </span>
-                          <span className="flex-grow-1">
-                            <span className="d-flex h-100 flex-column">
-                              <span className="bg-primary d-block p-1"></span>
-                              <span className="bg-light d-block p-1 mt-auto"></span>
-                            </span>
-                          </span>
-                        </span>
-                      </label>
-                    </div>
-                    <h5 className="fs-13 text-center mt-2">Dark</h5>
-                  </div>
-                </div>
                 {(layoutType === "vertical" ||
                   (layoutType === "semibox" &&
                     sidebarVisibilitytype === "show")) && (

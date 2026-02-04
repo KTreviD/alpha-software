@@ -6,7 +6,6 @@ import {
   changeLayoutModeAction,
   changeSidebarThemeAction,
   changeLayoutPositionAction,
-  changeTopbarThemeAction,
   changeLeftsidebarSizeTypeAction,
   changeLeftsidebarViewTypeAction,
   changePreLoaderAction,
@@ -101,20 +100,6 @@ export const changeLayoutPosition =
     try {
       changeHTMLAttribute("data-layout-position", layoutposition);
       dispatch(changeLayoutPositionAction(layoutposition));
-    } catch (error) {
-      // console.log(error);
-    }
-  };
-
-/**
- * Changes the topbar themes
- * @param {*} param0
- */
-export const changeTopbarTheme =
-  (topbarTheme: any) => async (dispatch: any) => {
-    try {
-      changeHTMLAttribute("data-topbar", topbarTheme);
-      dispatch(changeTopbarThemeAction(topbarTheme));
     } catch (error) {
       // console.log(error);
     }

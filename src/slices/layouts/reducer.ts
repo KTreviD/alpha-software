@@ -6,10 +6,12 @@ import {
   LAYOUT_THEME_COLOR,
   LAYOUT_MODE_TYPES,
   LAYOUT_SIDEBAR_TYPES,
+  LAYOUT_WIDTH_TYPES,
   LAYOUT_POSITION_TYPES,
   LAYOUT_TOPBAR_THEME_TYPES,
   LEFT_SIDEBAR_SIZE_TYPES,
   LEFT_SIDEBAR_VIEW_TYPES,
+  LEFT_SIDEBAR_IMAGE_TYPES,
   PERLOADER_TYPES,
   SIDEBAR_VISIBILITY_TYPES,
 } from "@/constants/layout";
@@ -45,12 +47,11 @@ export interface LayoutState {
     | LAYOUT_SIDEBAR_TYPES.GRADIENT_2
     | LAYOUT_SIDEBAR_TYPES.GRADIENT_3
     | LAYOUT_SIDEBAR_TYPES.GRADIENT_4;
+  layoutWidthType: LAYOUT_WIDTH_TYPES.FLUID;
   layoutPositionType:
     | LAYOUT_POSITION_TYPES.FIXED
     | LAYOUT_POSITION_TYPES.SCROLLABLE;
-  topbarThemeType:
-    | LAYOUT_TOPBAR_THEME_TYPES.LIGHT
-    | LAYOUT_TOPBAR_THEME_TYPES.DARK;
+  topbarThemeType: LAYOUT_TOPBAR_THEME_TYPES.LIGHT;
   leftsidbarSizeType:
     | LEFT_SIDEBAR_SIZE_TYPES.DEFAULT
     | LEFT_SIDEBAR_SIZE_TYPES.COMPACT
@@ -59,6 +60,7 @@ export interface LayoutState {
   leftSidebarViewType:
     | LEFT_SIDEBAR_VIEW_TYPES.DEFAULT
     | LEFT_SIDEBAR_VIEW_TYPES.DETACHED;
+  leftSidebarImageType: LEFT_SIDEBAR_IMAGE_TYPES.NONE;
   preloader: PERLOADER_TYPES.ENABLE | PERLOADER_TYPES.DISABLE;
   sidebarVisibilitytype:
     | SIDEBAR_VISIBILITY_TYPES.SHOW
@@ -71,10 +73,12 @@ export const initialState: LayoutState = {
   layoutThemeColorType: LAYOUT_THEME_COLOR.DEFAULT,
   layoutModeType: LAYOUT_MODE_TYPES.LIGHTMODE,
   leftSidebarType: LAYOUT_SIDEBAR_TYPES.DARK,
+  layoutWidthType: LAYOUT_WIDTH_TYPES.FLUID,
   layoutPositionType: LAYOUT_POSITION_TYPES.FIXED,
   topbarThemeType: LAYOUT_TOPBAR_THEME_TYPES.LIGHT,
   leftsidbarSizeType: LEFT_SIDEBAR_SIZE_TYPES.DEFAULT,
   leftSidebarViewType: LEFT_SIDEBAR_VIEW_TYPES.DEFAULT,
+  leftSidebarImageType: LEFT_SIDEBAR_IMAGE_TYPES.NONE,
   preloader: PERLOADER_TYPES.DISABLE,
   sidebarVisibilitytype: SIDEBAR_VISIBILITY_TYPES.SHOW,
 };
@@ -101,9 +105,6 @@ const LayoutSlice = createSlice({
     changeLayoutPositionAction(state: any, action: any) {
       state.layoutPositionType = action.payload;
     },
-    changeTopbarThemeAction(state: any, action: any) {
-      state.topbarThemeType = action.payload;
-    },
     changeLeftsidebarSizeTypeAction(state: any, action: any) {
       state.leftsidbarSizeType = action.payload;
     },
@@ -126,7 +127,6 @@ export const {
   changeLayoutModeAction,
   changeSidebarThemeAction,
   changeLayoutPositionAction,
-  changeTopbarThemeAction,
   changeLeftsidebarSizeTypeAction,
   changeLeftsidebarViewTypeAction,
   changePreLoaderAction,

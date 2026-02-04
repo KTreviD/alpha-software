@@ -17,7 +17,6 @@ import {
   changeLayoutThemeColor,
   changeLayoutTheme,
   changeLayoutPosition,
-  changeTopbarTheme,
   changeLeftsidebarSizeType,
   changeLeftsidebarViewType,
   changeSidebarVisibility,
@@ -81,7 +80,6 @@ const Layout = ({ children }: { children: React.ReactNode }) => {
       dispatch(changeLayoutTheme(layoutThemeType));
       dispatch(changeLayoutMode(layoutModeType));
       dispatch(changeLayoutPosition(layoutPositionType));
-      dispatch(changeTopbarTheme(topbarThemeType));
       dispatch(changeLayout(layoutType));
       dispatch(changeSidebarVisibility(sidebarVisibilitytype));
     }
