@@ -16,7 +16,6 @@ import {
   changeLayoutMode,
   changeLayoutThemeColor,
   changeLayoutTheme,
-  changeLayoutWidth,
   changeLayoutPosition,
   changeTopbarTheme,
   changeLeftsidebarSizeType,
@@ -41,7 +40,6 @@ const Layout = ({ children }: { children: React.ReactNode }) => {
     layoutModeType: layout.layoutModeType,
     layoutThemeColorType: layout.layoutThemeColorType,
     layoutThemeType: layout.layoutThemeType,
-    layoutWidthType: layout.layoutWidthType,
     layoutPositionType: layout.layoutPositionType,
     topbarThemeType: layout.topbarThemeType,
     leftsidbarSizeType: layout.leftsidbarSizeType,
@@ -57,7 +55,6 @@ const Layout = ({ children }: { children: React.ReactNode }) => {
     layoutModeType,
     layoutThemeColorType,
     layoutThemeType,
-    layoutWidthType,
     layoutPositionType,
     topbarThemeType,
     leftsidbarSizeType,
@@ -73,7 +70,6 @@ const Layout = ({ children }: { children: React.ReactNode }) => {
       layoutModeType ||
       layoutThemeType ||
       layoutThemeColorType ||
-      layoutWidthType ||
       layoutPositionType ||
       topbarThemeType ||
       leftsidbarSizeType ||
@@ -88,7 +84,6 @@ const Layout = ({ children }: { children: React.ReactNode }) => {
       dispatch(changeLayoutThemeColor(layoutThemeColorType));
       dispatch(changeLayoutTheme(layoutThemeType));
       dispatch(changeLayoutMode(layoutModeType));
-      dispatch(changeLayoutWidth(layoutWidthType));
       dispatch(changeLayoutPosition(layoutPositionType));
       dispatch(changeTopbarTheme(topbarThemeType));
       dispatch(changeLayout(layoutType));
@@ -101,7 +96,6 @@ const Layout = ({ children }: { children: React.ReactNode }) => {
     layoutModeType,
     layoutThemeType,
     layoutThemeColorType,
-    layoutWidthType,
     layoutPositionType,
     topbarThemeType,
     leftsidbarSizeType,

@@ -6,7 +6,6 @@ import {
   LAYOUT_THEME_COLOR,
   LAYOUT_MODE_TYPES,
   LAYOUT_SIDEBAR_TYPES,
-  LAYOUT_WIDTH_TYPES,
   LAYOUT_POSITION_TYPES,
   LAYOUT_TOPBAR_THEME_TYPES,
   LEFT_SIDEBAR_SIZE_TYPES,
@@ -47,7 +46,6 @@ export interface LayoutState {
     | LAYOUT_SIDEBAR_TYPES.GRADIENT_2
     | LAYOUT_SIDEBAR_TYPES.GRADIENT_3
     | LAYOUT_SIDEBAR_TYPES.GRADIENT_4;
-  layoutWidthType: LAYOUT_WIDTH_TYPES.FLUID | LAYOUT_WIDTH_TYPES.BOXED;
   layoutPositionType:
     | LAYOUT_POSITION_TYPES.FIXED
     | LAYOUT_POSITION_TYPES.SCROLLABLE;
@@ -80,7 +78,6 @@ export const initialState: LayoutState = {
   layoutThemeColorType: LAYOUT_THEME_COLOR.DEFAULT,
   layoutModeType: LAYOUT_MODE_TYPES.LIGHTMODE,
   leftSidebarType: LAYOUT_SIDEBAR_TYPES.DARK,
-  layoutWidthType: LAYOUT_WIDTH_TYPES.FLUID,
   layoutPositionType: LAYOUT_POSITION_TYPES.FIXED,
   topbarThemeType: LAYOUT_TOPBAR_THEME_TYPES.LIGHT,
   leftsidbarSizeType: LEFT_SIDEBAR_SIZE_TYPES.DEFAULT,
@@ -108,9 +105,6 @@ const LayoutSlice = createSlice({
     },
     changeSidebarThemeAction(state: any, action: any) {
       state.leftSidebarType = action.payload;
-    },
-    changeLayoutWidthAction(state: any, action: any) {
-      state.layoutWidthType = action.payload;
     },
     changeLayoutPositionAction(state: any, action: any) {
       state.layoutPositionType = action.payload;
@@ -142,7 +136,6 @@ export const {
   changeLayoutThemeColorAction,
   changeLayoutModeAction,
   changeSidebarThemeAction,
-  changeLayoutWidthAction,
   changeLayoutPositionAction,
   changeTopbarThemeAction,
   changeLeftsidebarSizeTypeAction,

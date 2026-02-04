@@ -5,7 +5,6 @@ import {
   changeLayoutThemeColorAction,
   changeLayoutModeAction,
   changeSidebarThemeAction,
-  changeLayoutWidthAction,
   changeLayoutPositionAction,
   changeTopbarThemeAction,
   changeLeftsidebarSizeTypeAction,
@@ -93,24 +92,6 @@ export const changeSidebarTheme = (theme: any) => async (dispatch: any) => {
     // console.log(error);
   }
 };
-
-/**
- * Changes the layout width
- * @param {*} param0
- */
-export const changeLayoutWidth =
-  (layoutWidth: any) => async (dispatch: any) => {
-    try {
-      if (layoutWidth === "lg") {
-        changeHTMLAttribute("data-layout-width", "fluid");
-      } else {
-        changeHTMLAttribute("data-layout-width", "boxed");
-      }
-      dispatch(changeLayoutWidthAction(layoutWidth));
-    } catch (error) {
-      return error;
-    }
-  };
 
 /**
  * Changes the layout position

@@ -14,7 +14,6 @@ import {
   changeLayout,
   changeSidebarTheme,
   changeLayoutMode,
-  changeLayoutWidth,
   changeLayoutPosition,
   changeTopbarTheme,
   changeLeftsidebarSizeType,
@@ -35,7 +34,6 @@ import {
   LAYOUT_TYPES,
   LAYOUT_SIDEBAR_TYPES,
   LAYOUT_MODE_TYPES,
-  LAYOUT_WIDTH_TYPES,
   LAYOUT_POSITION_TYPES,
   LAYOUT_TOPBAR_THEME_TYPES,
   LEFT_SIDEBAR_SIZE_TYPES,
@@ -87,7 +85,6 @@ const RightSidebar = (props: any) => {
     layoutType: layout.layoutType,
     leftSidebarType: layout.leftSidebarType,
     layoutModeType: layout.layoutModeType,
-    layoutWidthType: layout.layoutWidthType,
     layoutPositionType: layout.layoutPositionType,
     topbarThemeType: layout.topbarThemeType,
     leftsidbarSizeType: layout.leftsidbarSizeType,
@@ -103,7 +100,6 @@ const RightSidebar = (props: any) => {
     layoutType,
     leftSidebarType,
     layoutModeType,
-    layoutWidthType,
     layoutPositionType,
     topbarThemeType,
     leftsidbarSizeType,
@@ -691,107 +687,6 @@ const RightSidebar = (props: any) => {
                 )}
                 {layoutType !== LAYOUT_TYPES.TWOCOLUMN && (
                   <React.Fragment>
-                    {(layoutType === LAYOUT_TYPES.VERTICAL ||
-                      layoutType === LAYOUT_TYPES.HORIZONTAL) && (
-                      <div id="layout-width">
-                        <h6 className="mt-4 mb-0 fw-semibold text-uppercase">
-                          Layout Width
-                        </h6>
-                        <p className="text-muted">
-                          Choose Fluid or Boxed layout.
-                        </p>
-
-                        <div className="row">
-                          <div className="col-4">
-                            <div className="form-check card-radio">
-                              <input
-                                className="form-check-input"
-                                type="radio"
-                                name="data-layout-width"
-                                id="layout-width-fluid"
-                                value={LAYOUT_WIDTH_TYPES.FLUID}
-                                checked={
-                                  layoutWidthType === LAYOUT_WIDTH_TYPES.FLUID
-                                }
-                                onChange={e => {
-                                  if (e.target.checked) {
-                                    dispatch(changeLayoutWidth(e.target.value));
-                                    dispatch(changeLeftsidebarSizeType("lg"));
-                                  }
-                                }}
-                              />
-                              <label
-                                className="form-check-label p-0 avatar-md w-100"
-                                htmlFor="layout-width-fluid"
-                              >
-                                <span className="d-flex gap-1 h-100">
-                                  <span className="flex-shrink-0">
-                                    <span className="bg-light d-flex h-100 flex-column gap-1 p-1">
-                                      <span className="d-block p-1 px-2 bg-primary-subtle rounded mb-2"></span>
-                                      <span className="d-block p-1 px-2 pb-0 bg-primary-subtle"></span>
-                                      <span className="d-block p-1 px-2 pb-0 bg-primary-subtle"></span>
-                                      <span className="d-block p-1 px-2 pb-0 bg-primary-subtle"></span>
-                                    </span>
-                                  </span>
-                                  <span className="flex-grow-1">
-                                    <span className="d-flex h-100 flex-column">
-                                      <span className="bg-light d-block p-1"></span>
-                                      <span className="bg-light d-block p-1 mt-auto"></span>
-                                    </span>
-                                  </span>
-                                </span>
-                              </label>
-                            </div>
-                            <h5 className="fs-13 text-center mt-2">Fluid</h5>
-                          </div>
-                          <div className="col-4">
-                            <div className="form-check card-radio">
-                              <input
-                                className="form-check-input"
-                                type="radio"
-                                name="data-layout-width"
-                                id="layout-width-boxed"
-                                value={LAYOUT_WIDTH_TYPES.BOXED}
-                                checked={
-                                  layoutWidthType === LAYOUT_WIDTH_TYPES.BOXED
-                                }
-                                onChange={e => {
-                                  if (e.target.checked) {
-                                    dispatch(changeLayoutWidth(e.target.value));
-                                    dispatch(
-                                      changeLeftsidebarSizeType("sm-hover")
-                                    );
-                                  }
-                                }}
-                              />
-                              <label
-                                className="form-check-label p-0 avatar-md w-100 px-2"
-                                htmlFor="layout-width-boxed"
-                              >
-                                <span className="d-flex gap-1 h-100 border-start border-end">
-                                  <span className="flex-shrink-0">
-                                    <span className="bg-light d-flex h-100 flex-column gap-1 p-1">
-                                      <span className="d-block p-1 px-2 bg-primary-subtle rounded mb-2"></span>
-                                      <span className="d-block p-1 px-2 pb-0 bg-primary-subtle"></span>
-                                      <span className="d-block p-1 px-2 pb-0 bg-primary-subtle"></span>
-                                      <span className="d-block p-1 px-2 pb-0 bg-primary-subtle"></span>
-                                    </span>
-                                  </span>
-                                  <span className="flex-grow-1">
-                                    <span className="d-flex h-100 flex-column">
-                                      <span className="bg-light d-block p-1"></span>
-                                      <span className="bg-light d-block p-1 mt-auto"></span>
-                                    </span>
-                                  </span>
-                                </span>
-                              </label>
-                            </div>
-                            <h5 className="fs-13 text-center mt-2">Boxed</h5>
-                          </div>
-                        </div>
-                      </div>
-                    )}
-
                     <div id="layout-position">
                       <h6 className="mt-4 mb-0 fw-semibold text-uppercase">
                         Layout Position
