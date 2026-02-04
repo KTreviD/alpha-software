@@ -9,7 +9,6 @@ import {
   changeTopbarThemeAction,
   changeLeftsidebarSizeTypeAction,
   changeLeftsidebarViewTypeAction,
-  changeSidebarImageTypeAction,
   changePreLoaderAction,
   changeSidebarVisibilityAction,
 } from "./reducer";
@@ -116,20 +115,6 @@ export const changeTopbarTheme =
     try {
       changeHTMLAttribute("data-topbar", topbarTheme);
       dispatch(changeTopbarThemeAction(topbarTheme));
-    } catch (error) {
-      // console.log(error);
-    }
-  };
-
-/**
- * Changes the topbar themes
- * @param {*} param0
- */
-export const changeSidebarImageType =
-  (leftsidebarImagetype: any) => async (dispatch: any) => {
-    try {
-      changeHTMLAttribute("data-sidebar-image", leftsidebarImagetype);
-      dispatch(changeSidebarImageTypeAction(leftsidebarImagetype));
     } catch (error) {
       // console.log(error);
     }

@@ -62,14 +62,6 @@ enum LEFT_SIDEBAR_VIEW_TYPES {
   DETACHED = "detached",
 }
 
-enum LEFT_SIDEBAR_IMAGE_TYPES {
-  NONE = "none",
-  IMG1 = "img-1",
-  IMG2 = "img-2",
-  IMG3 = "img-3",
-  IMG4 = "img-4",
-}
-
 enum PERLOADER_TYPES {
   ENABLE = "enable",
   DISABLE = "disable",
@@ -90,7 +82,6 @@ export {
   LAYOUT_TOPBAR_THEME_TYPES,
   LEFT_SIDEBAR_SIZE_TYPES,
   LEFT_SIDEBAR_VIEW_TYPES,
-  LEFT_SIDEBAR_IMAGE_TYPES,
   PERLOADER_TYPES,
   SIDEBAR_VISIBILITY_TYPES,
 };

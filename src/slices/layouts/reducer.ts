@@ -10,7 +10,6 @@ import {
   LAYOUT_TOPBAR_THEME_TYPES,
   LEFT_SIDEBAR_SIZE_TYPES,
   LEFT_SIDEBAR_VIEW_TYPES,
-  LEFT_SIDEBAR_IMAGE_TYPES,
   PERLOADER_TYPES,
   SIDEBAR_VISIBILITY_TYPES,
 } from "@/constants/layout";
@@ -60,12 +59,6 @@ export interface LayoutState {
   leftSidebarViewType:
     | LEFT_SIDEBAR_VIEW_TYPES.DEFAULT
     | LEFT_SIDEBAR_VIEW_TYPES.DETACHED;
-  leftSidebarImageType:
-    | LEFT_SIDEBAR_IMAGE_TYPES.NONE
-    | LEFT_SIDEBAR_IMAGE_TYPES.IMG1
-    | LEFT_SIDEBAR_IMAGE_TYPES.IMG2
-    | LEFT_SIDEBAR_IMAGE_TYPES.IMG3
-    | LEFT_SIDEBAR_IMAGE_TYPES.IMG4;
   preloader: PERLOADER_TYPES.ENABLE | PERLOADER_TYPES.DISABLE;
   sidebarVisibilitytype:
     | SIDEBAR_VISIBILITY_TYPES.SHOW
@@ -82,7 +75,6 @@ export const initialState: LayoutState = {
   topbarThemeType: LAYOUT_TOPBAR_THEME_TYPES.LIGHT,
   leftsidbarSizeType: LEFT_SIDEBAR_SIZE_TYPES.DEFAULT,
   leftSidebarViewType: LEFT_SIDEBAR_VIEW_TYPES.DEFAULT,
-  leftSidebarImageType: LEFT_SIDEBAR_IMAGE_TYPES.NONE,
   preloader: PERLOADER_TYPES.DISABLE,
   sidebarVisibilitytype: SIDEBAR_VISIBILITY_TYPES.SHOW,
 };
@@ -118,9 +110,6 @@ const LayoutSlice = createSlice({
     changeLeftsidebarViewTypeAction(state: any, action: any) {
       state.leftSidebarViewType = action.payload;
     },
-    changeSidebarImageTypeAction(state: any, action: any) {
-      state.leftSidebarImageType = action.payload;
-    },
     changePreLoaderAction(state: any, action: any) {
       state.preloader = action.payload;
     },
@@ -140,7 +129,6 @@ export const {
   changeTopbarThemeAction,
   changeLeftsidebarSizeTypeAction,
   changeLeftsidebarViewTypeAction,
-  changeSidebarImageTypeAction,
   changePreLoaderAction,
   changeSidebarVisibilityAction,
 } = LayoutSlice.actions;

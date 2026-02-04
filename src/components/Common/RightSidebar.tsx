@@ -18,7 +18,6 @@ import {
   changeTopbarTheme,
   changeLeftsidebarSizeType,
   changeLeftsidebarViewType,
-  changeSidebarImageType,
   changePreLoader,
   changeSidebarVisibility,
   changeLayoutTheme,
@@ -38,7 +37,6 @@ import {
   LAYOUT_TOPBAR_THEME_TYPES,
   LEFT_SIDEBAR_SIZE_TYPES,
   LEFT_SIDEBAR_VIEW_TYPES,
-  LEFT_SIDEBAR_IMAGE_TYPES,
   PERLOADER_TYPES,
   SIDEBAR_VISIBILITY_TYPES,
   LAYOUT_THEME_COLOR,
@@ -1368,173 +1366,6 @@ const RightSidebar = (props: any) => {
                           </div>
                         </div>
                       </Collapse>
-                    </div>
-                    <div id="sidebar-img">
-                      <h6 className="mt-4 mb-0 fw-semibold text-uppercase">
-                        Sidebar Images
-                      </h6>
-                      <p className="text-muted">Choose a image of Sidebar.</p>
-
-                      <div className="d-flex gap-2 flex-wrap img-switch">
-                        <div className="form-check sidebar-setting card-radio">
-                          <input
-                            className="form-check-input"
-                            type="radio"
-                            name="data-sidebar-image"
-                            id="sidebarimg-none"
-                            value={LEFT_SIDEBAR_IMAGE_TYPES.NONE}
-                            checked={
-                              leftSidebarImageType ===
-                              LEFT_SIDEBAR_IMAGE_TYPES.NONE
-                            }
-                            onChange={e => {
-                              if (e.target.checked) {
-                                dispatch(
-                                  changeSidebarImageType(e.target.value)
-                                );
-                              }
-                            }}
-                          />
-                          <label
-                            className="form-check-label p-0 avatar-sm h-auto"
-                            htmlFor="sidebarimg-none"
-                          >
-                            <span className="avatar-md w-auto bg-light d-flex align-items-center justify-content-center">
-                              <i className="ri-close-fill fs-20"></i>
-                            </span>
-                          </label>
-                        </div>
-
-                        <div className="form-check sidebar-setting card-radio">
-                          <input
-                            className="form-check-input"
-                            type="radio"
-                            name="data-sidebar-image"
-                            id="sidebarimg-01"
-                            value={LEFT_SIDEBAR_IMAGE_TYPES.IMG1}
-                            checked={
-                              leftSidebarImageType ===
-                              LEFT_SIDEBAR_IMAGE_TYPES.IMG1
-                            }
-                            onChange={e => {
-                              if (e.target.checked) {
-                                dispatch(
-                                  changeSidebarImageType(e.target.value)
-                                );
-                              }
-                            }}
-                          />
-                          <label
-                            className="form-check-label p-0 avatar-sm h-auto"
-                            htmlFor="sidebarimg-01"
-                          >
-                            <Image
-                              src={img01}
-                              alt=""
-                              className="avatar-md w-auto object-fit-cover"
-                              width={60} // or whatever is appropriate
-                              height={60}
-                            />
-                          </label>
-                        </div>
-
-                        <div className="form-check sidebar-setting card-radio">
-                          <input
-                            className="form-check-input"
-                            type="radio"
-                            name="data-sidebar-image"
-                            id="sidebarimg-02"
-                            value={LEFT_SIDEBAR_IMAGE_TYPES.IMG2}
-                            checked={
-                              leftSidebarImageType ===
-                              LEFT_SIDEBAR_IMAGE_TYPES.IMG2
-                            }
-                            onChange={e => {
-                              if (e.target.checked) {
-                                dispatch(
-                                  changeSidebarImageType(e.target.value)
-                                );
-                              }
-                            }}
-                          />
-                          <label
-                            className="form-check-label p-0 avatar-sm h-auto"
-                            htmlFor="sidebarimg-02"
-                          >
-                            <Image
-                              src={img02}
-                              alt=""
-                              className="avatar-md w-auto object-fit-cover"
-                              width={60} // or whatever is appropriate
-                              height={60}
-                            />
-                          </label>
-                        </div>
-                        <div className="form-check sidebar-setting card-radio">
-                          <input
-                            className="form-check-input"
-                            type="radio"
-                            name="data-sidebar-image"
-                            id="sidebarimg-03"
-                            value={LEFT_SIDEBAR_IMAGE_TYPES.IMG3}
-                            checked={
-                              leftSidebarImageType ===
-                              LEFT_SIDEBAR_IMAGE_TYPES.IMG3
-                            }
-                            onChange={e => {
-                              if (e.target.checked) {
-                                dispatch(
-                                  changeSidebarImageType(e.target.value)
-                                );
-                              }
-                            }}
-                          />
-                          <label
-                            className="form-check-label p-0 avatar-sm h-auto"
-                            htmlFor="sidebarimg-03"
-                          >
-                            <Image
-                              src={img03}
-                              alt=""
-                              className="avatar-md w-auto object-fit-cover"
-                              width={60} // or whatever is appropriate
-                              height={60}
-                            />
-                          </label>
-                        </div>
-                        <div className="form-check sidebar-setting card-radio">
-                          <input
-                            className="form-check-input"
-                            type="radio"
-                            name="data-sidebar-image"
-                            id="sidebarimg-04"
-                            value={LEFT_SIDEBAR_IMAGE_TYPES.IMG4}
-                            checked={
-                              leftSidebarImageType ===
-                              LEFT_SIDEBAR_IMAGE_TYPES.IMG4
-                            }
-                            onChange={e => {
-                              if (e.target.checked) {
-                                dispatch(
-                                  changeSidebarImageType(e.target.value)
-                                );
-                              }
-                            }}
-                          />
-                          <label
-                            className="form-check-label p-0 avatar-sm h-auto"
-                            htmlFor="sidebarimg-04"
-                          >
-                            <Image
-                              src={img04}
-                              alt=""
-                              className="avatar-md w-auto object-fit-cover"
-                              width={60} // or whatever is appropriate
-                              height={60}
-                            />
-                          </label>
-                        </div>
-                      </div>
                     </div>
                   </React.Fragment>
                 )}

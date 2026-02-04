@@ -20,7 +20,6 @@ import {
   changeTopbarTheme,
   changeLeftsidebarSizeType,
   changeLeftsidebarViewType,
-  changeSidebarImageType,
   changeSidebarVisibility,
 } from "@slices/thunks";
 
@@ -44,7 +43,6 @@ const Layout = ({ children }: { children: React.ReactNode }) => {
     topbarThemeType: layout.topbarThemeType,
     leftsidbarSizeType: layout.leftsidbarSizeType,
     leftSidebarViewType: layout.leftSidebarViewType,
-    leftSidebarImageType: layout.leftSidebarImageType,
     preloader: layout.preloader,
     sidebarVisibilitytype: layout.sidebarVisibilitytype,
   }));
@@ -59,7 +57,6 @@ const Layout = ({ children }: { children: React.ReactNode }) => {
     topbarThemeType,
     leftsidbarSizeType,
     leftSidebarViewType,
-    leftSidebarImageType,
     sidebarVisibilitytype,
   } = useSelector(selectLayoutProperties);
 
@@ -74,7 +71,6 @@ const Layout = ({ children }: { children: React.ReactNode }) => {
       topbarThemeType ||
       leftsidbarSizeType ||
       leftSidebarViewType ||
-      leftSidebarImageType ||
       sidebarVisibilitytype
     ) {
       window.dispatchEvent(new Event("resize"));
@@ -87,7 +83,6 @@ const Layout = ({ children }: { children: React.ReactNode }) => {
       dispatch(changeLayoutPosition(layoutPositionType));
       dispatch(changeTopbarTheme(topbarThemeType));
       dispatch(changeLayout(layoutType));
-      dispatch(changeSidebarImageType(leftSidebarImageType));
       dispatch(changeSidebarVisibility(sidebarVisibilitytype));
     }
   }, [
@@ -100,7 +95,6 @@ const Layout = ({ children }: { children: React.ReactNode }) => {
     topbarThemeType,
     leftsidbarSizeType,
     leftSidebarViewType,
-    leftSidebarImageType,
     sidebarVisibilitytype,
     dispatch,
   ]);
