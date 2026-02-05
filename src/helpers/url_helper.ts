@@ -139,7 +139,6 @@ export const GET_CURRENTYEARSESSION_DATA = "/currentYearSession-data";
 // Dashboard CRM
 
 // Balance Overview
-export const GET_TODAYBALANCE_DATA = "/todayBalance-data";
 export const GET_LASTWEEKBALANCE_DATA = "/lastWeekBalance-data";
 export const GET_LASTMONTHBALANCE_DATA = "/lastMonthBalance-data";
 export const GET_CURRENTYEARBALANCE_DATA = "/currentYearBalance-data";

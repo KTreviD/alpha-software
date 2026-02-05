@@ -328,7 +328,6 @@ export const getCurrentYearSessionData = () =>
 // Dashboard CRM
 
 // Balance Overview
-export const getTodayBalanceData = () => api.get(url.GET_TODAYBALANCE_DATA);
 export const getLastWeekBalanceData = () =>
   api.get(url.GET_LASTWEEKBALANCE_DATA);
 export const getLastMonthBalanceData = () =>
