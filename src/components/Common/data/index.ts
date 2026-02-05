@@ -149,8 +149,6 @@ import {
 
 import { jobApplication, jobCandidates, jobCategories } from "./appsJobs";
 
-import country from "./country";
-
 import { listData, gridData } from "./pageblog";
 
 import { headData, tasklist, AddTeamMember } from "./kanban";
@@ -361,7 +359,6 @@ export {
   todoCollapse,
   jobApplication,
   apiKey,
-  country,
   jobCandidates,
   jobCategories,
   blogwidget,
