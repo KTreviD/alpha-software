@@ -605,7 +605,8 @@ const Navdata = () => {
           label: "Privacy Policy",
           link: "/pages/privacy-policy",
           parentId: "pages",
-          // badgeColor: "success", badgeName: "New",
+          badgeColor: "success",
+          badgeName: "New",
         },
         {
           id: "TermsCondition",
@@ -613,40 +614,6 @@ const Navdata = () => {
           link: "/pages/terms-condition",
           parentId: "pages",
           // badgeColor: "success", badgeName: "New",
-        },
-        {
-          id: "blogs",
-          label: "Blogs",
-          link: "/#",
-          isChildItem: true,
-          badgeColor: "success",
-          badgeName: "New",
-          click: function (e: any) {
-            e.preventDefault();
-            setIsBlog(!isBlog);
-          },
-          parentId: "pages",
-          stateVariables: isBlog,
-          childItems: [
-            {
-              id: 1,
-              label: "List View",
-              link: "/pages/blog-list",
-              parentId: "pages",
-            },
-            {
-              id: 2,
-              label: "Grid View",
-              link: "/pages/blog-grid",
-              parentId: "pages",
-            },
-            {
-              id: 3,
-              label: "Overview",
-              link: "/pages/blog-overview",
-              parentId: "pages",
-            },
-          ],
         },
       ],
     },

@@ -16,40 +16,7 @@ import {
   lastMonthaudiencesCountryData,
   currentyearaudiencesCountryData,
 } from "./analytics";
-import {
-  crmWidgets,
-  dealsStatus,
-  tasks,
-  activities,
-  closingDeals,
-  todayBalanceData,
-  lastWeekBalanceData,
-  lastMonthBalanceData,
-  currentYearBalanceData,
-  todayDealData,
-  weeklyDealData,
-  monthlyDealData,
-  yealyDealData,
-  octData,
-  novData,
-  decData,
-  janData,
-  octSalesForecastData,
-  novSalesForecastData,
-  decSalesForecastData,
-  janSalesForecastData,
-} from "./dashboardcrm";
-import {
-  ecomWidgets,
-  bestSellingProducts,
-  topSellers,
-  recentOrders,
-  topCategories,
-  allRevenueData,
-  monthRevenueData,
-  halfYearRevenueData,
-  yearRevenueData,
-} from "./dashboardEcommerce";
+
 import {
   cyptoWidgets,
   currencies,
@@ -66,41 +33,9 @@ import {
   MarketGraphWeek,
   MarketGraphHour,
 } from "./crypto";
-import {
-  blogwidget,
-  socialShares,
-  comments,
-  recentTable,
-} from "./dashboardblog";
+
 import { apiKey } from "./apiKey";
-import {
-  projectsWidgets,
-  activeProjects,
-  projectTasks,
-  teamMembers,
-  overviewCounter,
-  allProjectData,
-  monthProjectData,
-  halfyearProjectData,
-  yearProjectData,
-  allTimeData,
-  lastWeekData,
-  lastMonthData,
-  lastquarterData,
-  dashboardChat,
-} from "./dashboardProjects";
-import {
-  topartWork,
-  featuredNFTData,
-  popularityData,
-  recentNFTsData,
-  topCollectionData,
-  popularCreatorsData,
-  allMarketplaceData,
-  monthMarketplaceData,
-  halfyearMarketplaceData,
-  yearMarketplaceData,
-} from "./dashboardNFT";
+
 import {
   tileBoxs1,
   tileBoxs2,
@@ -149,8 +84,6 @@ import {
 
 import { jobApplication, jobCandidates, jobCategories } from "./appsJobs";
 
-import { listData, gridData } from "./pageblog";
-
 import { headData, tasklist, AddTeamMember } from "./kanban";
 
 //Ecommerce
@@ -170,22 +103,6 @@ import {
 
 import { crmcontacts, companies, leads, deals } from "./crm";
 
-import {
-  expolreNow,
-  aution,
-  NFTRanking,
-  creatorsData,
-  creatorsListData,
-  walletConnectData,
-  topDrop,
-  topCreator,
-  topCollection,
-  tradingArtworkData,
-  nftArtworkData,
-  popularCreatorsNFT,
-  marketPlacewidget,
-} from "./NFTMarketplace";
-
 import { recentFile, folderList } from "./fileManager";
 
 import { todoTaskList, todoCollapse } from "./todoData";
@@ -195,17 +112,7 @@ import { applicationsStatisticData } from "./dashboardJobs";
 export {
   applicationsStatisticData,
   topPages,
-  crmWidgets,
   cryptoSlider,
-  dealsStatus,
-  tasks,
-  activities,
-  closingDeals,
-  ecomWidgets,
-  bestSellingProducts,
-  topSellers,
-  recentOrders,
-  topCategories,
   cyptoWidgets,
   currencies,
   topPerformers,
@@ -214,11 +121,6 @@ export {
   tasklist,
   AddTeamMember,
   newsFeed,
-  projectsWidgets,
-  activeProjects,
-  projectTasks,
-  teamMembers,
-  overviewCounter,
   tileBoxs1,
   tileBoxs2,
   tileBoxs3,
@@ -266,25 +168,6 @@ export {
   ticketsWidgets,
   ticketsTable,
   otherWidgets2,
-  expolreNow,
-  aution,
-  NFTRanking,
-  creatorsData,
-  creatorsListData,
-  walletConnectData,
-  topDrop,
-  topCreator,
-  topCollection,
-  topartWork,
-  featuredNFTData,
-  popularityData,
-  recentNFTsData,
-  topCollectionData,
-  popularCreatorsData,
-  tradingArtworkData,
-  nftArtworkData,
-  popularCreatorsNFT,
-  marketPlacewidget,
   allData,
   monthData,
   halfyearData,
@@ -296,26 +179,6 @@ export {
   lastWeekDeviceData,
   lastMonthDeviceData,
   currentYearDeviceData,
-  todayBalanceData,
-  lastWeekBalanceData,
-  lastMonthBalanceData,
-  currentYearBalanceData,
-  todayDealData,
-  weeklyDealData,
-  monthlyDealData,
-  yealyDealData,
-  octData,
-  novData,
-  decData,
-  janData,
-  octSalesForecastData,
-  novSalesForecastData,
-  decSalesForecastData,
-  janSalesForecastData,
-  allRevenueData,
-  monthRevenueData,
-  halfYearRevenueData,
-  yearRevenueData,
   btcPortfolioData,
   usdPortfolioData,
   euroPortfolioData,
@@ -324,23 +187,10 @@ export {
   MarketGraphMonth,
   MarketGraphWeek,
   MarketGraphHour,
-  allProjectData,
-  monthProjectData,
-  halfyearProjectData,
-  yearProjectData,
-  allTimeData,
-  lastWeekData,
-  lastMonthData,
-  lastquarterData,
-  allMarketplaceData,
-  monthMarketplaceData,
-  halfyearMarketplaceData,
-  yearMarketplaceData,
   todayaudiencesCountryData,
   lastWeekaudiencesCountryData,
   lastMonthaudiencesCountryData,
   currentyearaudiencesCountryData,
-  dashboardChat,
   gallery,
   pricing1,
   pricing2,
@@ -361,10 +211,4 @@ export {
   apiKey,
   jobCandidates,
   jobCategories,
-  blogwidget,
-  socialShares,
-  comments,
-  recentTable,
-  listData,
-  gridData,
 };
