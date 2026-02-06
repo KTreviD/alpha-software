@@ -125,12 +125,12 @@ const LandingPage = () => {
 
             <div className="">
               <Link
-                href="/authinner/signin/basic"
+                href="/auth/login"
                 className="btn btn-link fw-medium text-decoration-none text-body"
               >
                 Sign in
               </Link>
-              <Link href="/authinner/signup/basic" className="btn btn-primary">
+              <Link href="/auth/register" className="btn btn-primary">
                 Sign Up
               </Link>
             </div>
