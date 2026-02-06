@@ -25,5 +25,5 @@ export default function Logout() {
     logout();
   }, [dispatch, logoutUserPost, router]);
 
-  return null;
+  return <></>;
 }
