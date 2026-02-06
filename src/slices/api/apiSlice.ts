@@ -32,8 +32,7 @@ const baseQueryWithReAuth = async (
   api: BaseQueryApi,
   extraOptions: object
 ) => {
-  console.log({ args, api, extraOptions });
-  const result = await baseQuery(args, api, extraOptions);
+  let result = await baseQuery(args, api, extraOptions);
 
   //Manejar 403 para token y 401 para paginas que no tienes permiso como un cliente que ponga un branches/:id
   //Que no entre en sus permitted_branches
