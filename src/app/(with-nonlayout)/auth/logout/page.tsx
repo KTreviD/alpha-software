@@ -25,5 +25,17 @@ export default function Logout() {
     logout();
   }, [dispatch, logoutUserPost, router]);
 
-  return <></>;
+  return (
+    <div
+      id="status"
+      className="d-flex align-items-center justify-content-center"
+    >
+      <div
+        className="spinner-border text-primary avatar-xxs m-auto"
+        role="status"
+      >
+        <span className="visually-hidden">Loading...</span>
+      </div>
+    </div>
+  );
 }
