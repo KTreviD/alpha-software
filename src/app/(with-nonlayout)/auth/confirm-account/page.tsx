@@ -38,9 +38,9 @@ export default function ConfirmAccount() {
   const [resendVerificationEmail, { isLoading: isLoadingResendVE }] =
     usePostResendVerificationEmailMutation();
   const [responseResend, setResponseResend] = useState<any>();
-  console.log({ responseResend });
+
   const user2 = useAppSelector(state => state);
-  console.log({ user2 });
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
@@ -195,7 +195,7 @@ export default function ConfirmAccount() {
                       href="/auth/register"
                       className="fw-semibold text-primary text-decoration-underline"
                     >
-                      support@alphasoftware.com
+                      support@alpha-so.com
                     </Link>
                   </p>
                 </div>
