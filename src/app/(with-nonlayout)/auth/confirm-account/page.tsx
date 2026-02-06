@@ -57,8 +57,6 @@ export default function ConfirmAccount() {
     try {
       const { user } = await verifyEmail({ code }).unwrap(); // Envías el código como payload
       if (user) {
-        alert("si entre");
-        console.log({ user });
         dispatch(loginUser(user)); // Guardas el usuario en Redux
       }
       router.push(`/apps-job-companies-lists`);
