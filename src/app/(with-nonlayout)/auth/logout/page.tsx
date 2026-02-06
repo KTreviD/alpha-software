@@ -28,6 +28,7 @@ export default function Logout() {
   return (
     <div
       id="status"
+      style={{ width: "10%" }}
       className="d-flex align-items-center justify-content-center"
     >
       <div
