@@ -34,23 +34,26 @@ const baseQueryWithReAuth = async (
 ) => {
   let result = await baseQuery(args, api, extraOptions);
 
-  //Manejar 403 para token y 401 para paginas que no tienes permiso como un cliente que ponga un branches/:id
-  //Que no entre en sus permitted_branches
+  //403 es permisos 401 es no autenticado
 
-  if (result?.error?.status === 403) {
-    // api.dispatch(logoutUser());
-    // // send refresh token to get new access token
-    // const refreshResult = await baseQuery('/auth/refresh', api, extraOptions);
-    // const { token } = refreshResult?.data as ExtraOptionsWithToken;
-    // console.log({ refreshResult, token });
-    // if (token) {
-    //   console.log('Hay token');
-    //   api.dispatch(refreshToken({ token }));
-    //   result = await baseQuery(args, api, extraOptions);
-    // } else {
-    //   console.log('No hubo token');
-    // }
+  if (result?.error?.status === 401) {
+    // Intentar refresh (usa refreshToken en cookie)
+    const refreshResult = await baseQuery(
+      { url: "/auth/refresh", method: "GET" },
+      api,
+      extraOptions
+    );
+
+    if (!refreshResult.error) {
+      // Backend ya seteo nuevas cookies
+      // Reintenta la request original
+      result = await baseQuery(args, api, extraOptions);
+    } else {
+      // Refresh falló → sesión muerta
+      window.location.href = "/auth/logout";
+    }
   }
+
   if (
     api.type === "mutation" &&
     !args.url.includes("login") &&
