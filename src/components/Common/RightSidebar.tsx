@@ -13,11 +13,9 @@ import Image from "next/image";
 import {
   changeLayout,
   changeSidebarTheme,
-  changeLayoutMode,
   changeLayoutPosition,
   changeLeftsidebarSizeType,
   changeLeftsidebarViewType,
-  changePreLoader,
   changeSidebarVisibility,
   changeLayoutTheme,
   changeLayoutThemeColor,
@@ -31,9 +29,7 @@ import {
   LAYOUT_THEME,
   LAYOUT_TYPES,
   LAYOUT_SIDEBAR_TYPES,
-  LAYOUT_MODE_TYPES,
   LAYOUT_POSITION_TYPES,
-  LAYOUT_TOPBAR_THEME_TYPES,
   LEFT_SIDEBAR_SIZE_TYPES,
   LEFT_SIDEBAR_VIEW_TYPES,
   PERLOADER_TYPES,
@@ -1278,109 +1274,6 @@ const RightSidebar = (props: any) => {
                         className="form-check-label avatar-xs p-0"
                         htmlFor="themeColor-04"
                       ></label>
-                    </div>
-                  </div>
-                </div>
-                <div id="preloader-menu">
-                  <h6 className="mt-4 mb-0 fw-semibold text-uppercase">
-                    Preloader
-                  </h6>
-                  <p className="text-muted">Choose a preloader.</p>
-
-                  <div className="row">
-                    <div className="col-4">
-                      <div className="form-check sidebar-setting card-radio">
-                        <input
-                          className="form-check-input"
-                          type="radio"
-                          name="data-preloader"
-                          id="preloader-view-custom"
-                          value={PERLOADER_TYPES.ENABLE}
-                          checked={preloader === PERLOADER_TYPES.ENABLE}
-                          onChange={e => {
-                            if (e.target.checked) {
-                              dispatch(changePreLoader(e.target.value));
-                            }
-                          }}
-                        />
-
-                        <label
-                          className="form-check-label p-0 avatar-md w-100"
-                          htmlFor="preloader-view-custom"
-                        >
-                          <span className="d-flex gap-1 h-100">
-                            <span className="flex-shrink-0">
-                              <span className="bg-light d-flex h-100 flex-column gap-1 p-1">
-                                <span className="d-block p-1 px-2 bg-primary-subtle rounded mb-2"></span>
-                                <span className="d-block p-1 px-2 pb-0 bg-primary-subtle"></span>
-                                <span className="d-block p-1 px-2 pb-0 bg-primary-subtle"></span>
-                                <span className="d-block p-1 px-2 pb-0 bg-primary-subtle"></span>
-                              </span>
-                            </span>
-                            <span className="flex-grow-1">
-                              <span className="d-flex h-100 flex-column">
-                                <span className="bg-light d-block p-1"></span>
-                                <span className="bg-light d-block p-1 mt-auto"></span>
-                              </span>
-                            </span>
-                          </span>
-                          {/* <!-- <div id="preloader"> --> */}
-                          <div
-                            id="status"
-                            className="d-flex align-items-center justify-content-center"
-                          >
-                            <div
-                              className="spinner-border text-primary avatar-xxs m-auto"
-                              role="status"
-                            >
-                              <span className="visually-hidden">
-                                Loading...
-                              </span>
-                            </div>
-                          </div>
-                          {/* <!-- </div> --> */}
-                        </label>
-                      </div>
-                      <h5 className="fs-13 text-center mt-2">Enable</h5>
-                    </div>
-                    <div className="col-4">
-                      <div className="form-check sidebar-setting card-radio">
-                        <input
-                          className="form-check-input"
-                          type="radio"
-                          name="data-preloader"
-                          id="preloader-view-none"
-                          value={PERLOADER_TYPES.DISABLE}
-                          checked={preloader === PERLOADER_TYPES.DISABLE}
-                          onChange={e => {
-                            if (e.target.checked) {
-                              dispatch(changePreLoader(e.target.value));
-                            }
-                          }}
-                        />
-                        <label
-                          className="form-check-label p-0 avatar-md w-100"
-                          htmlFor="preloader-view-none"
-                        >
-                          <span className="d-flex gap-1 h-100">
-                            <span className="flex-shrink-0">
-                              <span className="bg-light d-flex h-100 flex-column gap-1 p-1">
-                                <span className="d-block p-1 px-2 bg-primary-subtle rounded mb-2"></span>
-                                <span className="d-block p-1 px-2 pb-0 bg-primary-subtle"></span>
-                                <span className="d-block p-1 px-2 pb-0 bg-primary-subtle"></span>
-                                <span className="d-block p-1 px-2 pb-0 bg-primary-subtle"></span>
-                              </span>
-                            </span>
-                            <span className="flex-grow-1">
-                              <span className="d-flex h-100 flex-column">
-                                <span className="bg-light d-block p-1"></span>
-                                <span className="bg-light d-block p-1 mt-auto"></span>
-                              </span>
-                            </span>
-                          </span>
-                        </label>
-                      </div>
-                      <h5 className="fs-13 text-center mt-2">Disable</h5>
                     </div>
                   </div>
                 </div>

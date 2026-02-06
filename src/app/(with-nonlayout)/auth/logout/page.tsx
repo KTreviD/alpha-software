@@ -28,13 +28,9 @@ export default function Logout() {
   return (
     <div
       id="status"
-      style={{ width: "10%" }}
       className="d-flex align-items-center justify-content-center"
     >
-      <div
-        className="spinner-border text-primary avatar-xxs m-auto"
-        role="status"
-      >
+      <div className="spinner-border text-primary m-auto" role="status">
         <span className="visually-hidden">Loading...</span>
       </div>
     </div>
