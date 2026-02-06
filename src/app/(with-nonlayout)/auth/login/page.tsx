@@ -34,7 +34,7 @@ const Login = () => {
   const dispatch: any = useDispatch();
   const router = useRouter();
 
-  const [loginUser, { isLoading, error, data }] = usePostLoginMutation();
+  const [loginUserPost, { isLoading, error, data }] = usePostLoginMutation();
 
   const [userLogin, setUserLogin] = useState<any>([]);
   const [passwordShow, setPasswordShow] = useState<boolean>(false);
@@ -50,7 +50,7 @@ const Login = () => {
       password: Yup.string().required("Please Enter Your Password"),
     }),
     onSubmit: async values => {
-      const { user } = await loginUser({
+      const { user } = await loginUserPost({
         email: values.email,
         password: values.password,
       }).unwrap(); // Envías el código como payload
