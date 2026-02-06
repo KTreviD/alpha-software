@@ -26,8 +26,15 @@ export default function Logout() {
   }, [dispatch, logoutUserPost, router]);
 
   return (
-    <div className="flex items-center justify-center h-screen bg-gray-50">
-      <div className="spinner-border text-primary" role="status">
+    <div
+      id="status"
+      className="d-flex align-items-center justify-content-center"
+    >
+      <div
+        className="spinner-border text-primary m-auto"
+        style={{ background: "red", width: "20vw" }}
+        role="status"
+      >
         <span className="visually-hidden">Loading...</span>
       </div>
     </div>
