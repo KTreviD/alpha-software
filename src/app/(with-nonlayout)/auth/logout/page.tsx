@@ -1,33 +1,29 @@
 "use client";
-
-import React, { useEffect } from "react";
+import { useEffect } from "react";
+import { useDispatch } from "react-redux";
 import { useRouter } from "next/navigation";
-import { useSelector, useDispatch } from "react-redux";
-import { logoutUser } from "../../../../slices/thunks";
-import { createSelector } from "reselect";
+import { logoutUser } from "src/slices/user";
+import { usePostLogoutMutation } from "src/slices/api/apiSlice";
 
-const Logout = () => {
-  const dispatch: any = useDispatch();
+export default function Logout() {
+  const dispatch = useDispatch();
   const router = useRouter();
-
-  const logoutData = createSelector(
-    (state: any) => state.Login,
-    loginState => loginState.isUserLogout
-  );
-
-  const isUserLogout = useSelector(logoutData);
+  const [logoutUserPost] = usePostLogoutMutation();
 
   useEffect(() => {
-    dispatch(logoutUser());
-  }, [dispatch]);
+    const logout = async () => {
+      try {
+        await logoutUserPost();
+        dispatch(logoutUser());
+      } catch (err) {
+        console.error(err);
+      } finally {
+        router.push("/auth/login");
+      }
+    };
 
-  useEffect(() => {
-    if (isUserLogout) {
-      router.push("/login");
-    }
-  }, [isUserLogout, router]);
+    logout();
+  }, [dispatch, logoutUserPost, router]);
 
-  return <></>;
-};
-
-export default Logout;
+  return null;
+}

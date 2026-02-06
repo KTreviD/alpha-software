@@ -1,8 +1,5 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import Link from "next/link";
-import { useDispatch } from "react-redux";
-import { useRouter } from "next/navigation";
-import { logoutUser } from "src/slices/user";
 import type { AppDispatch } from "@slices/store";
 import {
   UncontrolledDropdown,
@@ -13,7 +10,6 @@ import {
 import { createSelector } from "reselect";
 import { useSelector } from "react-redux";
 import Image from "next/image";
-import { usePostLogoutMutation } from "src/slices/api/apiSlice";
 
 //import images
 const avatar1 = "/images/users/avatar-1.jpg";
@@ -27,37 +23,7 @@ const ProfileDropdown = () => {
   const user = useSelector(profiledropdownData);
 
   const [userName, setUserName] = useState("Admin");
-  const [logoutUserPost] = usePostLogoutMutation();
 
-  useEffect(() => {
-    const accessToken: any = sessionStorage.getItem("aaccessTokenr");
-    if (accessToken) {
-      const obj: any = JSON.parse(accessToken);
-      setUserName(
-        process.env.NEXT_PUBLIC_DEFAULTAUTH === "fake"
-          ? obj.username === undefined
-            ? user.first_name || obj.data.first_name || "Admin" // Use || to provide a fallback
-            : "Admin"
-          : process.env.NEXT_PUBLIC_DEFAULTAUTH === "firebase"
-            ? obj.email || "Admin" // Use || to provide a fallback
-            : "Admin"
-      );
-    }
-  }, [userName, user]);
-
-  const dispatch = useDispatch<AppDispatch>();
-  const router = useRouter();
-  const handleLogout = async () => {
-    try {
-      console.log("HEYYY fuera");
-      await logoutUserPost();
-      dispatch(logoutUser());
-      // sessionStorage.removeItem("accessToken");
-      router.push("/auth/login");
-    } catch (err) {
-      console.error("Logout failed", err);
-    }
-  };
   return (
     <React.Fragment>
       <UncontrolledDropdown
@@ -136,16 +102,15 @@ const ProfileDropdown = () => {
             </Link>
           </DropdownItem>
           <DropdownItem tag="div" className="p-0">
-            <button
-              type="button"
-              onClick={handleLogout}
-              className="dropdown-item"
+            <Link
+              href="/auth/logout"
+              className="dropdown-item d-flex align-items-center"
             >
-              <i className="mdi mdi-logout text-muted fs-16 align-middle me-1" />{" "}
+              <i className="mdi mdi-logout text-muted fs-16 align-middle me-1" />
               <span className="align-middle" data-key="t-logout">
                 Logout
               </span>
-            </button>
+            </Link>
           </DropdownItem>
         </DropdownMenu>
       </UncontrolledDropdown>
