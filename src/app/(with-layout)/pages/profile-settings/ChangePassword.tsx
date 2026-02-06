@@ -118,9 +118,12 @@ const ChangePassword = ({ currentSessionId }: ChangePasswordI) => {
               {`${session.city}, ${session.country} (${session.ip === "127.0.0.1" ? "Localhost Alert" : session.ip}) - ${formatSessionDate(session.createdAt)}`}
             </p>
           </div>
-          <div>
-            <Link href="#">Logout</Link>
-          </div>
+          {/*TODO agregar sistema para deslogear gente de momento que no esta pues solo logout a ti mismo*/}
+          {session.id === currentSessionId && (
+            <div>
+              <Link href="/auth/logout">Logout</Link>
+            </div>
+          )}
         </div>
       ))}
     </React.Fragment>
