@@ -27,7 +27,7 @@ const logoAlpha = "/images/icon-alpha-software.png";
 import { createSelector } from "reselect";
 import Image from "next/image";
 import { useAppDispatch, useAppSelector } from "src/hooks/useRedux";
-import { setUser } from "src/slices/user";
+import { loginUser } from "src/slices/user";
 import { usePostLoginMutation } from "src/slices/api/apiSlice";
 
 const Login = () => {
@@ -56,7 +56,7 @@ const Login = () => {
       }).unwrap(); // Envías el código como payload
       console.log({ user });
       if (user) {
-        dispatch(setUser(user)); // Guardas el usuario en Redux
+        dispatch(loginUser(user)); // Guardas el usuario en Redux
       }
       router.push(`/apps-job-companies-lists`);
     },

@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import Link from "next/link";
 import { useDispatch } from "react-redux";
 import { useRouter } from "next/navigation";
-import { clearUser } from "src/slices/user";
+import { logoutUser } from "src/slices/user";
 import type { AppDispatch } from "@slices/store";
 import {
   UncontrolledDropdown,
@@ -27,12 +27,12 @@ const ProfileDropdown = () => {
   const user = useSelector(profiledropdownData);
 
   const [userName, setUserName] = useState("Admin");
-  const [logoutUser] = usePostLogoutMutation();
+  const [logoutUserPost] = usePostLogoutMutation();
 
   useEffect(() => {
-    const authUSer: any = sessionStorage.getItem("authUser");
-    if (authUSer) {
-      const obj: any = JSON.parse(authUSer);
+    const accessToken: any = sessionStorage.getItem("aaccessTokenr");
+    if (accessToken) {
+      const obj: any = JSON.parse(accessToken);
       setUserName(
         process.env.NEXT_PUBLIC_DEFAULTAUTH === "fake"
           ? obj.username === undefined
@@ -49,9 +49,10 @@ const ProfileDropdown = () => {
   const router = useRouter();
   const handleLogout = async () => {
     try {
-      await logoutUser();
-      dispatch(clearUser());
-      sessionStorage.removeItem("authUser");
+      console.log("HEYYY fuera");
+      await logoutUserPost();
+      dispatch(logoutUser());
+      // sessionStorage.removeItem("accessToken");
       router.push("/auth/login");
     } catch (err) {
       console.error("Logout failed", err);

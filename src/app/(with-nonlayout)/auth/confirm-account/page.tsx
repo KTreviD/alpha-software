@@ -11,7 +11,7 @@ import { Card, CardBody, Container, Row, Col, Spinner } from "reactstrap";
 import Link from "next/link";
 import Image from "next/image";
 import { useAppDispatch, useAppSelector } from "src/hooks/useRedux";
-import { setUser } from "src/slices/user";
+import { loginUser } from "src/slices/user";
 const logoAlpha = "/images/logo-alpha.png";
 
 enum VerificationCodeStatus {
@@ -59,7 +59,7 @@ export default function ConfirmAccount() {
       if (user) {
         alert("si entre");
         console.log({ user });
-        dispatch(setUser(user)); // Guardas el usuario en Redux
+        dispatch(loginUser(user)); // Guardas el usuario en Redux
       }
       router.push(`/apps-job-companies-lists`);
     } catch (error: any) {
