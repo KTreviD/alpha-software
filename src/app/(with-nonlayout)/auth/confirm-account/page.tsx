@@ -88,7 +88,7 @@ export default function ConfirmAccount() {
                   className="position-absolute mt-5"
                   style={{
                     zIndex: 10,
-                    top: "68px",
+                    top: "66px",
                     left: "50%",
                     transform: "translateX(-50%)",
                   }}

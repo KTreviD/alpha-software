@@ -1,6 +1,5 @@
 "use client";
-
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import {
   Card,
   CardBody,
@@ -12,49 +11,64 @@ import {
   Button,
   Form,
   FormFeedback,
-  Alert,
   Spinner,
 } from "reactstrap";
 import ParticlesAuth from "../ParticlesAuth";
 import { useRouter } from "next/navigation";
 
-import { useSelector, useDispatch } from "react-redux";
+import { useDispatch } from "react-redux";
 import Link from "next/link";
 import * as Yup from "yup";
 import { useFormik } from "formik";
 
-const logoAlpha = "/images/icon-alpha-software.png";
-import { createSelector } from "reselect";
 import Image from "next/image";
-import { useAppDispatch, useAppSelector } from "src/hooks/useRedux";
 import { loginUser } from "src/slices/user";
-import { usePostLoginMutation } from "src/slices/api/apiSlice";
+import {
+  usePostLoginMutation,
+  usePostVerifyTwoFactorCodeMutation,
+} from "src/slices/api/apiSlice";
+import ModalTwoFactorCode from "./Modal";
+
+const logoAlpha = "/images/icon-alpha-software.png";
+
+type LoginFormValues = {
+  email: string;
+  password: string;
+};
 
 const Login = () => {
   const dispatch: any = useDispatch();
   const router = useRouter();
+  const [mfaKey, setMfaKey] = useState(0);
 
-  const [loginUserPost, { isLoading, error, data }] = usePostLoginMutation();
+  const [loginUserPost, { isLoading: isLoadingLogin }] = usePostLoginMutation();
+  const [verifyTwoFactorCode, { isLoading: isLoadingMFA }] =
+    usePostVerifyTwoFactorCodeMutation();
 
-  const [userLogin, setUserLogin] = useState<any>([]);
   const [passwordShow, setPasswordShow] = useState<boolean>(false);
+  const [modalTwoFactorEmailCode, setModalTwoFactorEmailCode] = useState(true);
 
-  const validation = useFormik({
+  const validation = useFormik<LoginFormValues>({
     enableReinitialize: true,
     initialValues: {
-      email: userLogin.email || "carloscharlie4td@hotmail.com",
-      password: userLogin.password || "123456",
+      email: "",
+      password: "",
     },
     validationSchema: Yup.object({
       email: Yup.string().required("Please Enter Your Email Address"),
-      password: Yup.string().required("Please Enter Your Password"),
+      pass23word2: Yup.string().required("Please Enter Your Password"),
     }),
     onSubmit: async values => {
-      const { user } = await loginUserPost({
+      const { user, mfaRequired } = await loginUserPost({
         email: values.email,
         password: values.password,
-      }).unwrap(); // Envías el código como payload
-      console.log({ user });
+      }).unwrap();
+
+      if (mfaRequired) {
+        setModalTwoFactorEmailCode(true);
+        return;
+      }
+
       if (user) {
         dispatch(loginUser(user)); // Guardas el usuario en Redux
       }
@@ -64,6 +78,29 @@ const Login = () => {
 
   return (
     <React.Fragment>
+      {modalTwoFactorEmailCode && (
+        <ModalTwoFactorCode
+          key={mfaKey}
+          isOpen={modalTwoFactorEmailCode}
+          email={validation.values.email}
+          onComplete={async code => {
+            try {
+              const { user } = await verifyTwoFactorCode({
+                code,
+                email: validation.values.email,
+              }).unwrap();
+
+              if (user) {
+                dispatch(loginUser(user)); // Guardas el usuario en Redux
+              }
+
+              router.push("/apps-job-companies-lists");
+            } catch {
+              setMfaKey(k => k + 1);
+            }
+          }}
+        />
+      )}
       <ParticlesAuth>
         <div className="auth-page-content mt-lg-5">
           <Container>
@@ -73,6 +110,7 @@ const Login = () => {
                   className="position-absolute"
                   style={{
                     zIndex: 10,
+                    top: 2,
                     left: "50%",
                     transform: "translateX(-50%)",
                   }}
@@ -81,7 +119,7 @@ const Login = () => {
                     <Image src={logoAlpha} alt="" height={80} width={80} />
                   </Link>
                 </div>
-                <Card className="mt-5 card-bg-fill pt-4">
+                <Card className="mt-5 card-bg-fill pt-3">
                   <CardBody className="p-4">
                     <div className="text-center mt-2">
                       <h5 className="text-primary">Welcome</h5>
@@ -186,11 +224,11 @@ const Login = () => {
                         <div className="mt-4">
                           <Button
                             color="danger"
-                            disabled={isLoading}
+                            disabled={isLoadingLogin}
                             className="btn btn-danger w-100"
                             type="submit"
                           >
-                            {isLoading ? (
+                            {isLoadingLogin ? (
                               <Spinner size="sm" className="me-2" />
                             ) : (
                               "Sign In"
