@@ -4,15 +4,26 @@ import { useEffect, useRef, useState } from "react";
 type ModalTwoFactorCodeT = {
   isOpen: boolean;
   email: string;
+  canResend: boolean;
+  resendTimer: number;
+  isLoadingResend: boolean;
   onComplete: (code: string) => void;
+  onClose: () => void;
+  onResend: () => Promise<void>;
 };
 
 const CODE_LENGTH = 6;
+const RESEND_DELAY = 30; // segundos
 
 const ModalTwoFactorCode = ({
   isOpen,
   email,
+  canResend,
+  isLoadingResend,
+  resendTimer,
   onComplete,
+  onClose,
+  onResend,
 }: ModalTwoFactorCodeT) => {
   const [code, setCode] = useState<string[]>(Array(CODE_LENGTH).fill(""));
 
@@ -57,8 +68,18 @@ const ModalTwoFactorCode = ({
 
   return (
     <Modal isOpen={isOpen} centered>
-      <CardBody className="p-4">
-        <h4 style={{ fontWeight: 600 }}>Two-step Verification</h4>
+      <CardBody className="p-4 pb-2">
+        <div className="d-flex justify-content-between align-items-center mb-2">
+          <h4 style={{ fontWeight: 600, margin: 0 }}>Two-step Verification</h4>
+
+          <button
+            type="button"
+            className="btn btn-link p-0 text-decoration-none"
+            onClick={onClose}
+          >
+            Back to sign-in
+          </button>
+        </div>
 
         <div className="mb-4 mt-4 text-center">
           <div className="avatar-lg mx-auto">
@@ -93,6 +114,43 @@ const ModalTwoFactorCode = ({
             <span className="fw-semibold">{email}.</span>
           </p>
           <p>Enter the code above to continue.</p>
+        </div>
+        <div className="d-flex flex-column align-items-center mt-3">
+          {!canResend ? (
+            <>
+              <div
+                className="position-relative"
+                style={{
+                  width: 48,
+                  height: 48,
+                  borderRadius: "50%",
+                  background: `conic-gradient(#0d6efd ${
+                    ((RESEND_DELAY - resendTimer) / RESEND_DELAY) * 360
+                  }deg, #e9ecef 0deg)`,
+                }}
+              >
+                <div
+                  className="position-absolute top-50 start-50 translate-middle bg-white rounded-circle"
+                  style={{ width: 38, height: 38 }}
+                />
+              </div>
+
+              <small className="text-muted mt-2">
+                Resend code in{" "}
+                <strong>00:{resendTimer.toString().padStart(2, "0")}</strong>
+              </small>
+            </>
+          ) : (
+            <button
+              type="button"
+              className="btn btn-link p-0 mt-2"
+              onClick={() => {
+                onResend();
+              }}
+            >
+              Resend code
+            </button>
+          )}
         </div>
       </CardBody>
     </Modal>

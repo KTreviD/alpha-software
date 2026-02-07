@@ -1,5 +1,5 @@
 "use client";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   Card,
   CardBody,
@@ -25,28 +25,35 @@ import Image from "next/image";
 import { loginUser } from "src/slices/user";
 import {
   usePostLoginMutation,
+  usePostResendTwoFactorCodeMutation,
   usePostVerifyTwoFactorCodeMutation,
 } from "src/slices/api/apiSlice";
 import ModalTwoFactorCode from "./Modal";
-
-const logoAlpha = "/images/icon-alpha-software.png";
 
 type LoginFormValues = {
   email: string;
   password: string;
 };
 
+const logoAlpha = "/images/icon-alpha-software.png";
+const RESEND_DELAY = 30; // segundos
+
 const Login = () => {
   const dispatch: any = useDispatch();
   const router = useRouter();
   const [mfaKey, setMfaKey] = useState(0);
 
+  const [canResend, setCanResend] = useState(false);
+  const [resendTimer, setResendTimer] = useState(RESEND_DELAY);
+
   const [loginUserPost, { isLoading: isLoadingLogin }] = usePostLoginMutation();
   const [verifyTwoFactorCode, { isLoading: isLoadingMFA }] =
     usePostVerifyTwoFactorCodeMutation();
+  const [resendMFACodePost, { isLoading: isLoadingResend }] =
+    usePostResendTwoFactorCodeMutation();
 
   const [passwordShow, setPasswordShow] = useState<boolean>(false);
-  const [modalTwoFactorEmailCode, setModalTwoFactorEmailCode] = useState(false);
+  const [modalTwoFactorEmailCode, setModalTwoFactorEmailCode] = useState(true);
 
   const validation = useFormik<LoginFormValues>({
     enableReinitialize: true,
@@ -76,6 +83,63 @@ const Login = () => {
     },
   });
 
+  const handleOnComplete = async (code: string) => {
+    try {
+      const { user } = await verifyTwoFactorCode({
+        code,
+        email: validation.values.email,
+      }).unwrap();
+
+      if (user) {
+        dispatch(loginUser(user)); // Guardas el usuario en Redux
+      }
+
+      router.push("/apps-job-companies-lists");
+    } catch {
+      setMfaKey(k => k + 1);
+    }
+  };
+
+  useEffect(() => {
+    if (!modalTwoFactorEmailCode) return;
+
+    setCanResend(false);
+    setResendTimer(30);
+
+    const interval = setInterval(() => {
+      setResendTimer(prev => {
+        if (prev <= 1) {
+          clearInterval(interval);
+          setCanResend(true);
+          return 0;
+        }
+        return prev - 1;
+      });
+    }, 1000);
+
+    return () => clearInterval(interval);
+  }, [modalTwoFactorEmailCode]);
+
+  const handleResendCode = async () => {
+    try {
+      await resendMFACodePost({
+        email: validation.values.email,
+      }).unwrap();
+
+      // reinicia contador
+      setCanResend(false);
+      setResendTimer(30);
+    } catch (err: any) {
+      if (err?.data?.errorCode === "AUTH_MFA_TOO_MANY_REQUESTS") {
+        console.log("Please wait before requesting another code");
+        // toast.warning("Please wait before requesting another code");
+      } else {
+        console.log("Could not resend code");
+        // toast.error("Could not resend code");
+      }
+    }
+  };
+
   return (
     <React.Fragment>
       {modalTwoFactorEmailCode && (
@@ -83,22 +147,12 @@ const Login = () => {
           key={mfaKey}
           isOpen={modalTwoFactorEmailCode}
           email={validation.values.email}
-          onComplete={async code => {
-            try {
-              const { user } = await verifyTwoFactorCode({
-                code,
-                email: validation.values.email,
-              }).unwrap();
-
-              if (user) {
-                dispatch(loginUser(user)); // Guardas el usuario en Redux
-              }
-
-              router.push("/apps-job-companies-lists");
-            } catch {
-              setMfaKey(k => k + 1);
-            }
-          }}
+          canResend={canResend}
+          resendTimer={resendTimer}
+          onResend={handleResendCode}
+          isLoadingResend={isLoadingResend}
+          onClose={() => setModalTwoFactorEmailCode(false)}
+          onComplete={async code => handleOnComplete(code)}
         />
       )}
       <ParticlesAuth>

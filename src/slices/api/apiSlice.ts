@@ -144,7 +144,15 @@ export const apiSlice = createApi({
     }),
     postVerifyTwoFactorCode: builder.mutation({
       query: body => ({
-        url: "/auth//verify-login",
+        url: "/mfa/verify-login",
+        method: "POST",
+        body,
+      }),
+      //   transformResponse: (response: ResChartsData) => response
+    }),
+    postResendTwoFactorCode: builder.mutation({
+      query: body => ({
+        url: "/mfa/resend-two-factor-code",
         method: "POST",
         body,
       }),
@@ -245,6 +253,7 @@ export const {
   usePostVerifyEmailMutation,
   usePostResendVerificationEmailMutation,
   usePostVerifyTwoFactorCodeMutation,
+  usePostResendTwoFactorCodeMutation,
   usePostForgotPasswordMutation,
   usePostResetPasswordMutation,
   usePostLogoutMutation,
