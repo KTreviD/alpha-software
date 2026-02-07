@@ -12,7 +12,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { useAppDispatch, useAppSelector } from "src/hooks/useRedux";
 import { loginUser } from "src/slices/user";
-const logoAlpha = "/images/logo-alpha.png";
+const logoAlpha = "/images/icon-alpha-software.png";
 
 enum VerificationCodeStatus {
   EXPIRED = "expired",
@@ -94,7 +94,7 @@ export default function ConfirmAccount() {
                   }}
                 >
                   <Link href="/" className="d-inline-block auth-logo">
-                    <Image src={logoAlpha} alt="" height={100} width={100} />
+                    <Image src={logoAlpha} alt="" height={80} width={80} />
                   </Link>
                 </div>
                 <Card

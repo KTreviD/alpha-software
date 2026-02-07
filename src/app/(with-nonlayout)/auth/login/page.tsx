@@ -73,13 +73,12 @@ const Login = () => {
                   className="position-absolute"
                   style={{
                     zIndex: 10,
-                    top: "4px",
                     left: "50%",
                     transform: "translateX(-50%)",
                   }}
                 >
                   <Link href="/" className="d-inline-block auth-logo">
-                    <Image src={logoAlpha} alt="" height={100} width={100} />
+                    <Image src={logoAlpha} alt="" height={80} width={80} />
                   </Link>
                 </div>
                 <Card className="mt-5 card-bg-fill pt-4">

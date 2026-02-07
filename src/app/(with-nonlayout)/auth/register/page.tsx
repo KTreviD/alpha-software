@@ -23,7 +23,7 @@ import { useFormik } from "formik";
 import Link from "next/link";
 
 //import images
-const logoLight = "/images/icon-alpha-software.png";
+const logoAlpha = "/images/icon-alpha-software.png";
 import ParticlesAuth from "../ParticlesAuth";
 
 import Image from "next/image";
@@ -80,13 +80,12 @@ const Register = () => {
                   className="position-absolute"
                   style={{
                     zIndex: 10,
-                    top: "4px",
                     left: "50%",
                     transform: "translateX(-50%)",
                   }}
                 >
                   <Link href="/" className="d-inline-block auth-logo">
-                    <Image src={logoLight} alt="" height={100} width={100} />
+                    <Image src={logoAlpha} alt="" height={80} width={80} />
                   </Link>
                 </div>
                 <Card className="mt-5 pt-4">
