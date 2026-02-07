@@ -45,6 +45,7 @@ const Login = () => {
 
   const [canResend, setCanResend] = useState(false);
   const [resendTimer, setResendTimer] = useState(RESEND_DELAY);
+  const [resetResendTimerKey, setResetResendTimerKey] = useState(0);
 
   const [loginUserPost, { isLoading: isLoadingLogin }] = usePostLoginMutation();
   const [verifyTwoFactorCode, { isLoading: isLoadingMFA }] =
@@ -118,7 +119,7 @@ const Login = () => {
     }, 1000);
 
     return () => clearInterval(interval);
-  }, [modalTwoFactorEmailCode]);
+  }, [modalTwoFactorEmailCode, resetResendTimerKey]);
 
   const handleResendCode = async () => {
     try {
@@ -129,6 +130,8 @@ const Login = () => {
       // reinicia contador
       setCanResend(false);
       setResendTimer(30);
+
+      setResetResendTimerKey(k => k + 1);
     } catch (err: any) {
       if (err?.data?.errorCode === "AUTH_MFA_TOO_MANY_REQUESTS") {
         console.log("Please wait before requesting another code");
