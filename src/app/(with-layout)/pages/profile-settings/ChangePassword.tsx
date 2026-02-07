@@ -97,7 +97,7 @@ const ChangePassword = ({ currentSessionId }: ChangePasswordI) => {
             All Logout
           </Link>
         </div>
-        <h5 className="card-title">Login History</h5>
+        <h5 className="card-title">Active Sessions</h5>
       </div>
 
       {data?.sessions.map((session: SessionT) => (
@@ -111,7 +111,12 @@ const ChangePassword = ({ currentSessionId }: ChangePasswordI) => {
             <h6>
               {`${session.deviceName} ${session.osName}`}{" "}
               {session.id === currentSessionId && (
-                <span className="badge bg-success">This device</span>
+                <span
+                  style={{ marginLeft: 4, paddingRight: 9, paddingTop: 5 }}
+                  className="badge bg-success"
+                >
+                  This device
+                </span>
               )}
             </h6>
             <p className="text-muted mb-0">
@@ -126,6 +131,9 @@ const ChangePassword = ({ currentSessionId }: ChangePasswordI) => {
           )}
         </div>
       ))}
+      <div className="mt-4 mb-3 border-bottom pb-2">
+        <h5 className="card-title">Login History</h5>
+      </div>
     </React.Fragment>
   );
 };

@@ -16,9 +16,15 @@ const PrivacyPolicy = () => {
             </p>
           </div>
           <div className="flex-shrink-0 ms-sm-3">
-            <Link href="#" className="btn btn-sm btn-primary">
-              Set up secondary method
-            </Link>
+            <div className="form-check form-switch">
+              <Input
+                className="form-check-input"
+                type="checkbox"
+                role="switch"
+                id="directMessage"
+                defaultChecked
+              />
+            </div>
           </div>
         </div>
         {/* <div className="d-flex flex-column flex-sm-row mb-4 mb-sm-0">
@@ -177,7 +183,7 @@ const PrivacyPolicy = () => {
         </ul>
       </div>
       <div> */}
-        <h5 className="card-title text-decoration-underline mb-3">
+        {/* <h5 className="card-title text-decoration-underline mb-3">
           Delete This Account:
         </h5>
         <p className="text-muted">
@@ -202,7 +208,7 @@ const PrivacyPolicy = () => {
           <Link href="#" className="btn btn-light">
             Cancel
           </Link>
-        </div>
+        </div> */}
       </div>
     </React.Fragment>
   );

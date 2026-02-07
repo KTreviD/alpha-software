@@ -148,13 +148,13 @@ const Login = () => {
       {modalTwoFactorEmailCode && (
         <ModalTwoFactorCode
           key={mfaKey}
-          isOpen={modalTwoFactorEmailCode}
           email={validation.values.email}
           canResend={canResend}
           resendTimer={resendTimer}
           onResend={handleResendCode}
           isLoadingResend={isLoadingResend}
           isLoadingMFA={isLoadingMFA}
+          isOpen={modalTwoFactorEmailCode}
           onClose={() => setModalTwoFactorEmailCode(false)}
           onComplete={async code => handleOnComplete(code)}
         />
