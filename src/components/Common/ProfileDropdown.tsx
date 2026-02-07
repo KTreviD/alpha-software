@@ -95,12 +95,6 @@ const ProfileDropdown = () => {
               <span className="align-middle">Settings</span>
             </Link>
           </DropdownItem>
-          <DropdownItem className="p-0">
-            <Link href="/auth-lockscreen-basic" className="dropdown-item">
-              <i className="mdi mdi-lock text-muted fs-16 align-middle me-1"></i>{" "}
-              <span className="align-middle">Lock screen123</span>
-            </Link>
-          </DropdownItem>
           <DropdownItem tag="div" className="p-0">
             <Link
               href="/auth/logout"
