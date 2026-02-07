@@ -54,7 +54,7 @@ const Login = () => {
     usePostResendTwoFactorCodeMutation();
 
   const [passwordShow, setPasswordShow] = useState<boolean>(false);
-  const [modalTwoFactorEmailCode, setModalTwoFactorEmailCode] = useState(false);
+  const [modalTwoFactorEmailCode, setModalTwoFactorEmailCode] = useState(true);
 
   const validation = useFormik<LoginFormValues>({
     enableReinitialize: true,

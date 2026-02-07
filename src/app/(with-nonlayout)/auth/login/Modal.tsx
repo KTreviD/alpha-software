@@ -100,7 +100,8 @@ const ModalTwoFactorCode = ({
 
           <button
             type="button"
-            className="btn btn-link p-0 text-decoration-none"
+            className="btn btn-link p-0"
+            style={{ textDecoration: "underline" }}
             onClick={onClose}
           >
             Back to sign-in
@@ -109,13 +110,21 @@ const ModalTwoFactorCode = ({
 
         <div className="mb-4 mt-4 text-center">
           <div className="avatar-lg mx-auto">
-            <div className="avatar-title bg-light text-primary display-5 rounded-circle">
-              {isLoadingMFA ? (
-                <Spinner size="sm" color="primary" className="me-2" />
-              ) : (
+            {isLoadingMFA ? (
+              <Spinner
+                size="sm"
+                color="primary"
+                className="mt-4"
+                style={{
+                  width: 48,
+                  height: 48,
+                }}
+              />
+            ) : (
+              <div className="avatar-title bg-light text-primary display-5 rounded-circle">
                 <i className="ri-mail-line"></i>
-              )}
-            </div>
+              </div>
+            )}
           </div>
         </div>
 
@@ -174,12 +183,13 @@ const ModalTwoFactorCode = ({
           ) : (
             <button
               type="button"
-              className="btn btn-link p-0 mt-2"
+              className="btn btn-link p-0 mb-3"
+              style={{ textDecoration: "underline" }}
               onClick={() => {
                 onResend();
               }}
             >
-              Resend code
+              Resend the code
             </button>
           )}
         </div>
