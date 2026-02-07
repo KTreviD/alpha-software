@@ -1,4 +1,4 @@
-import { CardBody, Col, Row, Modal } from "reactstrap";
+import { CardBody, Col, Row, Modal, Spinner } from "reactstrap";
 import { useEffect, useRef, useState } from "react";
 
 type ModalTwoFactorCodeT = {
@@ -7,6 +7,7 @@ type ModalTwoFactorCodeT = {
   canResend: boolean;
   resendTimer: number;
   isLoadingResend: boolean;
+  isLoadingMFA: boolean;
   onComplete: (code: string) => void;
   onClose: () => void;
   onResend: () => Promise<void>;
@@ -21,6 +22,7 @@ const ModalTwoFactorCode = ({
   canResend,
   isLoadingResend,
   resendTimer,
+  isLoadingMFA,
   onComplete,
   onClose,
   onResend,
@@ -84,7 +86,11 @@ const ModalTwoFactorCode = ({
         <div className="mb-4 mt-4 text-center">
           <div className="avatar-lg mx-auto">
             <div className="avatar-title bg-light text-primary display-5 rounded-circle">
-              <i className="ri-mail-line"></i>
+              {isLoadingMFA ? (
+                <Spinner size="sm" color="primary" />
+              ) : (
+                <i className="ri-mail-line"></i>
+              )}
             </div>
           </div>
         </div>
@@ -135,8 +141,8 @@ const ModalTwoFactorCode = ({
                 />
               </div>
 
-              <small className="text-muted mt-2">
-                Resend code in{" "}
+              <small className="text-muted mt-2 mb-3">
+                Resend the code in{" "}
                 <strong>00:{resendTimer.toString().padStart(2, "0")}</strong>
               </small>
             </>

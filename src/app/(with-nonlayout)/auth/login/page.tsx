@@ -154,6 +154,7 @@ const Login = () => {
           resendTimer={resendTimer}
           onResend={handleResendCode}
           isLoadingResend={isLoadingResend}
+          isLoadingMFA={isLoadingMFA}
           onClose={() => setModalTwoFactorEmailCode(false)}
           onComplete={async code => handleOnComplete(code)}
         />
