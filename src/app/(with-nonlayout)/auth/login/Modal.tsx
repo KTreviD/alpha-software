@@ -56,22 +56,23 @@ const ModalTwoFactorCode = ({
     e: React.ClipboardEvent<HTMLInputElement>,
     index: number
   ) => {
-    const pasteData = e.clipboardData.getData("Text").trim();
-
-    if (!/^\d+$/.test(pasteData)) return; // Solo números
+    e.preventDefault();
+    const paste = e.clipboardData.getData("text").replace(/\D/g, ""); // solo números
+    if (!paste) return;
 
     const newCode = [...code];
 
-    pasteData.split("").forEach((digit, i) => {
+    // Reemplaza desde el índice actual
+    for (let i = 0; i < paste.length; i++) {
       if (index + i < CODE_LENGTH) {
-        newCode[index + i] = digit;
+        newCode[index + i] = paste[i];
       }
-    });
+    }
 
     setCode(newCode);
 
-    // Foco al siguiente input disponible
-    const nextIndex = Math.min(index + pasteData.length, CODE_LENGTH - 1);
+    // Mueve el foco al último dígito pegado
+    const nextIndex = Math.min(index + paste.length, CODE_LENGTH - 1);
     inputsRef.current[nextIndex]?.focus();
   };
 
