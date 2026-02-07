@@ -7,7 +7,21 @@ const PrivacyPolicy = () => {
     <React.Fragment>
       <div className="mb-4 pb-2">
         <h5 className="card-title text-decoration-underline mb-3">Security:</h5>
-        <div className="d-flex flex-column flex-sm-row mb-4 mb-sm-0">
+        <div className="d-flex flex-column flex-sm-row mb-4 mb-sm-0 mt-2">
+          <div className="flex-grow-1">
+            <h6 className="fs-14 mb-1">Two-factor Verification</h6>
+            <p className="text-muted">
+              Two-factor Verification keeps your account safe. A 6-digit code
+              will be sent to your email to confirm your identity.
+            </p>
+          </div>
+          <div className="flex-shrink-0 ms-sm-3">
+            <Link href="#" className="btn btn-sm btn-primary">
+              Set up secondary method
+            </Link>
+          </div>
+        </div>
+        {/* <div className="d-flex flex-column flex-sm-row mb-4 mb-sm-0">
           <div className="flex-grow-1">
             <h6 className="fs-14 mb-1">Two-factor Authentication</h6>
             <p className="text-muted">
@@ -19,21 +33,6 @@ const PrivacyPolicy = () => {
           <div className="flex-shrink-0 ms-sm-3">
             <Link href="#" className="btn btn-sm btn-primary">
               Enable Two-facor Authentication
-            </Link>
-          </div>
-        </div>
-        <div className="d-flex flex-column flex-sm-row mb-4 mb-sm-0 mt-2">
-          <div className="flex-grow-1">
-            <h6 className="fs-14 mb-1">Secondary Verification</h6>
-            <p className="text-muted">
-              The first factor is a password and the second commonly includes a
-              text with a code sent to your smartphone, or biometrics using your
-              fingerprint, face, or retina.
-            </p>
-          </div>
-          <div className="flex-shrink-0 ms-sm-3">
-            <Link href="#" className="btn btn-sm btn-primary">
-              Set up secondary method
             </Link>
           </div>
         </div>
@@ -177,7 +176,7 @@ const PrivacyPolicy = () => {
           </li>
         </ul>
       </div>
-      <div>
+      <div> */}
         <h5 className="card-title text-decoration-underline mb-3">
           Delete This Account:
         </h5>
