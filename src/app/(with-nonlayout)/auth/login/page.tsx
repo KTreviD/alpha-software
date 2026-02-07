@@ -56,7 +56,7 @@ const Login = () => {
     },
     validationSchema: Yup.object({
       email: Yup.string().required("Please Enter Your Email Address"),
-      pass23word2: Yup.string().required("Please Enter Your Password"),
+      password: Yup.string().required("Please Enter Your Password"),
     }),
     onSubmit: async values => {
       const { user, mfaRequired } = await loginUserPost({
