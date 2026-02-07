@@ -52,6 +52,29 @@ const ModalTwoFactorCode = ({
     }
   };
 
+  const handlePaste = (
+    e: React.ClipboardEvent<HTMLInputElement>,
+    index: number
+  ) => {
+    const pasteData = e.clipboardData.getData("Text").trim();
+
+    if (!/^\d+$/.test(pasteData)) return; // Solo números
+
+    const newCode = [...code];
+
+    pasteData.split("").forEach((digit, i) => {
+      if (index + i < CODE_LENGTH) {
+        newCode[index + i] = digit;
+      }
+    });
+
+    setCode(newCode);
+
+    // Foco al siguiente input disponible
+    const nextIndex = Math.min(index + pasteData.length, CODE_LENGTH - 1);
+    inputsRef.current[nextIndex]?.focus();
+  };
+
   // 🚀 Auto submit
   useEffect(() => {
     const joined = code.join("");
@@ -87,7 +110,7 @@ const ModalTwoFactorCode = ({
           <div className="avatar-lg mx-auto">
             <div className="avatar-title bg-light text-primary display-5 rounded-circle">
               {isLoadingMFA ? (
-                <Spinner size="sm" color="primary" />
+                <Spinner size="sm" color="primary" className="me-2" />
               ) : (
                 <i className="ri-mail-line"></i>
               )}
@@ -108,6 +131,7 @@ const ModalTwoFactorCode = ({
                 value={digit}
                 onChange={e => handleChange(e.target.value, i)}
                 onKeyDown={e => handleKeyDown(e, i)}
+                onPaste={e => handlePaste(e, i)}
                 className="form-control form-control-lg bg-light border-light text-center"
               />
             </Col>
