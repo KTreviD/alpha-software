@@ -6,9 +6,7 @@ import Image from "next/image";
 // Import Images
 const error400cover = "/images/error400-cover.png";
 
-const Cover404 = () => {
-  document.title =
-    "404 Error Cover | Velzon - Next.js TypeScript Admin & Dashboard Template";
+const NotFound = () => {
   return (
     <React.Fragment>
       <div className="auth-page-content">
@@ -27,12 +25,12 @@ const Cover404 = () => {
                     />
                     <div className="mt-3">
                       <h3 className="text-uppercase">
-                        Sorry, Page not Found 😭
+                        {"Sorry, Page not Found ;("}
                       </h3>
                       <p className="text-muted mb-4">
-                        The page you are looking for not available!
+                        The page you’re looking for doesn't exist!
                       </p>
-                      <Link href="/dashboard" className="btn btn-success">
+                      <Link href="/" className="btn btn-success">
                         <i className="mdi mdi-home me-1"></i>Back to home
                       </Link>
                     </div>
@@ -47,4 +45,4 @@ const Cover404 = () => {
   );
 };
 
-export default Cover404;
+export default NotFound;

@@ -7,8 +7,6 @@ import Image from "next/image";
 const error500 = "/images/error500.png";
 
 const Error500 = () => {
-  document.title =
-    "500 Error | Velzon - Next.js TypeScript Admin & Dashboard Template";
   return (
     <React.Fragment>
       <div className="auth-page-wrapper py-5 d-flex justify-content-center align-items-center min-vh-100">
