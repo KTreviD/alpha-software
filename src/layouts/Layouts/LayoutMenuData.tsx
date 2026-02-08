@@ -9,11 +9,6 @@ const Navdata = () => {
   const [isApps, setIsApps] = useState<boolean>(false);
   const [isAuth, setIsAuth] = useState<boolean>(false);
   const [isPages, setIsPages] = useState<boolean>(false);
-  const [isBaseUi, setIsBaseUi] = useState<boolean>(false);
-  const [isTables, setIsTables] = useState<boolean>(false);
-  const [isIcons, setIsIcons] = useState<boolean>(false);
-  const [isMaps, setIsMaps] = useState<boolean>(false);
-  const [isMultiLevel, setIsMultiLevel] = useState<boolean>(false);
 
   // Apps
   const [isCalendar, setCalendar] = useState<boolean>(false);
@@ -29,24 +24,12 @@ const Navdata = () => {
   const [isCandidateList, setIsCandidateList] = useState<boolean>(false);
 
   // Authentication
-  const [isSignIn, setIsSignIn] = useState<boolean>(false);
-  const [isSignUp, setIsSignUp] = useState<boolean>(false);
   const [isPasswordReset, setIsPasswordReset] = useState<boolean>(false);
   const [isPasswordCreate, setIsPasswordCreate] = useState<boolean>(false);
-  const [isLockScreen, setIsLockScreen] = useState<boolean>(false);
   const [isLogout, setIsLogout] = useState<boolean>(false);
   const [isSuccessMessage, setIsSuccessMessage] = useState<boolean>(false);
   const [isVerification, setIsVerification] = useState<boolean>(false);
   const [isError, setIsError] = useState<boolean>(false);
-
-  // Pages
-  const [isProfile, setIsProfile] = useState<boolean>(false);
-  const [isLanding, setIsLanding] = useState<boolean>(false);
-  const [isBlog, setIsBlog] = useState<boolean>(false);
-
-  // Multi Level
-  const [isLevel1, setIsLevel1] = useState<boolean>(false);
-  const [isLevel2, setIsLevel2] = useState<boolean>(false);
 
   const [iscurrentState, setIscurrentState] = useState("Dashboard");
 
@@ -87,8 +70,8 @@ const Navdata = () => {
           label: "Job",
           link: "/dashboard-job",
           parentId: "dashboard",
-          // badgeColor: "success",
-          // badgeName: "New",
+          badgeColor: "success",
+          badgeName: "New",
         },
       ],
     },
@@ -469,70 +452,6 @@ const Navdata = () => {
           childItems: [
             { id: 1, label: "Basic", link: "/authinner/pass/change/basic" },
             { id: 2, label: "Cover", link: "/authinner/pass/change/cover" },
-          ],
-        },
-        {
-          id: "lockScreen",
-          label: "Lock Screen337",
-          link: "/#",
-          isChildItem: true,
-          click: function (e: any) {
-            e.preventDefault();
-            setIsLockScreen(!isLockScreen);
-          },
-          parentId: "authentication",
-          stateVariables: isLockScreen,
-          childItems: [
-            { id: 1, label: "Basic", link: "/authinner/lockscreen/basic" },
-            { id: 2, label: "Cover", link: "/authinner/lockscreen/cover" },
-          ],
-        },
-        {
-          id: "logout",
-          label: "Logout",
-          link: "/#",
-          isChildItem: true,
-          click: function (e: any) {
-            e.preventDefault();
-            setIsLogout(!isLogout);
-          },
-          parentId: "authentication",
-          stateVariables: isLogout,
-          childItems: [
-            { id: 1, label: "Basic", link: "/authinner/logout/basic" },
-            { id: 2, label: "Cover", link: "/authinner/logout/cover" },
-          ],
-        },
-        {
-          id: "successMessage",
-          label: "Success Message",
-          link: "/#",
-          isChildItem: true,
-          click: function (e: any) {
-            e.preventDefault();
-            setIsSuccessMessage(!isSuccessMessage);
-          },
-          parentId: "authentication",
-          stateVariables: isSuccessMessage,
-          childItems: [
-            { id: 1, label: "Basic", link: "/authinner/success/msg/basic" },
-            { id: 2, label: "Cover", link: "/authinner/success/msg/cover" },
-          ],
-        },
-        {
-          id: "twoStepVerification",
-          label: "Two Step Verification",
-          link: "/#",
-          isChildItem: true,
-          click: function (e: any) {
-            e.preventDefault();
-            setIsVerification(!isVerification);
-          },
-          parentId: "authentication",
-          stateVariables: isVerification,
-          childItems: [
-            { id: 1, label: "Basic", link: "/authinner/twostep/basic" },
-            { id: 2, label: "Cover", link: "/authinner/twostep/cover" },
           ],
         },
         {
