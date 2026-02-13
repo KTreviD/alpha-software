@@ -4,8 +4,6 @@ import Image from "next/image";
 import Link from "next/link";
 
 const Maintenance = () => {
-  document.title =
-    "Maintenance | Velzon - Next.js TypeScript Admin & Dashboard Template";
   return (
     <React.Fragment>
       <div className="auth-page-wrapper pt-5">

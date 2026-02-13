@@ -34,9 +34,6 @@ const Timeline = () => {
   // SwiperCore.use([FreeMode, Navigation, Thumbs]);
   const [thumbsSwiper] = useState(null);
 
-  document.title =
-    "Timeline | Velzon - Next.js TypeScript Admin & Dashboard Template";
-
   return (
     <React.Fragment>
       <div className="page-content">

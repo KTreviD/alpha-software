@@ -125,8 +125,6 @@ const JobCategories = () => {
     );
   };
 
-  document.title = "Job Categories | Velzon -  Admin & Dashboard Template";
-
   return (
     <React.Fragment>
       <div className="page-content">

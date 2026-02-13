@@ -30,24 +30,6 @@ export * from "./invoice/thunk";
 //Mailbox
 export * from "./mailbox/thunk";
 
-// Dashboard Analytics
-export * from "./dashboardAnalytics/thunk";
-
-// Dashboard CRM
-export * from "./dashboardCRM/thunk";
-
-// Dashboard Ecommerce
-export * from "./dashboardEcommerce/thunk";
-
-// Dashboard Cryto
-export * from "./dashboardCrypto/thunk";
-
-// Dashboard Cryto
-export * from "./dashboardProject/thunk";
-
-// Dashboard NFT
-export * from "./dashboardNFT/thunk";
-
 // Dashboard Job
 export * from "./dashboardJob/thunk";
 

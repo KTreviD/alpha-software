@@ -66,9 +66,6 @@ const Register = () => {
     },
   });
 
-  document.title =
-    "Basic SignUp | Velzon - Next.js TypeScript Admin & Dashboard Template";
-
   return (
     <React.Fragment>
       <ParticlesAuth fixHeight={data?.message ? true : false}>

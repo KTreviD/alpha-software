@@ -15,8 +15,6 @@ import BreadCrumb from "@common/BreadCrumb";
 import Flatpickr from "react-flatpickr";
 
 const NewJobs = () => {
-  document.title = "New Job | Velzon -  Admin & Dashboard Template";
-
   return (
     <React.Fragment>
       <div className="page-content">

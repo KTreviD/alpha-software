@@ -9,8 +9,6 @@ import VisitorGraph from "./VisitorGraph";
 import Widgets from "./Widgets";
 
 const Statistics = () => {
-  document.title = "Statistics | Velzon -  Admin & Dashboard Template";
-
   return (
     <React.Fragment>
       <div className="page-content">

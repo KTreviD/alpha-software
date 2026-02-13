@@ -29,18 +29,13 @@ import TicketsReducer from "./tickets/reducer";
 import CrmReducer from "./crm/reducer";
 import InvoiceReducer from "./invoice/reducer";
 import MailboxReducer from "./mailbox/reducer";
-import DashboardAnalyticsReducer from "./dashboardAnalytics/reducer";
-import DashboardCRMReducer from "./dashboardCRM/reducer";
-import DashboardEcommerceReducer from "./dashboardEcommerce/reducer";
-import DashboardCryptoReducer from "./dashboardCrypto/reducer";
-import DashboardProjectReducer from "./dashboardProject/reducer";
-import DashboardNFTReducer from "./dashboardNFT/reducer";
 import DashboardJobReducer from "./dashboardJob/reducer";
 import TeamDataReducer from "./team/reducer";
 import FileManagerReducer from "./fileManager/reducer";
 import TodosReducer from "./todos/reducer";
 import JobReducer from "./jobs/reducer";
 import AuthUserReducer from "./user";
+import AuthSessionReducer from "./session";
 
 import { apiSlice } from "./api/apiSlice";
 
@@ -58,18 +53,13 @@ export interface RootState {
   Crm: ReturnType<typeof CrmReducer>;
   Invoice: ReturnType<typeof InvoiceReducer>;
   Mailbox: ReturnType<typeof MailboxReducer>;
-  DashboardAnalytics: ReturnType<typeof DashboardAnalyticsReducer>;
-  DashboardCRM: ReturnType<typeof DashboardCRMReducer>;
-  DashboardEcommerce: ReturnType<typeof DashboardEcommerceReducer>;
-  DashboardCrypto: ReturnType<typeof DashboardCryptoReducer>;
-  DashboardProject: ReturnType<typeof DashboardProjectReducer>;
-  DashboardNFT: ReturnType<typeof DashboardNFTReducer>;
   DashBoardJob: ReturnType<typeof DashboardJobReducer>;
   Team: ReturnType<typeof TeamDataReducer>;
   FileManager: ReturnType<typeof FileManagerReducer>;
   Todos: ReturnType<typeof TodosReducer>;
   Jobs: ReturnType<typeof JobReducer>;
   AuthUser: ReturnType<typeof AuthUserReducer>;
+  AuthSession: ReturnType<typeof AuthSessionReducer>;
 }
 
 // Persist configuration
@@ -92,18 +82,13 @@ const rootReducer = combineReducers({
   Crm: CrmReducer,
   Invoice: InvoiceReducer,
   Mailbox: MailboxReducer,
-  DashboardAnalytics: DashboardAnalyticsReducer,
-  DashboardCRM: DashboardCRMReducer,
-  DashboardEcommerce: DashboardEcommerceReducer,
-  DashboardCrypto: DashboardCryptoReducer,
-  DashboardProject: DashboardProjectReducer,
-  DashboardNFT: DashboardNFTReducer,
   DashBoardJob: DashboardJobReducer,
   Team: TeamDataReducer,
   FileManager: FileManagerReducer,
   Todos: TodosReducer,
   Jobs: JobReducer,
   AuthUser: AuthUserReducer,
+  AuthSession: AuthSessionReducer,
   [apiSlice.reducerPath]: apiSlice.reducer,
 });
 

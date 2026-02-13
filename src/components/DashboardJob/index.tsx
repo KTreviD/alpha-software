@@ -10,9 +10,6 @@ import RecomendedJobs from "./RecomendedJobs";
 import Widgets from "./Widgets";
 
 const DashboardJobs = () => {
-  document.title =
-    "Jobs Dashboard | Velzon - Next.js TypeScript Admin & Dashboard Template";
-
   return (
     <React.Fragment>
       <div className="page-content">

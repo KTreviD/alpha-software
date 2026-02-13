@@ -49,9 +49,6 @@ import { createSelector } from "reselect";
 import Image from "next/image";
 
 const Team = () => {
-  document.title =
-    "Team | Velzon - Next.js TypeScript Admin & Dashboard Template";
-
   const dispatch: any = useDispatch();
 
   const selectteamData = createSelector(

@@ -26,9 +26,6 @@ interface PassChangeFormValues {
 }
 
 const CoverPasswCreate = () => {
-  document.title =
-    "Create New Password | Velzon - Next.js TypeScript Admin & Dashboard Template";
-
   const [passwordShow, setPasswordShow] = useState<boolean>(false);
   const [confrimPasswordShow, setConfrimPasswordShow] =
     useState<boolean>(false);

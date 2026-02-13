@@ -454,9 +454,6 @@ const CrmLeads = () => {
     [handleLeadClick, checkedAll]
   );
 
-  document.title =
-    "Leads | Velzon - Next.js TypeScript Admin & Dashboard Template";
-
   return (
     <React.Fragment>
       <div className="page-content">

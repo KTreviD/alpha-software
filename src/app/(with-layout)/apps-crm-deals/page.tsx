@@ -108,9 +108,6 @@ const CrmDeals = () => {
     },
   });
 
-  document.title =
-    "Deals | Velzon - Next.js TypeScript Admin & Dashboard Template";
-
   return (
     <React.Fragment>
       <div className="page-content">

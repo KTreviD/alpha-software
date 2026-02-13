@@ -435,8 +435,6 @@ const CrmCompanies = () => {
   // Export Modal
   const [isExportCSV, setIsExportCSV] = useState<boolean>(false);
 
-  document.title =
-    "Companies | Velzon - Next.js TypeScript Admin & Dashboard Template";
   return (
     <React.Fragment>
       <div className="page-content">

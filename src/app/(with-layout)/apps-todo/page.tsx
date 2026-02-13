@@ -117,9 +117,6 @@ interface ImgData {
 }
 
 const ToDoList = () => {
-  document.title =
-    "To Do Lists | Velzon - Next.js TypeScript Admin & Dashboard Template";
-
   const dispatch: any = useDispatch();
 
   const selectLayoutState = (state: any) => state.Todos;

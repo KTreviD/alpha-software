@@ -349,8 +349,6 @@ const MonthGridCalender = () => {
     }
   };
 
-  document.title =
-    "Month Grid Calendar | Velzon - Next.js TypeScript Admin & Dashboard Template";
   return (
     <React.Fragment>
       <DeleteModal

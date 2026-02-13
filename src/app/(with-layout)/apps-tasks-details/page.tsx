@@ -7,8 +7,6 @@ import Summary from "@components/TaskDetails/Summary";
 import TimeTracking from "@components/TaskDetails/TimeTracking";
 
 const TaskDetails = () => {
-  document.title =
-    "Tasks Details | Velzon - Next.js TypeScript Admin & Dashboard Template";
   return (
     <React.Fragment>
       <div className="page-content">

@@ -41,9 +41,6 @@ interface ImgData {
 }
 
 const CandidateGrid = () => {
-  document.title =
-    "Candidates Grid View | Velzon -  Admin & Dashboard Template";
-
   const dispatch: any = useDispatch();
 
   const selectLayoutProperties = createSelector(

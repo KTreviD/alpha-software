@@ -57,9 +57,6 @@ import { projects, documents } from "@common/data";
 import Image from "next/image";
 
 const SimplePage = () => {
-  document.title =
-    "Profile | Velzon - Next.js TypeScript Admin & Dashboard Template";
-
   const [activeTab, setActiveTab] = useState("1");
   const [activityTab, setActivityTab] = useState("1");
 

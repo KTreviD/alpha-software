@@ -27,9 +27,6 @@ interface PassResetFormValues {
 }
 
 const BasicPasswReset = () => {
-  document.title =
-    "Reset Password | Velzon - Next.js TypeScript Admin & Dashboard Template";
-
   const validation: FormikProps<PassResetFormValues> =
     useFormik<PassResetFormValues>({
       enableReinitialize: true,

@@ -330,8 +330,6 @@ const Calender = () => {
     }
   };
 
-  document.title =
-    "Calendar | Velzon - Next.js TypeScript Admin & Dashboard Template";
   return (
     <React.Fragment>
       <DeleteModal

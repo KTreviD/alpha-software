@@ -12,6 +12,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { useAppDispatch, useAppSelector } from "src/hooks/useRedux";
 import { loginUser } from "src/slices/user";
+import { loginSession } from "src/slices/session";
 const logoAlpha = "/images/icon-alpha-software.png";
 
 enum VerificationCodeStatus {
@@ -55,9 +56,11 @@ export default function ConfirmAccount() {
     }
 
     try {
-      const { user } = await verifyEmail({ code }).unwrap(); // Envías el código como payload
+      const { user, session } = await verifyEmail({ code }).unwrap(); // Envías el código como payload
+
       if (user) {
         dispatch(loginUser(user)); // Guardas el usuario en Redux
+        dispatch(loginSession(session)); // Guardas el usuario en Redux
       }
       router.push(`/apps-job-companies-lists`);
     } catch (error: any) {

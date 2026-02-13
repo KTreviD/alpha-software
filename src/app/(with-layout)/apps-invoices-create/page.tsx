@@ -135,9 +135,6 @@ const InvoiceCreate = () => {
     setDate(joinDate);
   };
 
-  document.title =
-    "Create Invoice | Velzon - Next.js TypeScript Admin & Dashboard Template";
-
   const validation: any = useFormik({
     enableReinitialize: true,
 

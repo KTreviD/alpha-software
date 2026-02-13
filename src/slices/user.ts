@@ -6,7 +6,6 @@ interface UserState {
     name: string;
     surnames?: string;
     email: string;
-    currentSessionId: number;
     userPreferences?: {
       enable2FA: boolean;
       emailNotification: boolean;

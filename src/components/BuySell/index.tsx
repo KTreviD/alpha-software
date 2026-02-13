@@ -7,8 +7,6 @@ import BuySellCoin from "./BuySellCoin";
 import Market from "./Market";
 
 const BuySell = () => {
-  document.title =
-    "Buy & Sell | Velzon - Next.js TypeScript Admin & Dashboard Template";
   return (
     <React.Fragment>
       <div className="page-content">

@@ -49,7 +49,6 @@ const ForgetPasswordPage = (props: any) => {
     },
   });
 
-  document.title = "Forgot Password";
   return (
     <React.Fragment>
       <ParticlesAuth>

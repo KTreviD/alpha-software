@@ -6,8 +6,6 @@ import FeedbackAction from "./FeedbackAction";
 import RatingTemplate from "./RatingTemplate";
 
 const index = () => {
-  document.title =
-    "Invoice Action | Velzon - Next.js TypeScript Admin & Dashboard Template";
   return (
     <React.Fragment>
       <div className="page-content">

@@ -62,9 +62,6 @@ import { useAppSelector } from "src/hooks/useRedux";
 
 const SimplePage = () => {
   const user = useAppSelector(state => state.AuthUser.user);
-  console.log({ user });
-  document.title =
-    "Profile | Velzon - Next.js TypeScript Admin & Dashboard Template";
 
   const [activeTab, setActiveTab] = useState("1");
   const [activityTab, setActivityTab] = useState("1");

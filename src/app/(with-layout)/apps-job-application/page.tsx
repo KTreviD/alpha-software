@@ -47,9 +47,6 @@ import ExportCSVModal from "@common/ExportCSVModal";
 import Image from "next/image";
 
 const Application = () => {
-  document.title =
-    "Application | Velzon - Next.js TypeScript Admin & Dashboard Template";
-
   const option = [
     {
       options: [

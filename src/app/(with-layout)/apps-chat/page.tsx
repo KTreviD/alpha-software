@@ -291,9 +291,6 @@ const Chat = () => {
     setcurMessage(curMessage + event.emoji);
   };
 
-  document.title =
-    "Chat | Velzon - Next.js TypeScript Admin & Dashboard Template";
-
   return (
     <React.Fragment>
       <div className="page-content">

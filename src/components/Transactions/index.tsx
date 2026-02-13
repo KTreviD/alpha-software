@@ -5,8 +5,6 @@ import AllTransactions from "./AllTransactions";
 import Widgets from "./Widgets";
 
 const Transactions = () => {
-  document.title =
-    "Transactions | Velzon - Next.js TypeScript Admin & Dashboard Template";
   return (
     <React.Fragment>
       <div className="page-content">

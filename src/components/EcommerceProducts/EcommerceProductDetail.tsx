@@ -127,8 +127,6 @@ function EcommerceProductDetail(props: any) {
     }
   };
 
-  document.title =
-    "Product Details | Velzon - Next.js TypeScript Admin & Dashboard Template";
   return (
     <div className="page-content">
       <Container fluid>

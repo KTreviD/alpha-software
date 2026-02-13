@@ -22,8 +22,6 @@ import Pagination from "@common/Pagination";
 import Image from "next/image";
 
 const CandidateList = () => {
-  document.title = "Candidate List View | Velzon -  Admin & Dashboard Template";
-
   const dispatch: any = useDispatch();
 
   const selectLayoutProperties = createSelector(

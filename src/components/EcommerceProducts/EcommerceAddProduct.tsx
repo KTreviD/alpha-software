@@ -48,9 +48,6 @@ import Image from "next/image";
 registerPlugin(FilePondPluginImageExifOrientation, FilePondPluginImagePreview);
 
 const EcommerceAddProduct = (props: any) => {
-  document.title =
-    "Create Product | Velzon - Next.js TypeScript Admin & Dashboard Template";
-
   const history = useRouter();
   const dispatch: any = useDispatch();
 

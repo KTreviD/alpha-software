@@ -28,9 +28,6 @@ const Pricing = () => {
     }
   };
 
-  document.title =
-    "Pricing | Velzon - Next.js TypeScript Admin & Dashboard Template";
-
   return (
     <React.Fragment>
       <div className="page-content">

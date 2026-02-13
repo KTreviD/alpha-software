@@ -22,13 +22,14 @@ import * as Yup from "yup";
 import { useFormik } from "formik";
 
 import Image from "next/image";
-import { loginUser } from "src/slices/user";
 import {
   usePostLoginMutation,
   usePostResendTwoFactorCodeMutation,
   usePostVerifyTwoFactorCodeMutation,
 } from "src/slices/api/apiSlice";
 import ModalTwoFactorCode from "./Modal";
+import { loginSession } from "src/slices/session";
+import { loginUser } from "src/slices/user";
 
 type LoginFormValues = {
   email: string;
@@ -67,7 +68,7 @@ const Login = () => {
       password: Yup.string().min(6).required("Please Enter Your Password"),
     }),
     onSubmit: async values => {
-      const { user, mfaRequired } = await loginUserPost({
+      const { user, session, mfaRequired } = await loginUserPost({
         email: values.email,
         password: values.password,
       }).unwrap();
@@ -78,7 +79,8 @@ const Login = () => {
       }
 
       if (user) {
-        dispatch(loginUser(user)); // Guardas el usuario en Redux
+        dispatch(loginUser(user));
+        dispatch(loginSession(session)); // Guardas el usuario en Redux
       }
       router.push(`/apps-job-companies-lists`);
     },
@@ -86,13 +88,14 @@ const Login = () => {
 
   const handleOnComplete = async (code: string) => {
     try {
-      const { user } = await verifyTwoFactorCode({
+      const { user, session } = await verifyTwoFactorCode({
         code,
         email: validation.values.email,
       }).unwrap();
 
       if (user) {
         dispatch(loginUser(user)); // Guardas el usuario en Redux
+        dispatch(loginSession(session)); // Guardas el usuario en Redux
       }
 
       router.push("/apps-job-companies-lists");

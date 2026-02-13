@@ -60,9 +60,6 @@ const SearchResults = () => {
     setDropdownOpen(!dropdownOpen);
   };
 
-  document.title =
-    "Search Results | Velzon - Next.js TypeScript Admin & Dashboard Template";
-
   return (
     <React.Fragment>
       <div className="page-content">

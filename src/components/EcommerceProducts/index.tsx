@@ -339,8 +339,6 @@ const EcommerceProducts = (props: any) => {
     ],
     []
   );
-  document.title =
-    "Products | Velzon - Next.js TypeScript Admin & Dashboard Template";
 
   return (
     <div className="page-content">

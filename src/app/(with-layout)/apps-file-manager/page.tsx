@@ -49,9 +49,6 @@ import Link from "next/link";
 import { createSelector } from "reselect";
 
 const FileManager = () => {
-  document.title =
-    "File Manager | Velzon - Next.js TypeScript Admin & Dashboard Template";
-
   const dispatch: any = useDispatch();
 
   const selectLayoutState = (state: any) => state.FileManager;

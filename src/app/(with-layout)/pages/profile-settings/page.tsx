@@ -31,16 +31,13 @@ import Experience from "./Experience";
 import PrivacyPolicy from "./PrivacyPolicy";
 
 const Settings = () => {
-  const user = useAppSelector(state => state.AuthUser.user);
+  const sessionId = useAppSelector(state => state.AuthSession.id);
 
   const [activeTab, setActiveTab] = useState("1");
 
   const tabChange = (tab: any) => {
     if (activeTab !== tab) setActiveTab(tab);
   };
-
-  document.title =
-    "Profile Settings | Velzon - Next.js TypeScript Admin & Dashboard Template";
 
   return (
     <React.Fragment>
@@ -281,9 +278,7 @@ const Settings = () => {
                     </TabPane>
 
                     <TabPane tabId="3">
-                      <ChangePassword
-                        currentSessionId={user?.currentSessionId as number}
-                      />
+                      <ChangePassword currentSessionId={sessionId as number} />
                     </TabPane>
 
                     <TabPane tabId="4">

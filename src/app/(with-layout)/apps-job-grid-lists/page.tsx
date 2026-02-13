@@ -19,8 +19,6 @@ import BreadCrumb from "@common/BreadCrumb";
 import Image from "next/image";
 
 const JobGrid = () => {
-  document.title = "Job Grid | Velzon -  Admin & Dashboard Template";
-
   return (
     <React.Fragment>
       <div className="page-content">

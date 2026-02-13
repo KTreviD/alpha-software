@@ -21,9 +21,6 @@ import { useFormik } from "formik";
 import * as Yup from "yup";
 
 const BasicPasswCreate = () => {
-  document.title =
-    "Create New Password | Velzon - Next.js TypeScript Admin & Dashboard Template";
-
   const [passwordShow, setPasswordShow] = useState<boolean>(false);
   const [confrimPasswordShow, setConfrimPasswordShow] =
     useState<boolean>(false);
