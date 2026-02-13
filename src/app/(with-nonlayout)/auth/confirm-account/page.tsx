@@ -16,8 +16,9 @@ import { loginSession } from "src/slices/session";
 const logoAlpha = "/images/icon-alpha-software.png";
 
 enum VerificationCodeStatus {
-  EXPIRED = "expired",
-  VALID = "valid",
+  NOT_FOUND = "NOT_FOUND",
+  EXPIRED = "EXPIRED",
+  VALID = "VALID",
 }
 
 export default function ConfirmAccount() {
@@ -175,7 +176,7 @@ export default function ConfirmAccount() {
                         )}
                       </div>
                     )}
-                    {status === "not_found" && (
+                    {status === VerificationCodeStatus.NOT_FOUND && (
                       <div className="text-center mt-2">
                         <p className="text-muted">
                           This verification link is invalid or has already been
