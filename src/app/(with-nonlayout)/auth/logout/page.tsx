@@ -10,6 +10,7 @@ import ParticlesAuth from "../ParticlesAuth";
 
 const logoAlpha = "/images/icon-alpha-software.png";
 import Image from "next/image";
+import { logoutSession } from "src/slices/session";
 
 export default function Logout() {
   const dispatch = useDispatch();
@@ -21,6 +22,7 @@ export default function Logout() {
       try {
         await logoutUserPost();
         dispatch(logoutUser());
+        dispatch(logoutSession());
       } catch (err) {
         console.error(err);
       } finally {
