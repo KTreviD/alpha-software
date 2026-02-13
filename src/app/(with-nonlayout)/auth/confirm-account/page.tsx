@@ -13,6 +13,7 @@ import Image from "next/image";
 import { useAppDispatch, useAppSelector } from "src/hooks/useRedux";
 import { loginUser } from "src/slices/user";
 import { loginSession } from "src/slices/session";
+import { VerificationCodeValidType } from "../reset-password/utils";
 const logoAlpha = "/images/icon-alpha-software.png";
 
 enum VerificationCodeStatus {
@@ -27,12 +28,14 @@ export default function ConfirmAccount() {
   const searchParams = useSearchParams();
   const code = searchParams.get("code");
 
-  // RTK Query Mutation
   const {
     data = {},
     isLoading: isLoadingGetVerificationCode,
     isFetching,
-  } = useGetIsVerificationCodeValidQuery({ code: code as string });
+  } = useGetIsVerificationCodeValidQuery({
+    code: code as string,
+    type: VerificationCodeValidType.EMAIL_VERIFICATION,
+  });
   const { status, userId } = data;
 
   const [verifyEmail, { isLoading: isLoadingPost }] =

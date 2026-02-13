@@ -19,16 +19,31 @@ import Image from "next/image";
 import { useFormik } from "formik";
 import * as Yup from "yup";
 import ParticlesAuth from "../ParticlesAuth";
-import { usePostResetPasswordMutation } from "src/slices/api/apiSlice";
+import {
+  useGetIsVerificationCodeValidQuery,
+  usePostResetPasswordMutation,
+} from "src/slices/api/apiSlice";
+import { VerificationCodeValidType } from "./utils";
 
 const logoLight = "/images/icon-alpha-software.png";
 
 export default function ResetPassword() {
-  const [resetPassword, { isLoading, error, data }] =
-    usePostResetPasswordMutation();
   const router = useRouter();
-  const params = useSearchParams();
-  const code = params.get("code");
+  const searchParams = useSearchParams();
+  const code = searchParams.get("code");
+
+  const {
+    data = {},
+    isLoading: isLoadingGetVerificationCode,
+    isFetching,
+  } = useGetIsVerificationCodeValidQuery({
+    code: code as string,
+    type: VerificationCodeValidType.PASSWORD_RESET,
+  });
+  const { status, userId } = data;
+  console.log({ status, userId });
+
+  const [resetPassword, { isLoading, error }] = usePostResetPasswordMutation();
 
   const validation = useFormik({
     enableReinitialize: true,

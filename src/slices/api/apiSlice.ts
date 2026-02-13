@@ -86,10 +86,13 @@ export const apiSlice = createApi({
     //   },
     //   providesTags: ["Candidates"],
     // }),
-    getIsVerificationCodeValid: builder.query<any, { code: string }>({
+    getIsVerificationCodeValid: builder.query<
+      any,
+      { code: string; type: string }
+    >({
       query: params => {
-        const { code } = params;
-        return `/auth/verify/isEmailVerificationCodeValid?code=${code}`;
+        const { code, type } = params;
+        return `/auth/verify/isEmailVerificationCodeValid?code=${code}&type=${type}`;
       },
     }),
     getAllSessions: builder.query<any, void>({

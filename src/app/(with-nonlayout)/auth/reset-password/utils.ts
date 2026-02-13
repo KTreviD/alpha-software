@@ -1,0 +1,4 @@
+export enum VerificationCodeValidType {
+  PASSWORD_RESET = "PASSWORD_RESET",
+  EMAIL_VERIFICATION = "EMAIL_VERIFICATION",
+}
