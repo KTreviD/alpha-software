@@ -24,6 +24,7 @@ import {
   usePostResetPasswordMutation,
 } from "src/slices/api/apiSlice";
 import { VerificationCodeValidType } from "./utils";
+import { VerificationCodeStatus } from "../confirm-account/utils";
 
 const logoLight = "/images/icon-alpha-software.png";
 
@@ -33,17 +34,18 @@ export default function ResetPassword() {
   const code = searchParams.get("code");
 
   const {
-    data = {},
+    data: dataValid = {},
     isLoading: isLoadingGetVerificationCode,
     isFetching,
   } = useGetIsVerificationCodeValidQuery({
     code: code as string,
     type: VerificationCodeValidType.PASSWORD_RESET,
   });
-  const { status, userId } = data;
+  const { status, userId } = dataValid;
   console.log({ status, userId });
 
-  const [resetPassword, { isLoading, error }] = usePostResetPasswordMutation();
+  const [resetPassword, { isLoading, error, data }] =
+    usePostResetPasswordMutation();
 
   const validation = useFormik({
     enableReinitialize: true,
@@ -106,68 +108,117 @@ export default function ResetPassword() {
                     <Alert color="danger">{error.data.message}</Alert>
                   )}
 
-                  <Form
-                    onSubmit={e => {
-                      e.preventDefault();
-                      validation.handleSubmit();
-                      return false;
-                    }}
-                  >
-                    <div className="mb-4">
-                      <Label className="form-label">New Password</Label>
-                      <Input
-                        name="password"
-                        type="password"
-                        placeholder="Enter new password"
-                        onChange={validation.handleChange}
-                        onBlur={validation.handleBlur}
-                        value={validation.values.password || ""}
-                        invalid={
-                          validation.touched.password &&
-                          !!validation.errors.password
-                        }
-                      />
-                      {validation.touched.password &&
-                        validation.errors.password && (
-                          <FormFeedback>
-                            {validation.errors.password}
-                          </FormFeedback>
-                        )}
-                    </div>
+                  {status === VerificationCodeStatus.VALID && (
+                    <Form
+                      onSubmit={e => {
+                        e.preventDefault();
+                        validation.handleSubmit();
+                        return false;
+                      }}
+                    >
+                      <div className="mb-4">
+                        <Label className="form-label">New Password</Label>
+                        <Input
+                          name="password"
+                          type="password"
+                          placeholder="Enter new password"
+                          onChange={validation.handleChange}
+                          onBlur={validation.handleBlur}
+                          value={validation.values.password || ""}
+                          invalid={
+                            validation.touched.password &&
+                            !!validation.errors.password
+                          }
+                        />
+                        {validation.touched.password &&
+                          validation.errors.password && (
+                            <FormFeedback>
+                              {validation.errors.password}
+                            </FormFeedback>
+                          )}
+                      </div>
 
-                    <div className="mb-4">
-                      <Label className="form-label">Confirm Password</Label>
-                      <Input
-                        name="confirmPassword"
-                        type="password"
-                        placeholder="Confirm new password"
-                        onChange={validation.handleChange}
-                        onBlur={validation.handleBlur}
-                        value={validation.values.confirmPassword || ""}
-                        invalid={
-                          validation.touched.confirmPassword &&
-                          !!validation.errors.confirmPassword
-                        }
-                      />
-                      {validation.touched.confirmPassword &&
-                        validation.errors.confirmPassword && (
-                          <FormFeedback>
-                            {validation.errors.confirmPassword}
-                          </FormFeedback>
-                        )}
-                    </div>
+                      <div className="mb-4">
+                        <Label className="form-label">Confirm Password</Label>
+                        <Input
+                          name="confirmPassword"
+                          type="password"
+                          placeholder="Confirm new password"
+                          onChange={validation.handleChange}
+                          onBlur={validation.handleBlur}
+                          value={validation.values.confirmPassword || ""}
+                          invalid={
+                            validation.touched.confirmPassword &&
+                            !!validation.errors.confirmPassword
+                          }
+                        />
+                        {validation.touched.confirmPassword &&
+                          validation.errors.confirmPassword && (
+                            <FormFeedback>
+                              {validation.errors.confirmPassword}
+                            </FormFeedback>
+                          )}
+                      </div>
 
-                    <div className="text-center mt-4">
-                      <button className="btn btn-danger w-100" type="submit">
+                      <div className="text-center mt-4">
+                        <button className="btn btn-danger w-100" type="submit">
+                          {isLoading ? (
+                            <Spinner size="sm" className="me-2" />
+                          ) : (
+                            "Reset Password"
+                          )}
+                        </button>
+                      </div>
+                    </Form>
+                  )}
+                  {status === VerificationCodeStatus.EXPIRED && (
+                    <div className="text-center mt-2">
+                      <p className="text-muted">
+                        Your verification link has expired. Click the button
+                        below to receive a new verification email.
+                      </p>
+                      <button
+                        className="btn btn-danger"
+                        color="primary"
+                        disabled={isLoading}
+                        // onClick={handleResendVerificationEmail}
+                      >
                         {isLoading ? (
-                          <Spinner size="sm" className="me-2" />
+                          <Spinner size="sm" color="light" className="me-2" />
                         ) : (
-                          "Reset Password"
+                          "Resend Verification Email"
                         )}
                       </button>
+                      {/* {responseResend && (
+                        <>
+                          {responseResend?.data?.status === 200 ? (
+                            <p className="mt-2 text-success flex items-center justify-center gap-2">
+                              Your verification email has been sent
+                              successfully!
+                            </p>
+                          ) : (
+                            <p className="mt-2 text-danger flex items-center justify-center gap-2">
+                              There was a problem resending your verification
+                              email.
+                            </p>
+                          )}
+                        </>
+                      )} */}
                     </div>
-                  </Form>
-
+                  )}
+                  {status === VerificationCodeStatus.NOT_FOUND && (
+                    <div className="text-center mt-2">
+                      <p className="text-muted">
+                        This verification link is invalid or has already been
+                        used. If you haven’t confirmed your account yet, please
+                        request a new verification email from the registration
+                        page or contact support.
+                      </p>
+                      <Link href="/auth/login" className="btn btn-primary">
+                        Go to Login
+                      </Link>
+                    </div>
+                  )}
                   <div className="mt-4 text-center">
                     <p className="mb-0">
                       Remembered your password?{" "}

@@ -14,13 +14,8 @@ import { useAppDispatch, useAppSelector } from "src/hooks/useRedux";
 import { loginUser } from "src/slices/user";
 import { loginSession } from "src/slices/session";
 import { VerificationCodeValidType } from "../reset-password/utils";
+import { VerificationCodeStatus } from "./utils";
 const logoAlpha = "/images/icon-alpha-software.png";
-
-enum VerificationCodeStatus {
-  NOT_FOUND = "NOT_FOUND",
-  EXPIRED = "EXPIRED",
-  VALID = "VALID",
-}
 
 export default function ConfirmAccount() {
   const dispatch = useAppDispatch();
