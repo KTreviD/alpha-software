@@ -193,27 +193,34 @@ export default function ResetPassword() {
                         Your verification link has expired. Click the button
                         below to receive a new verification email.
                       </p>
-                      <button
-                        className="btn btn-danger"
-                        color="primary"
-                        disabled={isLoading}
-                        onClick={handleResendVerificationEmail}
-                      >
-                        {isLoading ? (
-                          <Spinner size="sm" color="light" className="me-2" />
-                        ) : (
-                          "Resend Verification Email"
+                      {!responseResend &&
+                        responseResend?.data?.status !== 200 && (
+                          <button
+                            className="btn btn-danger"
+                            color="primary"
+                            disabled={isLoading}
+                            onClick={handleResendVerificationEmail}
+                          >
+                            {isLoading ? (
+                              <Spinner
+                                size="sm"
+                                color="light"
+                                className="me-2"
+                              />
+                            ) : (
+                              "Resend Verification Email"
+                            )}
+                          </button>
                         )}
-                      </button>
                       {responseResend && (
                         <>
                           {responseResend?.data?.status === 200 ? (
-                            <p className="mt-2 text-success flex items-center justify-center gap-2">
+                            <p className="m-4 text-success flex items-center justify-center gap-2">
                               Your verification email has been sent
                               successfully!
                             </p>
                           ) : (
-                            <p className="mt-2 text-danger flex items-center justify-center gap-2">
+                            <p className="m-4 text-danger flex items-center justify-center gap-2">
                               There was a problem resending your verification
                               email.
                             </p>
@@ -223,7 +230,7 @@ export default function ResetPassword() {
                     </div>
                   )}
                   {status === VerificationCodeStatus.NOT_FOUND && (
-                    <div className="text-center mt-2">
+                    <div className="text-center m-4 mt-3">
                       <p className="text-muted">
                         This verification link is invalid or has already been
                         used. If you haven’t confirmed your account yet, please
@@ -231,7 +238,7 @@ export default function ResetPassword() {
                         page or contact support.
                       </p>
                       <Link href="/auth/login" className="btn btn-primary">
-                        Go to Login
+                        Go to I Forgot My Password
                       </Link>
                     </div>
                   )}
