@@ -237,19 +237,22 @@ export default function ResetPassword() {
                     )}
                   {status === VerificationCodeStatus.NOT_FOUND &&
                     !data?.message && (
-                      <div className="text-center m-4 mt-3">
+                      <div className="text-center m-3 mt-3">
                         <p className="text-muted">
                           This verification link is invalid or has already been
                           used. If you still need to reset your password,
                           request a new email from the forgot password page or
                           contact support.
                         </p>
-                        <Link href="/auth/login" className="btn btn-primary">
+                        <Link
+                          href="/auth/login"
+                          className="btn btn-primary mt-1"
+                        >
                           Go to I Forgot My Password
                         </Link>
                       </div>
                     )}
-                  <div className="mt-4 text-center">
+                  <div className="mt-0 text-center">
                     <p className="mb-0">
                       Remembered your password?{" "}
                       <Link
