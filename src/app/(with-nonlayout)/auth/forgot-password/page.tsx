@@ -79,12 +79,14 @@ const ForgetPasswordPage = (props: any) => {
 
                       <i className="ri-mail-send-line display-5 text-danger mb-3"></i>
                     </div>
-                    <Alert
-                      className="border-0 alert-warning text-center mb-2 mx-2"
-                      role="alert"
-                    >
-                      Enter your email and instructions will be sent to you!
-                    </Alert>
+                    {!data && (
+                      <Alert
+                        className="border-0 alert-warning text-center mb-2 mx-2"
+                        role="alert"
+                      >
+                        Enter your email and instructions will be sent to you!
+                      </Alert>
+                    )}
                     <div className="p-2">
                       {data && data?.message !== "" ? (
                         <Alert color="success">{data?.message}</Alert>
