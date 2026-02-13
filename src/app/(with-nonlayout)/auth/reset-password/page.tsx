@@ -108,7 +108,7 @@ export default function ResetPassword() {
                 </Link>
               </div>
 
-              <Card className="mt-5 pt-4">
+              <Card className="mt-5 card-bg-fill pt-3">
                 <CardBody className="p-4">
                   <div className="text-center mt-2">
                     <h5 className="text-primary">Reset Password</h5>

@@ -69,7 +69,7 @@ const ForgetPasswordPage = (props: any) => {
                     <Image src={logoLight} alt="" height={80} width={80} />
                   </Link>
                 </div>
-                <Card className="mt-5 pt-4">
+                <Card className="mt-5 card-bg-fill pt-3">
                   <CardBody className="p-4">
                     <div className="text-center mt-2">
                       <h5 className="text-primary">Forgot Password?</h5>
