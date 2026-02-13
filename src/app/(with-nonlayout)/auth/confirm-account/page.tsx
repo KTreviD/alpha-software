@@ -22,6 +22,7 @@ export default function ConfirmAccount() {
   const router = useRouter();
   const searchParams = useSearchParams();
   const code = searchParams.get("code");
+  const type = VerificationCodeValidType.EMAIL_VERIFICATION;
 
   const {
     data = {},
@@ -29,7 +30,7 @@ export default function ConfirmAccount() {
     isFetching,
   } = useGetIsVerificationCodeValidQuery({
     code: code as string,
-    type: VerificationCodeValidType.EMAIL_VERIFICATION,
+    type,
   });
   const { status, userId } = data;
 
@@ -71,7 +72,7 @@ export default function ConfirmAccount() {
     e.preventDefault();
 
     try {
-      const response = await resendVerificationEmail({ userId, code }); // Envías el código como payload
+      const response = await resendVerificationEmail({ userId, type }); // Envías el código como payload
       setResponseResend(response);
     } catch (error: any) {
       console.log({ error });

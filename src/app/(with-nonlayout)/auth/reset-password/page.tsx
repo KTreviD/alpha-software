@@ -1,5 +1,5 @@
 "use client";
-import React from "react";
+import React, { useState } from "react";
 import { useSearchParams, useRouter } from "next/navigation";
 import {
   Row,
@@ -21,6 +21,7 @@ import * as Yup from "yup";
 import ParticlesAuth from "../ParticlesAuth";
 import {
   useGetIsVerificationCodeValidQuery,
+  usePostResendVerificationEmailMutation,
   usePostResetPasswordMutation,
 } from "src/slices/api/apiSlice";
 import { VerificationCodeValidType } from "./utils";
@@ -32,6 +33,7 @@ export default function ResetPassword() {
   const router = useRouter();
   const searchParams = useSearchParams();
   const code = searchParams.get("code");
+  const type = VerificationCodeValidType.PASSWORD_RESET;
 
   const {
     data: dataValid = {},
@@ -39,13 +41,15 @@ export default function ResetPassword() {
     isFetching,
   } = useGetIsVerificationCodeValidQuery({
     code: code as string,
-    type: VerificationCodeValidType.PASSWORD_RESET,
+    type,
   });
   const { status, userId } = dataValid;
-  console.log({ status, userId });
 
   const [resetPassword, { isLoading, error, data }] =
     usePostResetPasswordMutation();
+  const [resendVerificationEmail, { isLoading: isLoadingResendVE }] =
+    usePostResendVerificationEmailMutation();
+  const [responseResend, setResponseResend] = useState<any>();
 
   const validation = useFormik({
     enableReinitialize: true,
@@ -71,6 +75,18 @@ export default function ResetPassword() {
       });
     },
   });
+
+  const handleResendVerificationEmail = async (e: any) => {
+    e.preventDefault();
+
+    try {
+      const response = await resendVerificationEmail({ userId, type }); // Envías el código como payload
+      setResponseResend(response);
+    } catch (error: any) {
+      console.log({ error });
+      console.error(error);
+    }
+  };
 
   return (
     <ParticlesAuth>
@@ -189,7 +205,7 @@ export default function ResetPassword() {
                           "Resend Verification Email"
                         )}
                       </button>
-                      {/* {responseResend && (
+                      {responseResend && (
                         <>
                           {responseResend?.data?.status === 200 ? (
                             <p className="mt-2 text-success flex items-center justify-center gap-2">
@@ -203,7 +219,7 @@ export default function ResetPassword() {
                             </p>
                           )}
                         </>
-                      )} */}
+                      )}
                     </div>
                   )}
                   {status === VerificationCodeStatus.NOT_FOUND && (
