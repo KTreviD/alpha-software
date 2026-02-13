@@ -58,8 +58,9 @@ export default function ResetPassword() {
       confirmPassword: "",
     },
     validationSchema: Yup.object({
-      password: Yup.string().required("Please enter your new password"),
+      password: Yup.string().min(6).required("Please enter your new password"),
       confirmPassword: Yup.string()
+        .min(6)
         .required("Please confirm your password")
         .oneOf([Yup.ref("password")], "Passwords must match"),
     }),
@@ -124,124 +125,130 @@ export default function ResetPassword() {
                     <Alert color="danger">{error.data.message}</Alert>
                   )}
 
-                  {status === VerificationCodeStatus.VALID && (
-                    <Form
-                      onSubmit={e => {
-                        e.preventDefault();
-                        validation.handleSubmit();
-                        return false;
-                      }}
-                    >
-                      <div className="mb-4">
-                        <Label className="form-label">New Password</Label>
-                        <Input
-                          name="password"
-                          type="password"
-                          placeholder="Enter new password"
-                          onChange={validation.handleChange}
-                          onBlur={validation.handleBlur}
-                          value={validation.values.password || ""}
-                          invalid={
-                            validation.touched.password &&
-                            !!validation.errors.password
-                          }
-                        />
-                        {validation.touched.password &&
-                          validation.errors.password && (
-                            <FormFeedback>
-                              {validation.errors.password}
-                            </FormFeedback>
-                          )}
-                      </div>
+                  {status === VerificationCodeStatus.VALID &&
+                    !data?.message && (
+                      <Form
+                        onSubmit={e => {
+                          e.preventDefault();
+                          validation.handleSubmit();
+                          return false;
+                        }}
+                      >
+                        <div className="mb-4">
+                          <Label className="form-label">New Password</Label>
+                          <Input
+                            name="password"
+                            type="password"
+                            placeholder="Enter new password"
+                            onChange={validation.handleChange}
+                            onBlur={validation.handleBlur}
+                            value={validation.values.password || ""}
+                            invalid={
+                              validation.touched.password &&
+                              !!validation.errors.password
+                            }
+                          />
+                          {validation.touched.password &&
+                            validation.errors.password && (
+                              <FormFeedback>
+                                {validation.errors.password}
+                              </FormFeedback>
+                            )}
+                        </div>
 
-                      <div className="mb-4">
-                        <Label className="form-label">Confirm Password</Label>
-                        <Input
-                          name="confirmPassword"
-                          type="password"
-                          placeholder="Confirm new password"
-                          onChange={validation.handleChange}
-                          onBlur={validation.handleBlur}
-                          value={validation.values.confirmPassword || ""}
-                          invalid={
-                            validation.touched.confirmPassword &&
-                            !!validation.errors.confirmPassword
-                          }
-                        />
-                        {validation.touched.confirmPassword &&
-                          validation.errors.confirmPassword && (
-                            <FormFeedback>
-                              {validation.errors.confirmPassword}
-                            </FormFeedback>
-                          )}
-                      </div>
+                        <div className="mb-4">
+                          <Label className="form-label">Confirm Password</Label>
+                          <Input
+                            name="confirmPassword"
+                            type="password"
+                            placeholder="Confirm new password"
+                            onChange={validation.handleChange}
+                            onBlur={validation.handleBlur}
+                            value={validation.values.confirmPassword || ""}
+                            invalid={
+                              validation.touched.confirmPassword &&
+                              !!validation.errors.confirmPassword
+                            }
+                          />
+                          {validation.touched.confirmPassword &&
+                            validation.errors.confirmPassword && (
+                              <FormFeedback>
+                                {validation.errors.confirmPassword}
+                              </FormFeedback>
+                            )}
+                        </div>
 
-                      <div className="text-center mt-4">
-                        <button className="btn btn-danger w-100" type="submit">
-                          {isLoading ? (
-                            <Spinner size="sm" className="me-2" />
-                          ) : (
-                            "Reset Password"
-                          )}
-                        </button>
-                      </div>
-                    </Form>
-                  )}
-                  {status === VerificationCodeStatus.EXPIRED && (
-                    <div className="text-center mt-2">
-                      <p className="text-muted">
-                        Your verification link has expired. Click the button
-                        below to receive a new verification email.
-                      </p>
-                      {!responseResend &&
-                        responseResend?.data?.status !== 200 && (
+                        <div className="text-center mt-4">
                           <button
-                            className="btn btn-danger"
-                            color="primary"
-                            disabled={isLoading}
-                            onClick={handleResendVerificationEmail}
+                            className="btn btn-danger w-100"
+                            type="submit"
                           >
                             {isLoading ? (
-                              <Spinner
-                                size="sm"
-                                color="light"
-                                className="me-2"
-                              />
+                              <Spinner size="sm" className="me-2" />
                             ) : (
-                              "Resend Verification Email"
+                              "Reset Password"
                             )}
                           </button>
-                        )}
-                      {responseResend && (
-                        <>
-                          {responseResend?.data?.status === 200 ? (
-                            <p className="m-4 text-success flex items-center justify-center gap-2">
-                              Your verification email has been sent
-                              successfully!
-                            </p>
-                          ) : (
-                            <p className="m-4 text-danger flex items-center justify-center gap-2">
-                              There was a problem resending your verification
-                              email.
-                            </p>
+                        </div>
+                      </Form>
+                    )}
+                  {status === VerificationCodeStatus.EXPIRED &&
+                    !data?.message && (
+                      <div className="text-center mt-2">
+                        <p className="text-muted">
+                          Your verification link has expired. Click the button
+                          below to receive a new verification email.
+                        </p>
+                        {!responseResend &&
+                          responseResend?.data?.status !== 200 && (
+                            <button
+                              className="btn btn-danger"
+                              color="primary"
+                              disabled={isLoading}
+                              onClick={handleResendVerificationEmail}
+                            >
+                              {isLoading ? (
+                                <Spinner
+                                  size="sm"
+                                  color="light"
+                                  className="me-2"
+                                />
+                              ) : (
+                                "Resend Verification Email"
+                              )}
+                            </button>
                           )}
-                        </>
-                      )}
-                    </div>
-                  )}
-                  {status === VerificationCodeStatus.NOT_FOUND && (
-                    <div className="text-center m-4 mt-3">
-                      <p className="text-muted">
-                        This verification link is invalid or has already been
-                        used. If you haven’t confirmed your account yet, please
-                        request a new verification email from the registration
-                        page or contact support.
-                      </p>
-                      <Link href="/auth/login" className="btn btn-primary">
-                        Go to I Forgot My Password
-                      </Link>
-                    </div>
-                  )}
+                        {responseResend && (
+                          <>
+                            {responseResend?.data?.status === 200 ? (
+                              <p className="m-4 text-success flex items-center justify-center gap-2">
+                                Your verification email has been sent
+                                successfully!
+                              </p>
+                            ) : (
+                              <p className="m-4 text-danger flex items-center justify-center gap-2">
+                                There was a problem resending your verification
+                                email.
+                              </p>
+                            )}
+                          </>
+                        )}
+                      </div>
+                    )}
+                  {status === VerificationCodeStatus.NOT_FOUND &&
+                    !data?.message && (
+                      <div className="text-center m-4 mt-3">
+                        <p className="text-muted">
+                          This verification link is invalid or has already been
+                          used. If you haven’t confirmed your account yet,
+                          please request a new verification email from the
+                          registration page or contact support.
+                        </p>
+                        <Link href="/auth/login" className="btn btn-primary">
+                          Go to I Forgot My Password
+                        </Link>
+                      </div>
+                    )}
                   <div className="mt-4 text-center">
                     <p className="mb-0">
                       Remembered your password?{" "}
