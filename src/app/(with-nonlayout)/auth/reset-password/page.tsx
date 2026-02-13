@@ -240,9 +240,9 @@ export default function ResetPassword() {
                       <div className="text-center m-4 mt-3">
                         <p className="text-muted">
                           This verification link is invalid or has already been
-                          used. If you haven’t confirmed your account yet,
-                          please request a new verification email from the
-                          registration page or contact support.
+                          used. If you still need to reset your password,
+                          request a new email from the forgot password page or
+                          contact support.
                         </p>
                         <Link href="/auth/login" className="btn btn-primary">
                           Go to I Forgot My Password
