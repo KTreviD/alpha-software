@@ -72,7 +72,7 @@ const Login = () => {
         email: values.email,
         password: values.password,
       }).unwrap();
-      console.log({ user, session, mfaRequired });
+
       if (mfaRequired) {
         setModalTwoFactorEmailCode(true);
         return;

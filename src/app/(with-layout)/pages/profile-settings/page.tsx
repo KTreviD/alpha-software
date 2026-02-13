@@ -31,7 +31,7 @@ import Experience from "./Experience";
 import PrivacyPolicy from "./PrivacyPolicy";
 
 const Settings = () => {
-  const sessionId = useAppSelector(state => state.AuthSession.id);
+  const session = useAppSelector(state => state.AuthSession.session);
 
   const [activeTab, setActiveTab] = useState("1");
 
@@ -278,7 +278,9 @@ const Settings = () => {
                     </TabPane>
 
                     <TabPane tabId="3">
-                      <ChangePassword currentSessionId={sessionId as number} />
+                      <ChangePassword
+                        currentSessionId={session?.id as number}
+                      />
                     </TabPane>
 
                     <TabPane tabId="4">

@@ -1,22 +1,24 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
 interface SessionState {
-  id: number | null;
+  session: {
+    id: number;
+  } | null;
 }
 
 const initialState: SessionState = {
-  id: null,
+  session: null,
 };
 
 const AuthSessionSlice = createSlice({
   name: "authSession",
   initialState,
   reducers: {
-    loginSession: (state, action: PayloadAction<SessionState["id"]>) => {
-      state.id = action.payload;
+    loginSession: (state, action: PayloadAction<SessionState["session"]>) => {
+      state.session = action.payload;
     },
     logoutSession: state => {
-      state.id = null;
+      state.session = null;
     },
   },
 });
