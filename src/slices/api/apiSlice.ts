@@ -89,7 +89,7 @@ export const apiSlice = createApi({
     getIsVerificationCodeValid: builder.query<any, { code: string }>({
       query: params => {
         const { code } = params;
-        return `/auth/verify/isVerifyCodeValid?code=${code}`;
+        return `/auth/verify/isEmailVerificationCodeValid?code=${code}`;
       },
     }),
     getAllSessions: builder.query<any, void>({
