@@ -60,13 +60,13 @@ const ForgetPasswordPage = (props: any) => {
                   className="position-absolute"
                   style={{
                     zIndex: 10,
-                    top: "4px",
+                    top: 2,
                     left: "50%",
                     transform: "translateX(-50%)",
                   }}
                 >
                   <Link href="/" className="d-inline-block auth-logo">
-                    <Image src={logoLight} alt="" height={100} width={100} />
+                    <Image src={logoLight} alt="" height={80} width={80} />
                   </Link>
                 </div>
                 <Card className="mt-5 pt-4">
