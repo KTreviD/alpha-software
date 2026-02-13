@@ -98,13 +98,13 @@ export default function ResetPassword() {
                 className="position-absolute"
                 style={{
                   zIndex: 10,
-                  top: "4px",
+                  top: 2,
                   left: "50%",
                   transform: "translateX(-50%)",
                 }}
               >
                 <Link href="/" className="d-inline-block auth-logo">
-                  <Image src={logoLight} alt="Logo" height={100} width={100} />
+                  <Image src={logoLight} alt="Logo" height={80} width={80} />
                 </Link>
               </div>
 
@@ -197,7 +197,7 @@ export default function ResetPassword() {
                         className="btn btn-danger"
                         color="primary"
                         disabled={isLoading}
-                        // onClick={handleResendVerificationEmail}
+                        onClick={handleResendVerificationEmail}
                       >
                         {isLoading ? (
                           <Spinner size="sm" color="light" className="me-2" />
