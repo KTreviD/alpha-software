@@ -36,9 +36,6 @@ export * from "./dashboardJob/thunk";
 // Pages > Team
 export * from "./team/thunk";
 
-// File Manager
-export * from "./fileManager/thunk";
-
 // To do
 export * from "./todos/thunk";
 

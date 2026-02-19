@@ -1,0 +1,3 @@
+export enum MODULES {
+  SALES_RESOURCES = "SALES_RESOURCES",
+}

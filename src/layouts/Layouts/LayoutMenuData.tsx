@@ -1,5 +1,5 @@
 "use client";
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { useRouter } from "next/navigation";
 
 const Navdata = () => {
@@ -7,7 +7,6 @@ const Navdata = () => {
   //state data
   const [isDashboard, setIsDashboard] = useState<boolean>(false);
   const [isApps, setIsApps] = useState<boolean>(false);
-  const [isAuth, setIsAuth] = useState<boolean>(false);
   const [isPages, setIsPages] = useState<boolean>(false);
 
   // Apps
@@ -22,14 +21,6 @@ const Navdata = () => {
   const [isJobs, setIsJobs] = useState<boolean>(false);
   const [isJobList, setIsJobList] = useState<boolean>(false);
   const [isCandidateList, setIsCandidateList] = useState<boolean>(false);
-
-  // Authentication
-  const [isPasswordReset, setIsPasswordReset] = useState<boolean>(false);
-  const [isPasswordCreate, setIsPasswordCreate] = useState<boolean>(false);
-  const [isLogout, setIsLogout] = useState<boolean>(false);
-  const [isSuccessMessage, setIsSuccessMessage] = useState<boolean>(false);
-  const [isVerification, setIsVerification] = useState<boolean>(false);
-  const [isError, setIsError] = useState<boolean>(false);
 
   const [iscurrentState, setIscurrentState] = useState("Dashboard");
 
@@ -282,9 +273,9 @@ const Navdata = () => {
           ],
         },
         {
-          id: "filemanager",
-          label: "File Manager",
-          link: "/apps-file-manager",
+          id: "salesResources",
+          label: "Sales Resources",
+          link: "/sales-resources",
           parentId: "apps",
         },
         {
@@ -410,66 +401,6 @@ const Navdata = () => {
       isHeader: true,
     },
     {
-      id: "authentication",
-      label: "Authentication",
-      icon: "ri-account-circle-line",
-      link: "/#",
-      click: function (e: any) {
-        e.preventDefault();
-        setIsAuth(!isAuth);
-        setIscurrentState("Auth");
-        updateIconSidebar(e);
-      },
-      stateVariables: isAuth,
-      subItems: [
-        {
-          id: "passwordReset",
-          label: "Password Reset",
-          link: "/#",
-          isChildItem: true,
-          click: function (e: any) {
-            e.preventDefault();
-            setIsPasswordReset(!isPasswordReset);
-          },
-          parentId: "authentication",
-          stateVariables: isPasswordReset,
-          childItems: [
-            { id: 1, label: "Basic", link: "/authinner/pass/reset/basic" },
-            { id: 2, label: "Cover", link: "/authinner/pass/reset/cover" },
-          ],
-        },
-        {
-          id: "passwordCreate",
-          label: "Password Create",
-          link: "/#",
-          isChildItem: true,
-          click: function (e: any) {
-            e.preventDefault();
-            setIsPasswordCreate(!isPasswordCreate);
-          },
-          parentId: "authentication",
-          stateVariables: isPasswordCreate,
-          childItems: [
-            { id: 1, label: "Basic", link: "/authinner/pass/change/basic" },
-            { id: 2, label: "Cover", link: "/authinner/pass/change/cover" },
-          ],
-        },
-        {
-          id: "errors",
-          label: "Errors",
-          link: "/#",
-          isChildItem: true,
-          click: function (e: any) {
-            e.preventDefault();
-            setIsError(!isError);
-          },
-          parentId: "authentication",
-          stateVariables: isError,
-          childItems: [{ id: 4, label: "500", link: "/authinner/500" }],
-        },
-      ],
-    },
-    {
       id: "pages",
       label: "Pages",
       icon: "ri-pages-line",
@@ -482,12 +413,6 @@ const Navdata = () => {
       },
       stateVariables: isPages,
       subItems: [
-        {
-          id: "starter",
-          label: "Starter",
-          link: "/pages/starter",
-          parentId: "pages",
-        },
         { id: "team", label: "Team", link: "/pages/team", parentId: "pages" },
         {
           id: "timeline",
@@ -506,12 +431,6 @@ const Navdata = () => {
           id: "maintenance",
           label: "Maintenance",
           link: "/pages/maintenance",
-          parentId: "pages",
-        },
-        {
-          id: "searchResults",
-          label: "Search Results",
-          link: "/pages/search-results",
           parentId: "pages",
         },
         {

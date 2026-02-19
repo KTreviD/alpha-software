@@ -1701,7 +1701,6 @@ const EmailToolbar = () => {
                 />
               </div>
             </div>
-
             <div className="mb-3">
               <Input
                 type="text"
@@ -1709,18 +1708,18 @@ const EmailToolbar = () => {
                 placeholder="Subject"
               />
             </div>
-            <div className="ck-editor-reverse">
-              {/* <CKEditor
-                                editor={ClassicEditor}
-                                onReady={(editor: any) => {
-                                    // You can store the "editor" and use when it is needed.
 
-                                }}
-                                onChange={(event: any, editor: any) => {
-                                    editor.getData();
-                                }}
-                            /> */}
-            </div>
+            {/* <div className="ck-editor-reverse">
+              <CKEditor
+                editor={ClassicEditor}
+                onReady={(editor: any) => {
+                  // You can store the "editor" and use when it is needed.
+                }}
+                onChange={(event: any, editor: any) => {
+                  editor.getData();
+                }}
+              />
+            </div> */}
           </div>
         </ModalBody>
         <div className="modal-footer">

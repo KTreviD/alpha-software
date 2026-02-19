@@ -70,7 +70,7 @@ const baseQueryWithReAuth = async (
 export const apiSlice = createApi({
   reducerPath: "api",
   baseQuery: baseQueryWithReAuth,
-  tagTypes: ["Companies", "Industries", "Auth", "Session"],
+  tagTypes: ["Companies", "Industries", "Auth", "Session", "S3Files"],
   endpoints: builder => ({
     /////////////////////////////////////////------------------ GET ------------------/////////////////////////////////////////
 
@@ -106,6 +106,16 @@ export const apiSlice = createApi({
     getIndustriesAdminPage: builder.query<any, void>({
       query: params => "/industries/adminPage",
       providesTags: ["Industries"],
+    }),
+    getFoldersAndFiles: builder.query<
+      any,
+      { module: string; parentId: string | null }
+    >({
+      query: params => {
+        const { module, parentId } = params;
+        return `/s3Files/foldersAndFiles?module=${module}&parentId=${parentId}`;
+      },
+      providesTags: ["S3Files"],
     }),
     /////////////////////////////////////////----------------- POST -----------------/////////////////////////////////////////
 
@@ -203,6 +213,15 @@ export const apiSlice = createApi({
       invalidatesTags: ["Industries"],
       //   transformResponse: (response: ResChartsData) => response
     }),
+    postFolder: builder.mutation({
+      query: body => ({
+        url: "/s3Files/createfolder",
+        method: "POST",
+        body,
+      }),
+      invalidatesTags: ["S3Files"],
+      //   transformResponse: (response: ResChartsData) => response
+    }),
 
     /////////////////////////////////////////------------------ PUT ------------------/////////////////////////////////////////
 
@@ -221,6 +240,14 @@ export const apiSlice = createApi({
         body,
       }),
       invalidatesTags: ["Industries"],
+    }),
+    putFolder: builder.mutation({
+      query: body => ({
+        url: `/s3Files/renamefolder`,
+        method: "PUT",
+        body,
+      }),
+      invalidatesTags: ["S3Files"],
     }),
 
     /////////////////////////////////////////------------------ DELETE ------------------/////////////////////////////////////////
@@ -248,6 +275,7 @@ export const {
   useGetAllSessionsQuery,
   useGetCompaniesAdminPageQuery,
   useGetIndustriesAdminPageQuery,
+  useGetFoldersAndFilesQuery,
 
   /////////////////////////////////////////------------------ POST ------------------/////////////////////////////////////////
 
@@ -262,11 +290,13 @@ export const {
   usePostLogoutMutation,
   usePostCompanyMutation,
   usePostIndustryMutation,
+  usePostFolderMutation,
 
   /////////////////////////////////////////------------------ PUT ------------------/////////////////////////////////////////
 
   usePutCompanyMutation,
   usePutIndustryMutation,
+  usePutFolderMutation,
 
   /////////////////////////////////////////------------------ DELETE ------------------/////////////////////////////////////////
 

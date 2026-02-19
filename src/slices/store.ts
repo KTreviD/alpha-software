@@ -31,7 +31,6 @@ import InvoiceReducer from "./invoice/reducer";
 import MailboxReducer from "./mailbox/reducer";
 import DashboardJobReducer from "./dashboardJob/reducer";
 import TeamDataReducer from "./team/reducer";
-import FileManagerReducer from "./fileManager/reducer";
 import TodosReducer from "./todos/reducer";
 import JobReducer from "./jobs/reducer";
 import AuthUserReducer from "./user";
@@ -55,7 +54,6 @@ export interface RootState {
   Mailbox: ReturnType<typeof MailboxReducer>;
   DashBoardJob: ReturnType<typeof DashboardJobReducer>;
   Team: ReturnType<typeof TeamDataReducer>;
-  FileManager: ReturnType<typeof FileManagerReducer>;
   Todos: ReturnType<typeof TodosReducer>;
   Jobs: ReturnType<typeof JobReducer>;
   AuthUser: ReturnType<typeof AuthUserReducer>;
@@ -84,7 +82,6 @@ const rootReducer = combineReducers({
   Mailbox: MailboxReducer,
   DashBoardJob: DashboardJobReducer,
   Team: TeamDataReducer,
-  FileManager: FileManagerReducer,
   Todos: TodosReducer,
   Jobs: JobReducer,
   AuthUser: AuthUserReducer,
