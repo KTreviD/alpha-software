@@ -66,7 +66,7 @@ export interface RootState {
 const persistConfig = {
   key: "root",
   storage,
-  whitelist: ["Profile", "Layout", "AuthUser"], // Only persist essential data
+  whitelist: ["Profile", "Layout", "AuthUser", "AuthSession"], // Only persist essential data
 };
 
 const rootReducer = combineReducers({
