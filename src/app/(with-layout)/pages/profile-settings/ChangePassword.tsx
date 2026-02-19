@@ -21,7 +21,7 @@ type ChangePasswordI = {
 
 const ChangePassword = ({ currentSessionId }: ChangePasswordI) => {
   const { data, isLoading, isFetching } = useGetAllSessionsQuery();
-  console.log({ data, currentSessionId });
+
   return (
     <React.Fragment>
       <Form>

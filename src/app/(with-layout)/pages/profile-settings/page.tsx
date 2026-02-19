@@ -32,7 +32,7 @@ import PrivacyPolicy from "./PrivacyPolicy";
 
 const Settings = () => {
   const session = useAppSelector(state => state.AuthSession.session);
-  console.log({ session });
+
   const [activeTab, setActiveTab] = useState("1");
 
   const tabChange = (tab: any) => {
