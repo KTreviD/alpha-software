@@ -252,7 +252,7 @@ export default function ResetPassword() {
                         </Link>
                       </div>
                     )}
-                  <div className="mt-0 text-center">
+                  <div className="mt-3 text-center">
                     <p className="mb-0">
                       Remembered your password?{" "}
                       <Link
