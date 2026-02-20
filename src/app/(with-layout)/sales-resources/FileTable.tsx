@@ -118,37 +118,42 @@ const FileTable: React.FC<FileTableProps> = ({
     visible: boolean;
     x: number;
     y: number;
-    folderId?: string | null;
-  }>({ visible: false, x: 0, y: 0, folderId: null });
+    type: "folder" | "file" | null;
+    id?: string | null;
+  }>({ visible: false, x: 0, y: 0, type: null, id: null });
 
   React.useEffect(() => {
     setCurrentFolder({ id: null, name: principalFolder });
     setFolderPath([{ id: null, name: principalFolder }]);
   }, [filterActive]);
 
+  const handleCloseContextMenu = () =>
+    setContextMenu({
+      visible: false,
+      x: 0,
+      y: 0,
+      type: null,
+      id: null,
+    });
+
   React.useEffect(() => {
-    const handleClickOutside = () =>
-      setContextMenu({ visible: false, x: 0, y: 0, folderId: null });
-    window.addEventListener("click", handleClickOutside);
-    return () => window.removeEventListener("click", handleClickOutside);
+    window.addEventListener("click", handleCloseContextMenu);
+    return () => window.removeEventListener("click", handleCloseContextMenu);
   }, []);
 
   return (
     <div className="mx-n3 pt-4 px-4 file-manager-content-scroll">
-      {contextMenu.visible && contextMenu.folderId && (
+      {contextMenu.visible && contextMenu.id && (
         <UncontrolledDropdown
           style={{
             position: "fixed",
             top: contextMenu.y,
             left: contextMenu.x,
-            zIndex: 1050, // encima de todo
+            zIndex: 1050,
           }}
-          isOpen={true} // forzamos que esté abierto
+          isOpen={true}
         >
-          <DropdownToggle
-            tag="div"
-            style={{ display: "none" }} // toggle invisible, solo necesitamos el menú
-          />
+          <DropdownToggle tag="div" style={{ display: "none" }} />
 
           <DropdownMenu
             end
@@ -162,26 +167,38 @@ const FileTable: React.FC<FileTableProps> = ({
               Download
             </DropdownItem>
 
-            <DropdownItem
-              onClick={() => {
-                const folder = folders.find(
-                  (f: { id: string | null | undefined }) =>
-                    f.id === contextMenu.folderId
-                );
-                if (folder) {
-                  handleDoubleClick(folder.id, folder.name);
-                  setContextMenu({
-                    visible: false,
-                    x: 0,
-                    y: 0,
-                    folderId: null,
-                  });
-                }
-              }}
-            >
-              <i className="ri-folder-open-fill me-2" />
-              Open
-            </DropdownItem>
+            {/* VIEW / OPEN */}
+            {contextMenu.type === "folder" ? (
+              <DropdownItem
+                onClick={() => {
+                  const folder = folders.find(
+                    (f: { id: string | null | undefined }) =>
+                      f.id === contextMenu.id
+                  );
+                  if (folder) {
+                    handleDoubleClick(folder.id, folder.name);
+                  }
+                  handleCloseContextMenu();
+                }}
+              >
+                <i className="ri-folder-open-fill me-2" />
+                Open
+              </DropdownItem>
+            ) : (
+              <DropdownItem
+                onClick={() => {
+                  const file = files.find(
+                    (f: { id: string | null | undefined }) =>
+                      f.id === contextMenu.id
+                  );
+                  console.log("View file:", file);
+                  handleCloseContextMenu();
+                }}
+              >
+                <i className="ri-eye-line me-2" />
+                View
+              </DropdownItem>
+            )}
 
             <DropdownItem onClick={() => console.log("Rename clicked")}>
               <i className="ri-edit-2-fill me-2" />
@@ -309,7 +326,8 @@ const FileTable: React.FC<FileTableProps> = ({
                     visible: true,
                     x: e.clientX,
                     y: e.clientY,
-                    folderId: item.id,
+                    type: "folder",
+                    id: item.id,
                   });
                   e.stopPropagation();
                 }}
@@ -337,7 +355,23 @@ const FileTable: React.FC<FileTableProps> = ({
               </tr>
             ))}
             {(files || []).map((item: any, key: number) => (
-              <tr key={item.id}>
+              <tr
+                key={item.id}
+                onDoubleClick={() => {
+                  console.log("View file:", item);
+                }}
+                onContextMenu={e => {
+                  e.preventDefault();
+                  e.stopPropagation();
+                  setContextMenu({
+                    visible: true,
+                    x: e.clientX,
+                    y: e.clientY,
+                    type: "file",
+                    id: item.id,
+                  });
+                }}
+              >
                 <td className="p-0 ps-2">
                   <input
                     className="form-control filelist-id"
@@ -376,9 +410,9 @@ const FileTable: React.FC<FileTableProps> = ({
             left: 0,
             width: "100%",
             height: "100%",
-            backgroundColor: "rgba(255,255,255,0.4)", // semi-transparente
-            zIndex: 2000, // encima de todo
-            cursor: "wait", // cambia cursor
+            backgroundColor: "rgba(255,255,255,0.4)",
+            zIndex: 2000,
+            cursor: "wait",
           }}
         />
       )}
