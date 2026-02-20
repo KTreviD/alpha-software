@@ -222,13 +222,27 @@ const FileTable: React.FC<FileTableProps> = ({
         className="table-responsive"
         style={{ height: "calc(100% - 38px)", overflow: "auto" }}
       >
-        <table className="table align-middle table-nowrap mb-0 table-hover">
+        <table
+          className="table align-middle table-nowrap mb-0 table-hover"
+          style={{
+            borderCollapse: "separate", // evita que los bordes del th se fusionen con td
+            borderSpacing: 0,
+          }}
+        >
           <thead className="table-active sticky-top bg-body">
             <tr>
-              <th>Name</th>
-              <th>Type</th>
-              <th>File Size</th>
-              <th>Recent Date</th>
+              <th className="border" style={{ width: "200px" }}>
+                Name
+              </th>
+              <th className="border" style={{ width: "140px" }}>
+                Type
+              </th>
+              <th className="border" style={{ width: "100px" }}>
+                File Size
+              </th>
+              <th className="border" style={{ width: "180px" }}>
+                Recent Date
+              </th>
             </tr>
           </thead>
           <tbody id="file-list">
