@@ -23,6 +23,7 @@ import { FileUploader } from "src/components/s3Upload/FileUploader";
 import { formatDateAMPM } from "src/components/modal/dates";
 import {
   formatFileSize,
+  getFileCategory,
   getFileIcon,
   getFileIconColor,
   getFriendlyFileType,
@@ -61,7 +62,25 @@ const FileTable: React.FC<FileTableProps> = ({
 
   const { folders = [], files = [] } = data || {};
   const loading = isLoading || isFetching;
+
+  const [fileTypeFilter, setFileTypeFilter] = useState<string[]>([]);
+
+  const filteredFiles =
+    fileTypeFilter.length === 0
+      ? files
+      : files.filter((file: any) =>
+          fileTypeFilter.includes(getFileCategory(file.mime_type))
+        );
+
+  const [dropdownOpen, setDropdownOpen] = useState(false);
+
+  const toggleFileType = (type: string) => {
+    setFileTypeFilter(prev =>
+      prev.includes(type) ? prev.filter(t => t !== type) : [...prev, type]
+    );
+  };
   console.log({ folders, files });
+
   const [addFolder] = usePostFolderMutation();
   const [updateFolder] = usePutFolderMutation();
   const [deleteFolder] = useDeleteFolderMutation();
@@ -247,22 +266,46 @@ const FileTable: React.FC<FileTableProps> = ({
           </Col>
           <Col className="col-auto">
             <div className="d-flex gap-2 align-items-start">
-              <select
-                className="form-control"
-                data-choices
-                data-choices-search-false
-                name="choices-single-default"
-                id="file-type"
-              >
-                <option value="">File Type</option>
-                <option value="All" defaultValue="">
-                  All
-                </option>
-                <option value="Video">Video</option>
-                <option value="Images">Images</option>
-                <option value="Music">Music</option>
-                <option value="Documents">Documents</option>
-              </select>
+              <UncontrolledDropdown>
+                <DropdownToggle
+                  caret
+                  className="btn btn-light border d-flex align-items-center"
+                >
+                  <i className="ri-filter-3-line me-2"></i>
+
+                  {fileTypeFilter.length === 0
+                    ? "All"
+                    : `${fileTypeFilter.length} selected`}
+                </DropdownToggle>
+
+                <DropdownMenu style={{ minWidth: "200px" }}>
+                  {["Images", "Video", "Audio", "Documents"].map(type => (
+                    <DropdownItem
+                      key={type}
+                      toggle={false} // 🔥 importante para que no cierre el dropdown
+                      onClick={() => toggleFileType(type)}
+                      className="d-flex justify-content-between align-items-center"
+                    >
+                      {type}
+
+                      {fileTypeFilter.includes(type) && (
+                        <i className="ri-check-line text-success"></i>
+                      )}
+                    </DropdownItem>
+                  ))}
+
+                  <DropdownItem divider />
+
+                  <DropdownItem
+                    toggle={false}
+                    className="text-danger"
+                    onClick={() => setFileTypeFilter([])}
+                  >
+                    Clear Filters
+                  </DropdownItem>
+                </DropdownMenu>
+              </UncontrolledDropdown>
+
               <FileUploader
                 module={moduleName}
                 principalFolder={principalFolder}
@@ -316,45 +359,48 @@ const FileTable: React.FC<FileTableProps> = ({
             </tr>
           </thead>
           <tbody id="file-list">
-            {(folders || []).map((item: any, key: number) => (
-              <tr
-                key={item.id}
-                onDoubleClick={() => handleDoubleClick(item.id, item.name)}
-                onContextMenu={e => {
-                  e.preventDefault();
-                  setContextMenu({
-                    visible: true,
-                    x: e.clientX,
-                    y: e.clientY,
-                    type: "folder",
-                    id: item.id,
-                  });
-                  e.stopPropagation();
-                }}
-                style={{ maxHeight: "10px !important" }}
-              >
-                <td className="p-0 ps-2">
-                  <input
-                    className="form-control filelist-id"
-                    type="hidden"
-                    value="1"
-                    id="filelist-1"
-                  />
-                  <div className="d-flex align-items-center">
-                    <div className="flex-shrink-0 fs-17 me-2 filelist-icon">
-                      <i className="ri-folder-fill me-2"></i>
+            {fileTypeFilter.length === 0 &&
+              (folders || []).map((item: any, key: number) => (
+                <tr
+                  key={item.id}
+                  onDoubleClick={() => handleDoubleClick(item.id, item.name)}
+                  onContextMenu={e => {
+                    e.preventDefault();
+                    setContextMenu({
+                      visible: true,
+                      x: e.clientX,
+                      y: e.clientY,
+                      type: "folder",
+                      id: item.id,
+                    });
+                    e.stopPropagation();
+                  }}
+                  style={{ maxHeight: "10px !important" }}
+                >
+                  <td className="p-0 ps-2">
+                    <input
+                      className="form-control filelist-id"
+                      type="hidden"
+                      value="1"
+                      id="filelist-1"
+                    />
+                    <div className="d-flex align-items-center">
+                      <div className="flex-shrink-0 fs-17 me-2 filelist-icon">
+                        <i className="ri-folder-fill me-2"></i>
+                      </div>
+                      <div className="flex-grow-1 filelist-name">
+                        {item.name}
+                      </div>
                     </div>
-                    <div className="flex-grow-1 filelist-name">{item.name}</div>
-                  </div>
-                </td>
-                <td>File Folder</td>
-                <td className="text-muted">—</td>
-                <td className="filelist-create">
-                  {formatDateAMPM(item.created_at)}
-                </td>
-              </tr>
-            ))}
-            {(files || []).map((item: any, key: number) => (
+                  </td>
+                  <td>File Folder</td>
+                  <td className="text-muted">—</td>
+                  <td className="filelist-create">
+                    {formatDateAMPM(item.created_at)}
+                  </td>
+                </tr>
+              ))}
+            {(filteredFiles || []).map((item: any, key: number) => (
               <tr
                 key={item.id}
                 onDoubleClick={() => {

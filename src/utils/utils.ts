@@ -137,3 +137,26 @@ export const getFileIconColor = (filename: string): string => {
 
   return colorMap[ext ?? ""] ?? "text-muted";
 };
+
+export const getFileCategory = (mimeType: string): string => {
+  if (!mimeType) return "Other";
+
+  const [type] = mimeType.split("/");
+
+  if (type === "image") return "Images";
+  if (type === "video") return "Video";
+  if (type === "audio") return "Audio";
+
+  if (
+    mimeType.includes("pdf") ||
+    mimeType.includes("word") ||
+    mimeType.includes("excel") ||
+    mimeType.includes("powerpoint") ||
+    mimeType.includes("text") ||
+    mimeType.includes("csv")
+  ) {
+    return "Documents";
+  }
+
+  return "Other";
+};
