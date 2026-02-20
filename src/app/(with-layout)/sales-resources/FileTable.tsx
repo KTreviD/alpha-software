@@ -24,17 +24,18 @@ const FileTable: React.FC<FileTableProps> = ({
   handleCloseModal,
   setModalState,
 }) => {
-  console.log("Render");
+  const rootLabel =
+    filterActive === FILTER_FILES.DELETED_FILES ? "Deleted Files" : "Files";
   const [currentFolder, setCurrentFolder] = useState<{
     id: string | null;
     name: string;
   }>({
     id: null,
-    name: "Root",
+    name: rootLabel,
   });
   const [folderPath, setFolderPath] = useState<
     { id: string | null; name: string }[]
-  >([{ id: null, name: "Root" }]);
+  >([{ id: null, name: rootLabel }]);
 
   const { data, isLoading, isFetching } = useGetFoldersAndFilesQuery({
     module: MODULES.SALES_RESOURCES,
@@ -104,9 +105,8 @@ const FileTable: React.FC<FileTableProps> = ({
   }>({ visible: false, x: 0, y: 0, folderId: null });
 
   React.useEffect(() => {
-    // cada vez que cambie filterActive, volvemos a Root
-    setCurrentFolder({ id: null, name: "Root" });
-    setFolderPath([{ id: null, name: "Root" }]);
+    setCurrentFolder({ id: null, name: rootLabel });
+    setFolderPath([{ id: null, name: rootLabel }]);
   }, [filterActive]);
 
   React.useEffect(() => {
