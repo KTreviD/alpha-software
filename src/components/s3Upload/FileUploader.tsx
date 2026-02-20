@@ -23,11 +23,20 @@ export const FileUploader = () => {
     // 2️⃣ Subir archivo directo a S3
     const xhr = new XMLHttpRequest();
     xhr.open("PUT", url);
+    xhr.setRequestHeader("Content-Type", file.type);
     xhr.upload.onprogress = e => {
       if (e.lengthComputable)
         setProgress(Math.round((e.loaded / e.total) * 100));
     };
-    xhr.onload = () => alert("Archivo subido con éxito!");
+    xhr.onload = () => {
+      if (xhr.status >= 200 && xhr.status < 300) {
+        alert("Archivo subido con éxito!");
+      } else {
+        alert(`Error subiendo archivo! Status: ${xhr.status}`);
+        console.error(xhr.responseText);
+      }
+    };
+
     xhr.onerror = () => alert("Error subiendo archivo!");
     xhr.send(file);
   };
