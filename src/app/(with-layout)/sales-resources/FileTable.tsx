@@ -1,7 +1,14 @@
 "use client";
 import { MODULES } from "src/utils/s3FilesModules";
 import FolderBreadcrumb from "./FolderBreadcrumb";
-import { Col, Row } from "reactstrap";
+import {
+  Col,
+  DropdownItem,
+  DropdownMenu,
+  DropdownToggle,
+  Row,
+  UncontrolledDropdown,
+} from "reactstrap";
 import {
   useGetFoldersAndFilesQuery,
   useDeleteFolderMutation,
@@ -44,6 +51,7 @@ const FileTable: React.FC<FileTableProps> = ({
   });
 
   const { folders = [], files = [] } = data || {};
+  const loading = isLoading || isFetching;
 
   const [addFolder] = usePostFolderMutation();
   const [updateFolder] = usePutFolderMutation();
@@ -119,41 +127,67 @@ const FileTable: React.FC<FileTableProps> = ({
   return (
     <div className="mx-n3 pt-4 px-4 file-manager-content-scroll">
       {contextMenu.visible && contextMenu.folderId && (
-        <div
+        <UncontrolledDropdown
           style={{
             position: "fixed",
             top: contextMenu.y,
             left: contextMenu.x,
-            zIndex: 1000,
-            width: "160px",
+            zIndex: 1050, // encima de todo
           }}
-          className="bg-light border rounded shadow-sm"
+          isOpen={true} // forzamos que esté abierto
         >
-          <button className="dropdown-item d-flex align-items-center py-2 px-3 ">
-            <i className="ri-download-2-fill me-2"></i> Download
-          </button>
-          <button
-            className="dropdown-item d-flex align-items-center py-2 px-3"
-            onClick={() => {
-              const folder = folders.find(
-                (f: { id: string | null | undefined }) =>
-                  f.id === contextMenu.folderId
-              );
-              if (folder) {
-                handleDoubleClick(folder.id, folder.name);
-                setContextMenu({ visible: false, x: 0, y: 0, folderId: null });
-              }
+          <DropdownToggle
+            tag="div"
+            style={{ display: "none" }} // toggle invisible, solo necesitamos el menú
+          />
+
+          <DropdownMenu
+            end
+            style={{
+              minWidth: "160px",
+              boxShadow: "0 0px 10px rgba(30, 32, 37, 0.20)",
             }}
           >
-            <i className="ri-folder-open-fill me-2"></i> Open
-          </button>
-          <button className="dropdown-item d-flex align-items-center py-2 px-3">
-            <i className="ri-edit-2-fill me-2"></i> Rename
-          </button>
-          <button className="dropdown-item d-flex align-items-center py-2 px-3 text-danger border-top">
-            <i className="ri-delete-bin-2-fill me-2"></i> Delete
-          </button>
-        </div>
+            <DropdownItem onClick={() => console.log("Download clicked")}>
+              <i className="ri-download-2-fill me-2" />
+              Download
+            </DropdownItem>
+
+            <DropdownItem
+              onClick={() => {
+                const folder = folders.find(
+                  (f: { id: string | null | undefined }) =>
+                    f.id === contextMenu.folderId
+                );
+                if (folder) {
+                  handleDoubleClick(folder.id, folder.name);
+                  setContextMenu({
+                    visible: false,
+                    x: 0,
+                    y: 0,
+                    folderId: null,
+                  });
+                }
+              }}
+            >
+              <i className="ri-folder-open-fill me-2" />
+              Open
+            </DropdownItem>
+
+            <DropdownItem onClick={() => console.log("Rename clicked")}>
+              <i className="ri-edit-2-fill me-2" />
+              Rename
+            </DropdownItem>
+
+            <DropdownItem
+              className="text-danger border-top"
+              onClick={() => console.log("Delete clicked")}
+            >
+              <i className="ri-delete-bin-2-fill me-2" />
+              Delete
+            </DropdownItem>
+          </DropdownMenu>
+        </UncontrolledDropdown>
       )}
 
       <div id="folder-list" className="mb-2">
@@ -225,11 +259,14 @@ const FileTable: React.FC<FileTableProps> = ({
         <table
           className="table align-middle table-nowrap mb-0 table-hover"
           style={{
-            borderCollapse: "separate", // evita que los bordes del th se fusionen con td
+            borderCollapse: "separate",
             borderSpacing: 0,
           }}
         >
-          <thead className="table-active sticky-top bg-body">
+          <thead
+            className="table-active bg-body"
+            style={{ position: "sticky", top: "0px", zIndex: 50 }}
+          >
             <tr>
               <th className="border" style={{ width: "200px" }}>
                 Name
@@ -318,6 +355,20 @@ const FileTable: React.FC<FileTableProps> = ({
           </tbody>
         </table>
       </div>
+      {loading && (
+        <div
+          style={{
+            position: "absolute",
+            top: 0,
+            left: 0,
+            width: "100%",
+            height: "100%",
+            backgroundColor: "rgba(255,255,255,0.4)", // semi-transparente
+            zIndex: 2000, // encima de todo
+            cursor: "wait", // cambia cursor
+          }}
+        />
+      )}
     </div>
   );
 };
