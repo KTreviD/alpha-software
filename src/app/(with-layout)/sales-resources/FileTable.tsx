@@ -20,6 +20,8 @@ import { FILTER_FILES } from "./FolderSidebar";
 import React, { useState } from "react";
 import { ModalPropsI } from "src/components/modal";
 import { FileUploader } from "src/components/s3Upload/FileUploader";
+import { formatDateAMPM } from "src/components/modal/dates";
+import { formatFileSize } from "src/utils/utils";
 
 interface FileTableProps {
   filterActive: FILTER_FILES;
@@ -32,28 +34,29 @@ const FileTable: React.FC<FileTableProps> = ({
   handleCloseModal,
   setModalState,
 }) => {
-  const rootLabel =
+  const moduleName = MODULES.SALES_RESOURCES;
+  const principalFolder =
     filterActive === FILTER_FILES.DELETED_FILES ? "Deleted Files" : "Files";
   const [currentFolder, setCurrentFolder] = useState<{
     id: string | null;
     name: string;
   }>({
     id: null,
-    name: rootLabel,
+    name: principalFolder,
   });
   const [folderPath, setFolderPath] = useState<
     { id: string | null; name: string }[]
-  >([{ id: null, name: rootLabel }]);
+  >([{ id: null, name: principalFolder }]);
 
   const { data, isLoading, isFetching } = useGetFoldersAndFilesQuery({
-    module: MODULES.SALES_RESOURCES,
+    module: moduleName,
     parentId: currentFolder.id,
     deleted: filterActive === FILTER_FILES.DELETED_FILES,
   });
 
   const { folders = [], files = [] } = data || {};
   const loading = isLoading || isFetching;
-
+  console.log({ folders, files });
   const [addFolder] = usePostFolderMutation();
   const [updateFolder] = usePutFolderMutation();
   const [deleteFolder] = useDeleteFolderMutation();
@@ -77,7 +80,7 @@ const FileTable: React.FC<FileTableProps> = ({
     const item = {
       name: "",
       parentId: currentFolder.id ? Number(currentFolder.id) : null,
-      module: MODULES.SALES_RESOURCES,
+      module: moduleName,
     };
 
     setModalState({
@@ -114,8 +117,8 @@ const FileTable: React.FC<FileTableProps> = ({
   }>({ visible: false, x: 0, y: 0, folderId: null });
 
   React.useEffect(() => {
-    setCurrentFolder({ id: null, name: rootLabel });
-    setFolderPath([{ id: null, name: rootLabel }]);
+    setCurrentFolder({ id: null, name: principalFolder });
+    setFolderPath([{ id: null, name: principalFolder }]);
   }, [filterActive]);
 
   React.useEffect(() => {
@@ -238,7 +241,14 @@ const FileTable: React.FC<FileTableProps> = ({
                 <option value="Music">Music</option>
                 <option value="Documents">Documents</option>
               </select>
-              <FileUploader />
+              <FileUploader
+                module={moduleName}
+                principalFolder={principalFolder}
+                folderId={
+                  currentFolder?.id === null ? null : Number(currentFolder?.id)
+                }
+                folderPath={folderPath.map(x => x.name).join("/")}
+              />
               {filterActive !== FILTER_FILES.DELETED_FILES && (
                 <button
                   onClick={handleAddRow}
@@ -286,7 +296,7 @@ const FileTable: React.FC<FileTableProps> = ({
           <tbody id="file-list">
             {(folders || []).map((item: any, key: number) => (
               <tr
-                key={key}
+                key={item.id}
                 onDoubleClick={() => handleDoubleClick(item.id, item.name)}
                 onContextMenu={e => {
                   e.preventDefault();
@@ -315,13 +325,15 @@ const FileTable: React.FC<FileTableProps> = ({
                   </div>
                 </td>
                 <td>File Folder</td>
-                <td className="filelist-size">{item.size}</td>
-                <td className="filelist-create">{item.createDate}</td>
+                <td className="text-muted">—</td>
+                <td className="filelist-create">
+                  {formatDateAMPM(item.created_at)}
+                </td>
               </tr>
             ))}
             {(files || []).map((item: any, key: number) => (
-              <tr key={key}>
-                <td>
+              <tr key={item.id}>
+                <td className="p-0 ps-2">
                   <input
                     className="form-control filelist-id"
                     type="hidden"
@@ -330,27 +342,18 @@ const FileTable: React.FC<FileTableProps> = ({
                   />
                   <div className="d-flex align-items-center">
                     <div className="flex-shrink-0 fs-17 me-2 filelist-icon">
-                      <i
-                        className={
-                          item.icon +
-                          " text-" +
-                          item.iconClass +
-                          " align-bottom"
-                        }
-                      />
+                      {/* <i className="ri-folder-fill me-2"></i> */}
                     </div>
                     <div className="flex-grow-1 filelist-name">
-                      {item.fileName}
-                    </div>
-                    <div className="d-none filelist-type">
-                      {" "}
-                      {item.fileType}{" "}
+                      {item.original_name}
                     </div>
                   </div>
                 </td>
                 <td>{item.fileItem}</td>
-                <td className="filelist-size">{item.size}</td>
-                <td className="filelist-create">{item.createDate}</td>
+                <td className="filelist-size">{formatFileSize(item.size)}</td>
+                <td className="filelist-create">
+                  {formatDateAMPM(item.created_at)}
+                </td>
               </tr>
             ))}
           </tbody>

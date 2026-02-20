@@ -3,6 +3,7 @@ import {
   createApi,
   fetchBaseQuery,
 } from "@reduxjs/toolkit/query/react";
+import { PostConfirmUploadDto } from "./types";
 
 const baseQuery = fetchBaseQuery({
   baseUrl: process.env.NEXT_PUBLIC_API_URL,
@@ -223,14 +224,29 @@ export const apiSlice = createApi({
       //   transformResponse: (response: ResChartsData) => response
     }),
     postGetPresignedUrl: builder.mutation<
-      { url: string },
-      { fileName: string; fileType: string }
+      { url: string; key: string },
+      {
+        fileName: string;
+        fileType: string;
+        module: string;
+        principalFolder: string;
+        folderId: number | null;
+      }
     >({
-      query: ({ fileName, fileType }) => ({
+      query: ({ fileName, fileType, module, folderId, principalFolder }) => ({
         url: "/s3Files/upload-url", // la API que genera el presigned URL
         method: "POST",
-        body: { fileName, fileType },
+        body: { fileName, fileType, module, folderId, principalFolder },
       }),
+      invalidatesTags: ["S3Files"],
+    }),
+    postConfirmUpload: builder.mutation<any, PostConfirmUploadDto>({
+      query: body => ({
+        url: "/s3Files/confirm-upload",
+        method: "POST",
+        body,
+      }),
+      invalidatesTags: ["S3Files"],
     }),
 
     /////////////////////////////////////////------------------ PUT ------------------/////////////////////////////////////////
@@ -310,6 +326,7 @@ export const {
   usePostIndustryMutation,
   usePostFolderMutation,
   usePostGetPresignedUrlMutation,
+  usePostConfirmUploadMutation,
 
   /////////////////////////////////////////------------------ PUT ------------------/////////////////////////////////////////
 

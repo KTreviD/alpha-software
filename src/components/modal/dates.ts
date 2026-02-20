@@ -237,3 +237,21 @@ export const dateToMonthYearString = (date: string): string => {
 
   return `${month} ${year}`;
 };
+
+export const formatDateAMPM = (dateString: string): string => {
+  const date = new Date(dateString);
+
+  const datePart = new Intl.DateTimeFormat("en-GB", {
+    day: "2-digit",
+    month: "short",
+    year: "numeric",
+  }).format(date);
+
+  const timePart = new Intl.DateTimeFormat("en-US", {
+    hour: "numeric",
+    minute: "2-digit",
+    hour12: true,
+  }).format(date);
+
+  return `${datePart} - ${timePart}`;
+};
