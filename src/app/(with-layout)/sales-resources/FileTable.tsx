@@ -21,7 +21,12 @@ import React, { useState } from "react";
 import { ModalPropsI } from "src/components/modal";
 import { FileUploader } from "src/components/s3Upload/FileUploader";
 import { formatDateAMPM } from "src/components/modal/dates";
-import { formatFileSize } from "src/utils/utils";
+import {
+  formatFileSize,
+  getFileIcon,
+  getFileIconColor,
+  getFriendlyFileType,
+} from "src/utils/utils";
 
 interface FileTableProps {
   filterActive: FILTER_FILES;
@@ -342,14 +347,18 @@ const FileTable: React.FC<FileTableProps> = ({
                   />
                   <div className="d-flex align-items-center">
                     <div className="flex-shrink-0 fs-17 me-2 filelist-icon">
-                      {/* <i className="ri-folder-fill me-2"></i> */}
+                      <i
+                        className={`${getFileIcon(item.original_name)} ${getFileIconColor(
+                          item.original_name
+                        )}`}
+                      />
                     </div>
                     <div className="flex-grow-1 filelist-name">
                       {item.original_name}
                     </div>
                   </div>
                 </td>
-                <td>{item.fileItem}</td>
+                <td>{getFriendlyFileType(item.mime_type)}</td>
                 <td className="filelist-size">{formatFileSize(item.size)}</td>
                 <td className="filelist-create">
                   {formatDateAMPM(item.created_at)}
