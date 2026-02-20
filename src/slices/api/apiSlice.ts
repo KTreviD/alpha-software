@@ -222,6 +222,16 @@ export const apiSlice = createApi({
       invalidatesTags: ["S3Files"],
       //   transformResponse: (response: ResChartsData) => response
     }),
+    postGetPresignedUrl: builder.mutation<
+      { url: string },
+      { fileName: string; fileType: string }
+    >({
+      query: ({ fileName, fileType }) => ({
+        url: "/s3Files/upload-url", // la API que genera el presigned URL
+        method: "POST",
+        body: { fileName, fileType },
+      }),
+    }),
 
     /////////////////////////////////////////------------------ PUT ------------------/////////////////////////////////////////
 
@@ -299,6 +309,7 @@ export const {
   usePostCompanyMutation,
   usePostIndustryMutation,
   usePostFolderMutation,
+  usePostGetPresignedUrlMutation,
 
   /////////////////////////////////////////------------------ PUT ------------------/////////////////////////////////////////
 

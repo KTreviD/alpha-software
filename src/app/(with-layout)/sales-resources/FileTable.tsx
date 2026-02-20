@@ -19,6 +19,7 @@ import { folderKeys } from "src/components/modal/keys";
 import { FILTER_FILES } from "./FolderSidebar";
 import React, { useState } from "react";
 import { ModalPropsI } from "src/components/modal";
+import { FileUploader } from "src/components/s3Upload/FileUploader";
 
 interface FileTableProps {
   filterActive: FILTER_FILES;
@@ -237,7 +238,7 @@ const FileTable: React.FC<FileTableProps> = ({
                 <option value="Music">Music</option>
                 <option value="Documents">Documents</option>
               </select>
-
+              <FileUploader />
               {filterActive !== FILTER_FILES.DELETED_FILES && (
                 <button
                   onClick={handleAddRow}
