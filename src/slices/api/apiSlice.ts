@@ -109,11 +109,11 @@ export const apiSlice = createApi({
     }),
     getFoldersAndFiles: builder.query<
       any,
-      { module: string; parentId: string | null }
+      { module: string; parentId: string | null; deleted: boolean }
     >({
       query: params => {
-        const { module, parentId } = params;
-        return `/s3Files/foldersAndFiles?module=${module}&parentId=${parentId}`;
+        const { module, parentId, deleted } = params;
+        return `/s3Files/foldersAndFiles?module=${module}&parentId=${parentId}&deleted=${deleted}`;
       },
       providesTags: ["S3Files"],
     }),
@@ -266,6 +266,14 @@ export const apiSlice = createApi({
       }),
       invalidatesTags: ["Industries"],
     }),
+    deleteFolder: builder.mutation({
+      query: body => ({
+        url: `/s3Files/deleteFolder`,
+        method: "DELETE",
+        body,
+      }),
+      invalidatesTags: ["S3Files"],
+    }),
   }),
 });
 
@@ -302,4 +310,5 @@ export const {
 
   useDeleteCompanyMutation,
   useDeleteIndustryMutation,
+  useDeleteFolderMutation,
 } = apiSlice;
