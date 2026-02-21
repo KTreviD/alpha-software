@@ -423,11 +423,12 @@ const FileTable: React.FC<FileTableProps> = ({
                   key={item.id}
                   onDoubleClick={() => handleDoubleClick(item.id, item.name)}
                   onContextMenu={e => {
+                    const rect = e.currentTarget.getBoundingClientRect();
                     e.preventDefault();
                     setContextMenu({
                       visible: true,
-                      x: e.clientX,
-                      y: e.clientY,
+                      x: e.clientX - rect.left,
+                      y: e.clientY - rect.top,
                       type: "folder",
                       id: item.id,
                     });
@@ -465,12 +466,13 @@ const FileTable: React.FC<FileTableProps> = ({
                   console.log("View file:", item);
                 }}
                 onContextMenu={e => {
+                  const rect = e.currentTarget.getBoundingClientRect();
                   e.preventDefault();
                   e.stopPropagation();
                   setContextMenu({
                     visible: true,
-                    x: e.clientX,
-                    y: e.clientY,
+                    x: e.clientX - rect.left,
+                    y: e.clientY - rect.top,
                     type: "file",
                     id: item.id,
                   });
