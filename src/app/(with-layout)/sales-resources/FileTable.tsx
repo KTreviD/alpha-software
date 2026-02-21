@@ -177,6 +177,25 @@ const FileTable: React.FC<FileTableProps> = ({
     setFolderPath([{ id: null, name: principalFolder }]);
   }, [filterActive]);
 
+  // Función para capturar la posición exacta ignorando contenedores padres
+  const handleContextMenu = (
+    e: React.MouseEvent,
+    type: "folder" | "file",
+    id: string
+  ) => {
+    e.preventDefault();
+    e.stopPropagation();
+
+    // Usamos clientX/Y para la posición visual + scroll para compensar el body
+    setContextMenu({
+      visible: true,
+      x: e.pageX,
+      y: e.pageY,
+      type,
+      id,
+    });
+  };
+
   const handleCloseContextMenu = () =>
     setContextMenu({
       visible: false,
@@ -188,7 +207,11 @@ const FileTable: React.FC<FileTableProps> = ({
 
   React.useEffect(() => {
     window.addEventListener("click", handleCloseContextMenu);
-    return () => window.removeEventListener("click", handleCloseContextMenu);
+    window.addEventListener("contextmenu", handleCloseContextMenu); // Cerrar si haces click derecho en otro lado
+    return () => {
+      window.removeEventListener("click", handleCloseContextMenu);
+      window.removeEventListener("contextmenu", handleCloseContextMenu);
+    };
   }, []);
 
   return (
@@ -435,17 +458,7 @@ const FileTable: React.FC<FileTableProps> = ({
                 <tr
                   key={item.id}
                   onDoubleClick={() => handleDoubleClick(item.id, item.name)}
-                  onContextMenu={e => {
-                    e.preventDefault();
-                    setContextMenu({
-                      visible: true,
-                      x: e.clientX,
-                      y: e.clientY,
-                      type: "folder",
-                      id: item.id,
-                    });
-                    e.stopPropagation();
-                  }}
+                  onContextMenu={e => handleContextMenu(e, "folder", item.id)}
                   style={{ maxHeight: "10px !important" }}
                 >
                   <td className="p-0 ps-2">
@@ -477,17 +490,7 @@ const FileTable: React.FC<FileTableProps> = ({
                 onDoubleClick={() => {
                   console.log("View file:", item);
                 }}
-                onContextMenu={e => {
-                  e.preventDefault();
-                  e.stopPropagation();
-                  setContextMenu({
-                    visible: true,
-                    x: e.clientX,
-                    y: e.clientY,
-                    type: "file",
-                    id: item.id,
-                  });
-                }}
+                onContextMenu={e => handleContextMenu(e, "file", item.id)}
               >
                 <td className="p-0 ps-2">
                   <input
