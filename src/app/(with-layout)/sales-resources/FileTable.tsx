@@ -14,6 +14,8 @@ import {
   useDeleteFolderMutation,
   usePostFolderMutation,
   usePutFolderMutation,
+  usePostGetDownloadUrlMutation,
+  usePostDownloadFolderMutation,
 } from "src/slices/api/apiSlice";
 import { folderKeys } from "src/components/modal/keys";
 import { FILTER_FILES } from "./FolderSidebar";
@@ -72,14 +74,42 @@ const FileTable: React.FC<FileTableProps> = ({
           fileTypeFilter.includes(getFileCategory(file.mime_type))
         );
 
-  const [dropdownOpen, setDropdownOpen] = useState(false);
-
   const toggleFileType = (type: string) => {
     setFileTypeFilter(prev =>
       prev.includes(type) ? prev.filter(t => t !== type) : [...prev, type]
     );
   };
   console.log({ folders, files });
+
+  const [getDownloadUrl] = usePostGetDownloadUrlMutation();
+  const [downloadFolder] = usePostDownloadFolderMutation();
+
+  const handleDownload = async (s3Key: string, fileName: string) => {
+    try {
+      const { url } = await getDownloadUrl({ s3Key, fileName }).unwrap();
+      const link = document.createElement("a");
+      link.href = url;
+      link.download = fileName; // opcional, fuerza el nombre del archivo
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+    } catch (err) {
+      console.error("Error downloading file:", err);
+      alert("Error downloading file");
+    }
+  };
+
+  const handleDownloadFolder = async (folder: any) => {
+    try {
+      await downloadFolder({
+        folderId: folder.id,
+        folderName: folder.name,
+      }).unwrap();
+    } catch (err) {
+      console.error(err);
+      alert("Error downloading folder");
+    }
+  };
 
   const [addFolder] = usePostFolderMutation();
   const [updateFolder] = usePutFolderMutation();
@@ -181,7 +211,35 @@ const FileTable: React.FC<FileTableProps> = ({
               boxShadow: "0 0px 10px rgba(30, 32, 37, 0.20)",
             }}
           >
-            <DropdownItem onClick={() => console.log("Download clicked")}>
+            <DropdownItem
+              onClick={async () => {
+                if (!contextMenu.id) return;
+
+                if (contextMenu.type === "file") {
+                  // Descargar archivo individual
+                  const fileToDownload = files.find(
+                    (f: { id: string | null | undefined }) =>
+                      f.id === contextMenu.id
+                  );
+                  if (!fileToDownload) return alert("File not found");
+                  handleDownload(
+                    fileToDownload.s3_key,
+                    fileToDownload.original_name
+                  );
+                } else if (contextMenu.type === "folder") {
+                  // Descargar carpeta como ZIP
+                  const folderToDownload = folders.find(
+                    (f: { id: string | null | undefined }) =>
+                      f.id === contextMenu.id
+                  );
+                  if (!folderToDownload) return alert("Folder not found");
+                  console.log({ folderToDownload });
+                  handleDownloadFolder(folderToDownload);
+                }
+
+                handleCloseContextMenu();
+              }}
+            >
               <i className="ri-download-2-fill me-2" />
               Download
             </DropdownItem>

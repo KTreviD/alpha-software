@@ -248,6 +248,39 @@ export const apiSlice = createApi({
       }),
       invalidatesTags: ["S3Files"],
     }),
+    postGetDownloadUrl: builder.mutation<
+      { url: string },
+      { s3Key: string; fileName: string }
+    >({
+      query: body => ({
+        url: "/s3Files/download-url",
+        method: "POST",
+        body,
+      }),
+    }),
+    postDownloadFolder: builder.mutation<
+      Blob,
+      { folderId: string; folderName: string }
+    >({
+      query: body => ({
+        url: "/s3Files/download-folder",
+        method: "POST",
+        body,
+        responseHandler: async (response: { blob: () => any }) => {
+          const blob = await response.blob();
+          const url = window.URL.createObjectURL(blob);
+          const link = document.createElement("a");
+          link.href = url;
+
+          link.download = `${body.folderName}.zip`;
+          document.body.appendChild(link);
+          link.click();
+          link.remove();
+          window.URL.revokeObjectURL(url);
+          return null;
+        },
+      }),
+    }),
 
     /////////////////////////////////////////------------------ PUT ------------------/////////////////////////////////////////
 
@@ -327,6 +360,8 @@ export const {
   usePostFolderMutation,
   usePostGetPresignedUrlMutation,
   usePostConfirmUploadMutation,
+  usePostGetDownloadUrlMutation,
+  usePostDownloadFolderMutation,
 
   /////////////////////////////////////////------------------ PUT ------------------/////////////////////////////////////////
 
