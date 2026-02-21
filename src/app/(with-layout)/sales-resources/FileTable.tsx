@@ -30,6 +30,7 @@ import {
   getFileIconColor,
   getFriendlyFileType,
 } from "src/utils/utils";
+import FileTableRow from "src/components/tables/FileTableRow";
 
 interface FileTableProps {
   filterActive: FILTER_FILES;
@@ -419,89 +420,22 @@ const FileTable: React.FC<FileTableProps> = ({
           <tbody id="file-list">
             {fileTypeFilter.length === 0 &&
               (folders || []).map((item: any, key: number) => (
-                <tr
+                <FileTableRow
                   key={item.id}
-                  onDoubleClick={() => handleDoubleClick(item.id, item.name)}
-                  onContextMenu={e => {
-                    e.preventDefault();
-                    setContextMenu({
-                      visible: true,
-                      x: e.clientX,
-                      y: e.clientY,
-                      type: "folder",
-                      id: item.id,
-                    });
-                    e.stopPropagation();
-                  }}
-                  style={{ maxHeight: "10px !important" }}
-                >
-                  <td className="p-0 ps-2">
-                    <input
-                      className="form-control filelist-id"
-                      type="hidden"
-                      value="1"
-                      id="filelist-1"
-                    />
-                    <div className="d-flex align-items-center">
-                      <div className="flex-shrink-0 fs-17 me-2 filelist-icon">
-                        <i className="ri-folder-fill me-2"></i>
-                      </div>
-                      <div className="flex-grow-1 filelist-name">
-                        {item.name}
-                      </div>
-                    </div>
-                  </td>
-                  <td>File Folder</td>
-                  <td className="text-muted">—</td>
-                  <td className="filelist-create">
-                    {formatDateAMPM(item.created_at)}
-                  </td>
-                </tr>
+                  isFolder={true}
+                  item={item}
+                  setContextMenu={setContextMenu}
+                  onDoubleClick={handleDoubleClick}
+                />
               ))}
             {(filteredFiles || []).map((item: any, key: number) => (
-              <tr
+              <FileTableRow
                 key={item.id}
-                onDoubleClick={() => {
-                  console.log("View file:", item);
-                }}
-                onContextMenu={e => {
-                  e.preventDefault();
-                  e.stopPropagation();
-                  setContextMenu({
-                    visible: true,
-                    x: e.clientX,
-                    y: e.clientY,
-                    type: "file",
-                    id: item.id,
-                  });
-                }}
-              >
-                <td className="p-0 ps-2">
-                  <input
-                    className="form-control filelist-id"
-                    type="hidden"
-                    value="1"
-                    id="filelist-1"
-                  />
-                  <div className="d-flex align-items-center">
-                    <div className="flex-shrink-0 fs-17 me-2 filelist-icon">
-                      <i
-                        className={`${getFileIcon(item.original_name)} ${getFileIconColor(
-                          item.original_name
-                        )}`}
-                      />
-                    </div>
-                    <div className="flex-grow-1 filelist-name">
-                      {item.original_name}
-                    </div>
-                  </div>
-                </td>
-                <td>{getFriendlyFileType(item.mime_type)}</td>
-                <td className="filelist-size">{formatFileSize(item.size)}</td>
-                <td className="filelist-create">
-                  {formatDateAMPM(item.created_at)}
-                </td>
-              </tr>
+                isFolder={false}
+                item={item}
+                setContextMenu={setContextMenu}
+                onDoubleClick={() => console.log("hey")}
+              />
             ))}
           </tbody>
         </table>
