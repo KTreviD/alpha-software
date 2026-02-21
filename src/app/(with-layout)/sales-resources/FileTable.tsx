@@ -195,10 +195,10 @@ const FileTable: React.FC<FileTableProps> = ({
       {contextMenu.visible && contextMenu.id && (
         <UncontrolledDropdown
           style={{
-            position: "fixed",
+            position: "absolute",
             top: contextMenu.y,
             left: contextMenu.x,
-            zIndex: 1050,
+            zIndex: 9999,
           }}
           isOpen={true}
         >
