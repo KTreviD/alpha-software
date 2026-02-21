@@ -1,4 +1,5 @@
 "use client";
+import { createPortal } from "react-dom";
 import { MODULES } from "src/utils/s3FilesModules";
 import FolderBreadcrumb from "./FolderBreadcrumb";
 import {
@@ -193,104 +194,116 @@ const FileTable: React.FC<FileTableProps> = ({
   return (
     <div className="mx-n3 pt-4 px-4 file-manager-content-scroll">
       {contextMenu.visible && contextMenu.id && (
-        <UncontrolledDropdown
+        <div
           style={{
             position: "absolute",
             top: contextMenu.y,
             left: contextMenu.x,
-            zIndex: 9999,
+            zIndex: 9999, // Prioridad máxima sobre cualquier UI
+            pointerEvents: "auto",
           }}
-          isOpen={true}
+          onClick={e => e.stopPropagation()} // Evita que el menú se cierre al hacer click dentro
         >
-          <DropdownToggle tag="div" style={{ display: "none" }} />
-
-          <DropdownMenu
-            end
+          {" "}
+          <UncontrolledDropdown
             style={{
-              minWidth: "160px",
-              boxShadow: "0 0px 10px rgba(30, 32, 37, 0.20)",
+              position: "fixed",
+              top: contextMenu.y,
+              left: contextMenu.x,
+              zIndex: 1050,
             }}
+            isOpen={true}
           >
-            <DropdownItem
-              onClick={async () => {
-                if (!contextMenu.id) return;
+            <DropdownToggle tag="div" style={{ display: "none" }} />
 
-                if (contextMenu.type === "file") {
-                  // Descargar archivo individual
-                  const fileToDownload = files.find(
-                    (f: { id: string | null | undefined }) =>
-                      f.id === contextMenu.id
-                  );
-                  if (!fileToDownload) return alert("File not found");
-                  handleDownload(
-                    fileToDownload.s3_key,
-                    fileToDownload.original_name
-                  );
-                } else if (contextMenu.type === "folder") {
-                  // Descargar carpeta como ZIP
-                  const folderToDownload = folders.find(
-                    (f: { id: string | null | undefined }) =>
-                      f.id === contextMenu.id
-                  );
-                  if (!folderToDownload) return alert("Folder not found");
-                  console.log({ folderToDownload });
-                  handleDownloadFolder(folderToDownload);
-                }
-
-                handleCloseContextMenu();
+            <DropdownMenu
+              end
+              style={{
+                minWidth: "160px",
+                boxShadow: "0 0px 10px rgba(30, 32, 37, 0.20)",
               }}
             >
-              <i className="ri-download-2-fill me-2" />
-              Download
-            </DropdownItem>
-
-            {/* VIEW / OPEN */}
-            {contextMenu.type === "folder" ? (
               <DropdownItem
-                onClick={() => {
-                  const folder = folders.find(
-                    (f: { id: string | null | undefined }) =>
-                      f.id === contextMenu.id
-                  );
-                  if (folder) {
-                    handleDoubleClick(folder.id, folder.name);
+                onClick={async () => {
+                  if (!contextMenu.id) return;
+
+                  if (contextMenu.type === "file") {
+                    // Descargar archivo individual
+                    const fileToDownload = files.find(
+                      (f: { id: string | null | undefined }) =>
+                        f.id === contextMenu.id
+                    );
+                    if (!fileToDownload) return alert("File not found");
+                    handleDownload(
+                      fileToDownload.s3_key,
+                      fileToDownload.original_name
+                    );
+                  } else if (contextMenu.type === "folder") {
+                    // Descargar carpeta como ZIP
+                    const folderToDownload = folders.find(
+                      (f: { id: string | null | undefined }) =>
+                        f.id === contextMenu.id
+                    );
+                    if (!folderToDownload) return alert("Folder not found");
+                    console.log({ folderToDownload });
+                    handleDownloadFolder(folderToDownload);
                   }
+
                   handleCloseContextMenu();
                 }}
               >
-                <i className="ri-folder-open-fill me-2" />
-                Open
+                <i className="ri-download-2-fill me-2" />
+                Download
               </DropdownItem>
-            ) : (
+
+              {/* VIEW / OPEN */}
+              {contextMenu.type === "folder" ? (
+                <DropdownItem
+                  onClick={() => {
+                    const folder = folders.find(
+                      (f: { id: string | null | undefined }) =>
+                        f.id === contextMenu.id
+                    );
+                    if (folder) {
+                      handleDoubleClick(folder.id, folder.name);
+                    }
+                    handleCloseContextMenu();
+                  }}
+                >
+                  <i className="ri-folder-open-fill me-2" />
+                  Open
+                </DropdownItem>
+              ) : (
+                <DropdownItem
+                  onClick={() => {
+                    const file = files.find(
+                      (f: { id: string | null | undefined }) =>
+                        f.id === contextMenu.id
+                    );
+                    console.log("View file:", file);
+                    handleCloseContextMenu();
+                  }}
+                >
+                  <i className="ri-eye-line me-2" />
+                  View
+                </DropdownItem>
+              )}
+
+              <DropdownItem onClick={() => console.log("Rename clicked")}>
+                <i className="ri-edit-2-fill me-2" />
+                Rename
+              </DropdownItem>
+
               <DropdownItem
-                onClick={() => {
-                  const file = files.find(
-                    (f: { id: string | null | undefined }) =>
-                      f.id === contextMenu.id
-                  );
-                  console.log("View file:", file);
-                  handleCloseContextMenu();
-                }}
+                className="text-danger border-top"
+                onClick={() => console.log("Delete clicked")}
               >
-                <i className="ri-eye-line me-2" />
-                View
+                <i className="ri-delete-bin-2-fill me-2" />
+                Delete
               </DropdownItem>
-            )}
-
-            <DropdownItem onClick={() => console.log("Rename clicked")}>
-              <i className="ri-edit-2-fill me-2" />
-              Rename
-            </DropdownItem>
-
-            <DropdownItem
-              className="text-danger border-top"
-              onClick={() => console.log("Delete clicked")}
-            >
-              <i className="ri-delete-bin-2-fill me-2" />
-              Delete
-            </DropdownItem>
-          </DropdownMenu>
-        </UncontrolledDropdown>
+            </DropdownMenu>
+          </UncontrolledDropdown>
+        </div>
       )}
 
       <div id="folder-list" className="mb-2">
@@ -426,8 +439,8 @@ const FileTable: React.FC<FileTableProps> = ({
                     e.preventDefault();
                     setContextMenu({
                       visible: true,
-                      x: e.pageX,
-                      y: e.pageY,
+                      x: e.clientX,
+                      y: e.clientY,
                       type: "folder",
                       id: item.id,
                     });
@@ -469,8 +482,8 @@ const FileTable: React.FC<FileTableProps> = ({
                   e.stopPropagation();
                   setContextMenu({
                     visible: true,
-                    x: e.pageX,
-                    y: e.pageY,
+                    x: e.clientX,
+                    y: e.clientY,
                     type: "file",
                     id: item.id,
                   });
