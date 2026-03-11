@@ -15,7 +15,7 @@ import { useSelector, useDispatch } from "react-redux";
 //Import Icons
 import FeatherIcon from "feather-icons-react";
 
-import { getUserDeviceChartsData } from "@/slices/thunks";
+// import { getUserDeviceChartsData } from "@/slices/thunks";
 
 import { UsersByDeviceCharts } from "./DashboardAnalyticsCharts";
 import { createSelector } from "reselect";
@@ -28,8 +28,8 @@ const UsersByDevice = () => {
   const [chartData, setChartData] = useState<number[]>([]);
 
   const userdeviceData = createSelector(
-    (state: any) => state.DashboardAnalytics,
-    userDeviceData => userDeviceData.userDeviceData
+    (state: any) => state?.DashboardAnalytics,
+    userDeviceData => userDeviceData?.userDeviceData
   );
 
   const userDeviceData = useSelector(userdeviceData);
@@ -41,11 +41,11 @@ const UsersByDevice = () => {
   const [selectedMonth, setSelectedMonth] = useState("today");
   const onChangeChartPeriod = (pType: string) => {
     setSelectedMonth(pType);
-    dispatch(getUserDeviceChartsData(pType));
+    // dispatch(getUserDeviceChartsData(pType));
   };
 
   useEffect(() => {
-    dispatch(getUserDeviceChartsData("today"));
+    // dispatch(getUserDeviceChartsData("today"));
   }, [dispatch]);
 
   return (

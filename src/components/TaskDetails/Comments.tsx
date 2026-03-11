@@ -206,6 +206,7 @@ const Comments = () => {
                       <Col lg={1} sm={2} xs={6}>
                         <Image
                           width={100}
+                          height={75}
                           src={image4}
                           alt=""
                           className="img-fluid rounded"
@@ -213,6 +214,7 @@ const Comments = () => {
                       </Col>
                       <Col lg={1} sm={2} xs={6}>
                         <Image
+                          width={100}
                           height={75}
                           src={image5}
                           alt=""

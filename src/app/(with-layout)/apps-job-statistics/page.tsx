@@ -17,13 +17,13 @@ const Statistics = () => {
 
           <Row className="row">
             <Widgets
-            // dataColors='["--vz-success", "--vz-danger"]'
+            //  dataColors='["--vz-success", "--vz-danger"]'
             />
           </Row>
 
           <Row className="row">
             <VisitorGraph chartId="distributed_treemap" />
-            <UsersByDevice />
+            {/* <UsersByDevice /> */}
           </Row>
 
           <Row className="row">

@@ -112,52 +112,6 @@ const Navdata = () => {
           parentId: "apps",
         },
         {
-          id: "mailbox",
-          label: "Email",
-          link: "/#",
-          parentId: "apps",
-          isChildItem: true,
-          click: function (e: any) {
-            e.preventDefault();
-            setEmail(!isEmail);
-          },
-          stateVariables: isEmail,
-          childItems: [
-            {
-              id: 1,
-              label: "Mailbox",
-              link: "/apps-mailbox",
-              parentId: "apps",
-            },
-            {
-              id: 2,
-              label: "Email Templates",
-              link: "/#",
-              parentId: "apps",
-              isChildItem: true,
-              stateVariables: isSubEmail,
-              click: function (e: any) {
-                e.preventDefault();
-                setSubEmail(!isSubEmail);
-              },
-              childItems: [
-                {
-                  id: 2,
-                  label: "Basic Action",
-                  link: "/apps-email-basic",
-                  parentId: "apps",
-                },
-                {
-                  id: 3,
-                  label: "Ecommerce Action",
-                  link: "/apps-email-ecommerce",
-                  parentId: "apps",
-                },
-              ],
-            },
-          ],
-        },
-        {
           id: "appsprojects",
           label: "Projects",
           link: "/#",
@@ -425,12 +379,6 @@ const Navdata = () => {
           id: "pricing",
           label: "Pricing",
           link: "/pages/pricing",
-          parentId: "pages",
-        },
-        {
-          id: "maintenance",
-          label: "Maintenance",
-          link: "/pages/maintenance",
           parentId: "pages",
         },
         {
